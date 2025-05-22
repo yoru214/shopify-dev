@@ -1,11 +1,11 @@
 [
   {
     "name": "theme_info",
-    "theme_name": "Dawn",
-    "theme_version": "15.3.0",
-    "theme_author": "Shopify",
-    "theme_documentation_url": "https://help.shopify.com/manual/online-store/themes",
-    "theme_support_url": "https://support.shopify.com/"
+    "theme_name": "EZ Dev",
+    "theme_version": "1.0.0",
+    "theme_author": "Emmanuel Zerna",
+    "theme_support_email": "emzer214@gmail.com",
+    "theme_documentation_url": "https://emmanuelzerna.com",
   },
   {
     "name": "t:settings_schema.logo.name",
@@ -62,7 +62,7 @@
             "type": "color",
             "id": "button",
             "label": "t:settings_schema.colors.settings.button_background.label",
-            "default": "#121212"
+            "default": "#5E734A"
           },
           {
             "type": "color",
@@ -72,15 +72,21 @@
           },
           {
             "type": "color",
+            "id": "secondary_button",
+            "label": "t:settings_schema.colors.settings.secondary_button_background.label",
+            "default": "#E6EAE0"
+          },
+          {
+            "type": "color",
             "id": "secondary_button_label",
             "label": "t:settings_schema.colors.settings.secondary_button_label.label",
-            "default": "#121212"
+            "default": "#1A1A1A"
           },
           {
             "type": "color",
             "id": "shadow",
             "label": "t:settings_schema.colors.settings.shadow.label",
-            "default": "#121212"
+            "default": "#5E734A"
           }
         ],
         "role": {

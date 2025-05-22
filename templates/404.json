@@ -1,10 +1,12 @@
 {
+  "name":"Custom 404",
+  "layout": "custom-404",
   "sections": {
-    "main": {
-      "type": "main-404"
+    "404-section": {
+      "type": "404-section"
     }
   },
   "order": [
-    "main"
+    "404-section"
   ]
 }

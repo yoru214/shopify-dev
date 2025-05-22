@@ -1,0 +1,35 @@
+{
+  "name": "shopify-dev",
+  "version": "1.0.0",
+  "description": "[![Build status](https://github.com/shopify/dawn/actions/workflows/ci.yml/badge.svg?branch=main)](https://github.com/Shopify/dawn/actions/workflows/ci.yml?query=branch%3Amain)\r [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg?color=informational)](/.github/CONTRIBUTING.md)",
+  "main": "index.js",
+  "scripts": {
+    "build": "postcss src/tailwind.css -o assets/application.css",
+    "dev": "npx @tailwindcss/cli -i ./src/tailwind.css -o ./assets/application.css --watch",
+    "lint:css": "stylelint src/tailwind.css",
+    "lint:css:fix": "stylelint src/tailwind.css --fix"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/yoru214/shopify-dev.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/yoru214/shopify-dev/issues"
+  },
+  "homepage": "https://github.com/yoru214/shopify-dev#readme",
+  "dependencies": {
+    "@tailwindcss/cli": "^4.1.7"
+  },
+  "devDependencies": {
+    "@tailwindcss/postcss": "^4.1.7",
+    "autoprefixer": "^10.4.21",
+    "postcss": "^8.5.3",
+    "postcss-cli": "^11.0.1",
+    "stylelint": "^16.19.1",
+    "stylelint-config-standard": "^38.0.0",
+    "tailwindcss": "^4.1.7"
+  }
+}

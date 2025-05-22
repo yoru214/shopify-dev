@@ -1,10 +1,8 @@
 {
   "sections": {
     "main": {
-      "type": "main-register"
+      "type": "blank-section"
     }
   },
-  "order": [
-    "main"
-  ]
+  "order": ["main"]
 }

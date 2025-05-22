@@ -9,10 +9,11 @@
             "background": "#FFFFFF",
             "background_gradient": "",
             "text": "#121212",
-            "button": "#121212",
+            "button": "#5E734A",
             "button_label": "#FFFFFF",
-            "secondary_button_label": "#121212",
-            "shadow": "#121212"
+            "secondary_button": "#E6EAE0",
+            "secondary_button_label": "#1A1A1A",
+            "shadow": "#5E734A"
           }
         },
         "scheme-2": {
@@ -22,6 +23,7 @@
             "text": "#121212",
             "button": "#121212",
             "button_label": "#F3F3F3",
+            "secondary_button": "#121212",
             "secondary_button_label": "#121212",
             "shadow": "#121212"
           }
@@ -33,6 +35,7 @@
             "text": "#FFFFFF",
             "button": "#FFFFFF",
             "button_label": "#000000",
+            "secondary_button": "#FFFFFF",
             "secondary_button_label": "#FFFFFF",
             "shadow": "#121212"
           }
@@ -44,6 +47,7 @@
             "text": "#FFFFFF",
             "button": "#FFFFFF",
             "button_label": "#121212",
+            "secondary_button": "#121212",
             "secondary_button_label": "#FFFFFF",
             "shadow": "#121212"
           }
@@ -55,6 +59,7 @@
             "text": "#FFFFFF",
             "button": "#FFFFFF",
             "button_label": "#334FB4",
+            "secondary_button": "#121212",
             "secondary_button_label": "#FFFFFF",
             "shadow": "#121212"
           }
@@ -92,7 +97,7 @@
       "card_style": "standard",
       "card_image_padding": 0,
       "card_text_alignment": "left",
-      "card_color_scheme": "scheme-2",
+      "card_color_scheme": "scheme-6",
       "card_border_thickness": 0,
       "card_border_opacity": 10,
       "card_corner_radius": 0,
