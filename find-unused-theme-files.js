@@ -15,7 +15,7 @@ function readLiquidReferences(filePath) {
   const sectionMatches = [...content.matchAll(/['"]section[\/'-]([a-zA-Z0-9_-]+)\.liquid['"]/g)].map(
     (m) => m[1] + '.liquid'
   );
-  const snippetMatches = [...content.matchAll(/{%\s*render\s+['"]([a-zA-Z0-9_-]+)['"]\s*%}/g)].map(
+  const snippetMatches = [...content.matchAll(/{%\s*render\s+['"]([a-zA-Z0-9_-]+)['"]\s*.*?%}/g)].map(
     (m) => m[1] + '.liquid'
   );
 
@@ -24,15 +24,24 @@ function readLiquidReferences(filePath) {
 }
 
 function readJsonReferences(filePath) {
-  const json = JSON.parse(fs.readFileSync(filePath, 'utf8'));
-  const sections = json.sections ? Object.values(json.sections).map((s) => s.type + '.liquid') : [];
+  try {
+    const json = JSON.parse(fs.readFileSync(filePath, 'utf8'));
+    const sections = json.sections
+      ? Object.values(json.sections)
+          .filter((s) => s && typeof s.type === 'string')
+          .map((s) => s.type + '.liquid')
+      : [];
 
-  console.log(`Parsed ${path.basename(filePath)} → sections:`, sections);
+    console.log(`Parsed ${path.basename(filePath)} → sections:`, sections);
 
-  sections.forEach((s) => referencedSections.add(s));
+    sections.forEach((s) => referencedSections.add(s));
+  } catch (err) {
+    console.warn(`⚠️  Failed to parse JSON from ${filePath}: ${err.message}`);
+  }
 }
 
 function collectReferences(dir) {
+  if (!fs.existsSync(dir)) return;
   fs.readdirSync(dir).forEach((file) => {
     const fullPath = path.join(dir, file);
     if (file.endsWith('.liquid')) {
@@ -44,7 +53,9 @@ function collectReferences(dir) {
 }
 
 function getUnusedFiles(directory, referencedSet) {
-  return fs.readdirSync(directory).filter((file) => file.endsWith('.liquid') && !referencedSet.has(file));
+  return fs.existsSync(directory)
+    ? fs.readdirSync(directory).filter((file) => file.endsWith('.liquid') && !referencedSet.has(file))
+    : [];
 }
 
 function main() {
@@ -55,10 +66,12 @@ function main() {
   const unusedSnippets = getUnusedFiles(SNIPPETS_DIR, referencedSnippets);
 
   console.log('\n🧹 Unused Sections:');
-  unusedSections.forEach((s) => console.log('  -', s));
+  if (unusedSections.length === 0) console.log('  (none)');
+  else unusedSections.forEach((s) => console.log('  -', s));
 
   console.log('\n🧹 Unused Snippets:');
-  unusedSnippets.forEach((s) => console.log('  -', s));
+  if (unusedSnippets.length === 0) console.log('  (none)');
+  else unusedSnippets.forEach((s) => console.log('  -', s));
 }
 
 main();
