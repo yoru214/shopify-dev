@@ -1,166 +1,163 @@
-<section class='max-w-7xl mx-auto px-4 py-8 color-{{ section.settings.color_scheme }}'>
-	{% if product %}
-		<div class='grid grid-cols-1 md:grid-cols-2 gap-8 items-stretch min-h-[450px]'>
-			<!-- Media Viewer -->
-			<media-viewer>
-				<div class='flex flex-col items-start w-full h-full'>
-					<!-- Main image with fallback -->
-					<div class='w-full h-96 overflow-hidden rounded shadow'>
-						{% if product.featured_image %}
-							<img
-								id='mainImage'
-								src='{{ product.featured_image | image_url: width: 800 }}'
-								alt='Main product image'
-								class='w-full h-full object-cover transition duration-300'
-							>
-						{% elsif settings.logo %}
-							<img
-								id='mainImage'
-								src='{{ settings.logo | image_url: width: 800 }}'
-								alt='Fallback logo image'
-								class='w-full h-full object-cover transition duration-300'
-							>
-						{% else %}
-							<img
-								id='mainImage'
-								src='{{ 'logo.png' | asset_url }}'
-								alt='Default fallback logo'
-								class='w-full h-full object-cover transition duration-300'
-							>
-						{% endif %}
-					</div>
+<section class="max-w-7xl mx-auto px-4 py-8 color-{{ section.settings.color_scheme }}">
+  {% if product %}
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-8 items-stretch min-h-[450px]">
+      <!-- Media Viewer -->
+      <media-viewer>
+        <div class="flex flex-col items-start w-full h-full">
+          <!-- Main image with fallback -->
+          <div class="w-full h-96 overflow-hidden rounded shadow">
+            {% if product.featured_image %}
+              <img
+                id="mainImage"
+                src="{{ product.featured_image | image_url: width: 800 }}"
+                alt="Main product image"
+                class="w-full h-full object-cover transition duration-300"
+              >
+            {% elsif settings.logo %}
+              <img
+                id="mainImage"
+                src="{{ settings.logo | image_url: width: 800 }}"
+                alt="Fallback logo image"
+                class="w-full h-full object-cover transition duration-300"
+              >
+            {% else %}
+              <img
+                id="mainImage"
+                src="{{ 'logo.png' | asset_url }}"
+                alt="Default fallback logo"
+                class="w-full h-full object-cover transition duration-300"
+              >
+            {% endif %}
+          </div>
 
-					{% if product.media.size > 0 %}
-						<div class='flex gap-2 mt-4 overflow-x-auto'>
-							{% for media in product.media %}
-								<img
-									src='{{ media | image_url: width: 120 }}'
-									data-src='{{ media | image_url: width: 800 }}'
-									class='thumbnail w-20 h-20 rounded object-cover cursor-pointer hover:opacity-80 transition'
-									alt='Thumbnail {{ forloop.index }}'
-								>
-							{% endfor %}
-						</div>
-					{% endif %}
-				</div>
-			</media-viewer>
+          {% if product.media.size > 0 %}
+            <div class="flex gap-2 mt-4 overflow-x-auto">
+              {% for media in product.media %}
+                <img
+                  src="{{ media | image_url: width: 120 }}"
+                  data-src="{{ media | image_url: width: 800 }}"
+                  class="thumbnail w-20 h-20 rounded object-cover cursor-pointer hover:opacity-80 transition"
+                  alt="Thumbnail {{ forloop.index }}"
+                >
+              {% endfor %}
+            </div>
+          {% endif %}
+        </div>
+      </media-viewer>
 
-			<!-- Product Info + Form -->
-			<product-info data-variants='{{ product.variants | json | escape }}' class='flex flex-col h-full'>
-				{% form 'product', product %}
-					<div class='flex flex-col justify-between h-full'>
-						<div>
-							<div class='my-3'>
-								<span class='text-xs text-gray-500'>{{ product.vendor }}</span>
-							</div>
-							<div class='my-3'>
-								<h1 class='text-3xl font-bold text-primary mb-2'>{{ product.title }}</h1>
-							</div>
-							<div class='my-3'>
-								<span id='compareAtPrice' class='text-xl text-secondary mb-4 line-through'>
-									{{ product.selected_or_first_available_variant.compare_at_price | money }}
-								</span>
-								<span id='regularPrice' class='text-xl text-secondary font-bold mb-4'>
-									{{ product.selected_or_first_available_variant.price | money }}
-								</span>
-								{% if product.selected_or_first_available_variant.price
-										< product.selected_or_first_available_variant.compare_at_price
-								%}
-									<span
-										id='saleBadge'
-										class='px-5 py-1 text-sm font-bold bg-red-500 rounded-full text-white mx-4'
-									>
-										Sale
-									</span>
-								{% else %}
-									<span id='saleBadge' class='hidden'></span>
-								{% endif %}
-							</div>
+      <!-- Product Info + Form -->
+      <product-info data-variants="{{ product.variants | json | escape }}" class="flex flex-col h-full">
+        {% form 'product', product %}
+          <div class="flex flex-col justify-between h-full">
+            <div>
+              <div class="my-3">
+                <span class="text-xs text-gray-500">{{ product.vendor }}</span>
+              </div>
+              <div class="my-3">
+                <h1 class="text-3xl font-bold text-primary mb-2">{{ product.title }}</h1>
+              </div>
+              <div class="my-3">
+                <span id="compareAtPrice" class="text-xl text-secondary mb-4 line-through">
+                  {{ product.selected_or_first_available_variant.compare_at_price | money }}
+                </span>
+                <span id="regularPrice" class="text-xl text-secondary font-bold mb-4">
+                  {{ product.selected_or_first_available_variant.price | money }}
+                </span>
+                {% if product.selected_or_first_available_variant.price
+                    < product.selected_or_first_available_variant.compare_at_price
+                %}
+                  <span id="saleBadge" class="px-5 py-1 text-sm font-bold bg-red-500 rounded-full text-white mx-4">
+                    Sale
+                  </span>
+                {% else %}
+                  <span id="saleBadge" class="hidden"></span>
+                {% endif %}
+              </div>
 
-							<div class='my-3 space-y-4'>
-								{% unless product.has_only_default_variant %}
-									{% for option in product.options_with_values %}
-										<div class='mb-4'>
-											<span class='block text-sm font-semibold mb-2'>{{ option.name }}</span>
-											<div class='flex flex-wrap gap-2'>
-												{% for value in option.values %}
-													{% assign checked = false %}
-													{% if forloop.first %}
-														{% assign checked = true %}
-													{% endif %}
-													<label class='cursor-pointer'>
-														<input
-															type='radio'
-															name='options[{{ option.name }}]'
-															value='{{ value }}'
-															class='sr-only'
-															{% if checked %}
-																checked
-															{% endif %}
-														>
-														<span class='px-4 py-2 rounded bg-[var(--color-button)] text-[var(--color-button-label)] text-sm hover:opacity-90 transition'>
-															{{ value }}
-														</span>
-													</label>
-												{% endfor %}
-											</div>
-										</div>
-									{% endfor %}
-								{% endunless %}
-							</div>
+              <div class="my-3 space-y-4">
+                {% unless product.has_only_default_variant %}
+                  {% for option in product.options_with_values %}
+                    <div class="mb-4">
+                      <span class="block text-sm font-semibold mb-2">{{ option.name }}</span>
+                      <div class="flex flex-wrap gap-2">
+                        {% for value in option.values %}
+                          {% assign checked = false %}
+                          {% if forloop.first %}
+                            {% assign checked = true %}
+                          {% endif %}
+                          <label class="cursor-pointer">
+                            <input
+                              type="radio"
+                              name="options[{{ option.name }}]"
+                              value="{{ value }}"
+                              class="sr-only"
+                              {% if checked %}
+                                checked
+                              {% endif %}
+                            >
+                            <span class="px-4 py-2 rounded bg-[var(--color-button)] text-[var(--color-button-label)] text-sm hover:opacity-90 transition">
+                              {{ value }}
+                            </span>
+                          </label>
+                        {% endfor %}
+                      </div>
+                    </div>
+                  {% endfor %}
+                {% endunless %}
+              </div>
 
-							<input type='hidden' name='id' value='{{ product.selected_or_first_available_variant.id }}'>
-						</div>
+              <input type="hidden" name="id" value="{{ product.selected_or_first_available_variant.id }}">
+            </div>
 
-						<div class='mt-auto space-y-3 pt-4'>
-							<div id='purchaseActions' class='space-y-3'>
-								<button
-									id='addToCartBtn'
-									type='submit'
-									name='add'
-									class='w-full bg-[var(--color-button)] text-[var(--color-button-label)] font-semibold py-3 rounded hover:bg-opacity-90 transition'
-								>
-									Add to Cart
-								</button>
-								{{ form | payment_button }}
-							</div>
+            <div class="mt-auto space-y-3 pt-4">
+              <div id="purchaseActions" class="space-y-3">
+                <button
+                  id="addToCartBtn"
+                  type="submit"
+                  name="add"
+                  class="w-full bg-[var(--color-button)] text-[var(--color-button-label)] font-semibold py-3 rounded hover:bg-opacity-90 transition"
+                >
+                  Add to Cart
+                </button>
+                {{ form | payment_button }}
+              </div>
 
-							<div
-								id='soldOutMessage'
-								class='hidden h-[100px] flex items-center justify-center text-red-600 font-bold text-center bg-gray-100 rounded'
-							>
-								SOLD OUT
-							</div>
-						</div>
-					</div>
-				{% endform %}
-			</product-info>
-		</div>
+              <div
+                id="soldOutMessage"
+                class="hidden h-[100px] flex items-center justify-center text-red-600 font-bold text-center bg-gray-100 rounded"
+              >
+                SOLD OUT
+              </div>
+            </div>
+          </div>
+        {% endform %}
+      </product-info>
+    </div>
 
-		<div class='mt-12 prose prose-sm md:prose lg:prose-lg max-w-none text-gray-800'>
-			{{ product.description }}
-		</div>
+    <div class="mt-12 prose prose-sm md:prose lg:prose-lg max-w-none text-gray-800">
+      {{ product.description }}
+    </div>
 
-	{% else %}
-		<p class='text-subdued'>No product found.</p>
-	{% endif %}
+  {% else %}
+    <p class="text-subdued">No product found.</p>
+  {% endif %}
 </section>
 
 {% schema %}
 {
-	"name": "Product Section",
-	"settings": [
-		{
-			"type": "color_scheme",
-			"id": "color_scheme",
-			"label": "Color scheme",
-			"default": "scheme-1"
-		}
-	],
-	"presets": [
-		{
-			"name": "Default Product"
-		}
-	]
+  "name": "Product Section",
+  "settings": [
+    {
+      "type": "color_scheme",
+      "id": "color_scheme",
+      "label": "Color scheme",
+      "default": "scheme-1"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Default Product"
+    }
+  ]
 }
 {% endschema %}

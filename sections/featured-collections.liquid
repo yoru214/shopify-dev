@@ -1,79 +1,74 @@
 {% schema %}
 {
-	"name": "Featured Collections Grid",
-	"tag": "section",
-	"settings": [],
-	"blocks": [
-		{
-			"type": "collection",
-			"name": "Collection",
-			"settings": [
-				{
-					"type": "collection",
-					"id": "collection",
-					"label": "Select collection"
-				}
-			]
-		}
-	],
-	"max_blocks": 4,
-	"presets": [
-		{
-			"name": "4 Featured Collections",
-			"blocks": [
-				{ "type": "collection" },
-				{ "type": "collection" },
-				{ "type": "collection" },
-				{ "type": "collection" }
-			]
-		}
-	]
+  "name": "Featured Collections Grid",
+  "tag": "section",
+  "settings": [],
+  "blocks": [
+    {
+      "type": "collection",
+      "name": "Collection",
+      "settings": [
+        {
+          "type": "collection",
+          "id": "collection",
+          "label": "Select collection"
+        }
+      ]
+    }
+  ],
+  "max_blocks": 4,
+  "presets": [
+    {
+      "name": "4 Featured Collections",
+      "blocks": [{ "type": "collection" }, { "type": "collection" }, { "type": "collection" }, { "type": "collection" }]
+    }
+  ]
 }
 {% endschema %}
 
-<div class='container mx-auto px-4 py-8'>
-	<div class='grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-1'>
-		{% for block in section.blocks %}
-			{% if block.settings.collection %}
-				{% assign col = block.settings.collection %}
-				<a
-					href='{{ col.url }}'
-					class='block text-center group hover:shadow-lg transition overflow-hidden '
-				>
-					{% if col.image %}
-						<img
-							src='{{ col.image | image_url: width: 400 }}'
-							alt='{{ col.title }}'
-							width='400'
-							height='{{ 360 | divided_by: col.image.aspect_ratio | round }}'
-							class='w-full h-[360px] object-cover group-hover:scale-105 transition duration-300'
-							loading='lazy'
-						>
-					{% elsif settings.logo %}
-						<img
-							src='{{ settings.logo | image_url: width: 400 }}'
-							alt='{{ col.title }} - Logo'
-							width='400'
-							height='360'
-							class='w-full h-[360px] object-cover opacity-50 group-hover:scale-105 transition duration-300'
-							loading='lazy'
-						>
-					{% else %}
-						<img
-							src='{{ 'logo.png' | asset_url }}'
-							alt='{{ col.title }} - Placeholder'
-							width='400'
-							height='360'
-							class='w-full h-[360px] object-cover opacity-50 group-hover:scale-105 transition duration-300'
-							loading='lazy'
-						>
-					{% endif %}
+<div class="container mx-auto px-4 py-8">
+  <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-1">
+    {% for block in section.blocks %}
+      {% if block.settings.collection %}
+        {% assign col = block.settings.collection %}
+        <a
+          href="{{ col.url }}"
+          class="block text-center group hover:shadow-lg transition overflow-hidden "
+        >
+          {% if col.image %}
+            <img
+              src="{{ col.image | image_url: width: 400 }}"
+              alt="{{ col.title }}"
+              width="400"
+              height="{{ 360 | divided_by: col.image.aspect_ratio | round }}"
+              class="w-full h-[360px] object-cover group-hover:scale-105 transition duration-300"
+              loading="lazy"
+            >
+          {% elsif settings.logo %}
+            <img
+              src="{{ settings.logo | image_url: width: 400 }}"
+              alt="{{ col.title }} - Logo"
+              width="400"
+              height="360"
+              class="w-full h-[360px] object-cover opacity-50 group-hover:scale-105 transition duration-300"
+              loading="lazy"
+            >
+          {% else %}
+            <img
+              src="{{ 'logo.png' | asset_url }}"
+              alt="{{ col.title }} - Placeholder"
+              width="400"
+              height="360"
+              class="w-full h-[360px] object-cover opacity-50 group-hover:scale-105 transition duration-300"
+              loading="lazy"
+            >
+          {% endif %}
 
-					<div class='p-4'>
-						<h2 class='text-lg font-semibold'>{{ col.title }}</h2>
-					</div>
-				</a>
-			{% endif %}
-		{% endfor %}
-	</div>
+          <div class="p-4">
+            <h2 class="text-lg font-semibold">{{ col.title }}</h2>
+          </div>
+        </a>
+      {% endif %}
+    {% endfor %}
+  </div>
 </div>

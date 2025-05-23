@@ -1,15 +1,15 @@
 <!doctype html>
-<html lang='en'>
-	<head>
-		<meta charset='UTF-8'>
-		<title>{{ page_title }}</title>
-		{{ 'application.css' | asset_url | stylesheet_tag }}
-		{{ content_for_header }}
-	</head>
-	<body>
-		{% section 'header' %}
-		<main>
-			{{ content_for_layout }}
-		</main>
-	</body>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <title>{{ page_title }}</title>
+    {{ 'application.css' | asset_url | stylesheet_tag }}
+    {{ content_for_header }}
+  </head>
+  <body>
+    {% section 'header' %}
+    <main>
+      {{ content_for_layout }}
+    </main>
+  </body>
 </html>

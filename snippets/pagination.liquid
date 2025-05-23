@@ -1,38 +1,38 @@
 {% if pagination.pages > 1 %}
-	<nav class='flex justify-center gap-2 mt-8'>
-		{% if pagination.previous %}
-			<a
-				href='{{ pagination.previous.url }}'
-				class='px-3 py-1 rounded bg-[var(--color-button-secondary)] text-[var(--color-button-secondary-label)] hover:opacity-80 transition'
-			>
-				&laquo; Prev
-			</a>
-		{% endif %}
+  <nav class="flex justify-center gap-2 mt-8">
+    {% if pagination.previous %}
+      <a
+        href="{{ pagination.previous.url }}"
+        class="px-3 py-1 rounded bg-[var(--color-button-secondary)] text-[var(--color-button-secondary-label)] hover:opacity-80 transition"
+      >
+        &laquo; Prev
+      </a>
+    {% endif %}
 
-		{% for part in pagination.parts %}
-			{% if part.is_link %}
-				<a
-					href='{{ part.url }}'
-					class='px-3 py-1 rounded bg-[var(--color-button-secondary)] text-[var(--color-button-secondary-label)] hover:opacity-80 transition'
-				>
-					{{ part.title }}
-				</a>
-			{% else %}
-				<span
-					class='px-3 py-1 rounded bg-[var(--color-button)] text-[var(--color-button-label)]'
-				>
-					{{ part.title }}
-				</span>
-			{% endif %}
-		{% endfor %}
+    {% for part in pagination.parts %}
+      {% if part.is_link %}
+        <a
+          href="{{ part.url }}"
+          class="px-3 py-1 rounded bg-[var(--color-button-secondary)] text-[var(--color-button-secondary-label)] hover:opacity-80 transition"
+        >
+          {{ part.title }}
+        </a>
+      {% else %}
+        <span
+          class="px-3 py-1 rounded bg-[var(--color-button)] text-[var(--color-button-label)]"
+        >
+          {{ part.title }}
+        </span>
+      {% endif %}
+    {% endfor %}
 
-		{% if pagination.next %}
-			<a
-				href='{{ pagination.next.url }}'
-				class='px-3 py-1 rounded bg-[var(--color-button-secondary)] text-[var(--color-button-secondary-label)] hover:opacity-80 transition'
-			>
-				Next &raquo;
-			</a>
-		{% endif %}
-	</nav>
+    {% if pagination.next %}
+      <a
+        href="{{ pagination.next.url }}"
+        class="px-3 py-1 rounded bg-[var(--color-button-secondary)] text-[var(--color-button-secondary-label)] hover:opacity-80 transition"
+      >
+        Next &raquo;
+      </a>
+    {% endif %}
+  </nav>
 {% endif %}

@@ -1,15 +1,66 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
 {
-	"sections": {
-		"featured-collections": {
-			"type": "featured-collections",
-			"settings": {
-				"featured_collection": "all"
-			}
-		},
-
-		"full-banner": {
-			"type": "full-banner"
-		}
-	},
-	"order": ["full-banner", "featured-collections"]
+  "sections": {
+    "full-banner": {
+      "type": "full-banner",
+      "settings": {
+        "background_image": "shopify://shop_images/sunset-1645103_1280.jpg",
+        "overlay_color": "#000000",
+        "overlay_opacity": 40,
+        "heading": "Welcome to Our Store",
+        "subheading": "Explore our latest collections and exclusive deals.",
+        "button_label": "Shop Now",
+        "button_link": "",
+        "overlay_enabled": true
+      }
+    },
+    "featured-collections": {
+      "type": "featured-collections",
+      "blocks": {
+        "collection_zGqwRE": {
+          "type": "collection",
+          "settings": {
+            "collection": "collection-1"
+          }
+        },
+        "collection_qaeD4X": {
+          "type": "collection",
+          "settings": {
+            "collection": "collection-2"
+          }
+        },
+        "collection_4XeMYk": {
+          "type": "collection",
+          "settings": {
+            "collection": "collection-3"
+          }
+        },
+        "collection_zaJn4r": {
+          "type": "collection",
+          "settings": {
+            "collection": "collection-4"
+          }
+        }
+      },
+      "block_order": [
+        "collection_zGqwRE",
+        "collection_qaeD4X",
+        "collection_4XeMYk",
+        "collection_zaJn4r"
+      ],
+      "settings": {}
+    }
+  },
+  "order": [
+    "full-banner",
+    "featured-collections"
+  ]
 }
