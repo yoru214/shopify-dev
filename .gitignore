@@ -9,3 +9,7 @@ ehthumbs.db
 Thumbs.db
 .shopify
 node_modules/*
+
+# Shopify Store and Theme selection #
+#####################################
+.shopify-cli.yml
