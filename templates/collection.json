@@ -1,11 +1,9 @@
 {
-  "name": "Collection Template",
-  "sections": {
-    "main": {
-      "type": "template-collection"
-    }
-  },
-  "order": [
-    "main"
-  ]
+	"name": "Collection Template",
+	"sections": {
+		"main": {
+			"type": "template-collection"
+		}
+	},
+	"order": ["main"]
 }

@@ -1,71 +1,71 @@
 {% comment %}
-  404-section.liquid using Shopify color_scheme classes
+	404-section.liquid using Shopify color_scheme classes
 {% endcomment %}
 
-<section class="w-full py-16 text-center color-{{ section.settings.color_scheme }}">
-  <div class="max-w-screen-md mx-auto px-6">
-    {% if section.settings.image %}
-      <img
-        src="{{ section.settings.image | image_url: width: 600 }}"
-        alt="404 Image"
-        width="600"
-        height="400"
-        class="mx-auto mb-6 max-h-64 object-contain"
-        loading="lazy"
-      >
-    {% endif %}
+<section class='w-full py-16 text-center color-{{ section.settings.color_scheme }}'>
+	<div class='max-w-screen-md mx-auto px-6'>
+		{% if section.settings.image %}
+			<img
+				src='{{ section.settings.image | image_url: width: 600 }}'
+				alt='404 Image'
+				width='600'
+				height='400'
+				class='mx-auto mb-6 max-h-64 object-contain'
+				loading='lazy'
+			>
+		{% endif %}
 
-    <h1 class="text-4xl font-bold mb-4">{{ section.settings.heading }}</h1>
+		<h1 class='text-4xl font-bold mb-4'>{{ section.settings.heading }}</h1>
 
-    <p class="text-subdued mb-6">{{ section.settings.subtext }}</p>
+		<p class='text-subdued mb-6'>{{ section.settings.subtext }}</p>
 
-    <a
-      href="{{ routes.root_url }}"
-      class="inline-block px-6 py-3 rounded transition bg-[var(--color-button)] text-[var(--color-button-label)] hover:opacity-90"
-    >
-      {{ section.settings.button_label }}
-    </a>
-  </div>
+		<a
+			href='{{ routes.root_url }}'
+			class='inline-block px-6 py-3 rounded transition bg-[var(--color-button)] text-[var(--color-button-label)] hover:opacity-90'
+		>
+			{{ section.settings.button_label }}
+		</a>
+	</div>
 </section>
 
 {% schema %}
 {
-  "name": "404 Page",
-  "settings": [
-    {
-      "type": "text",
-      "id": "heading",
-      "label": "Heading",
-      "default": "Page Not Found"
-    },
-    {
-      "type": "textarea",
-      "id": "subtext",
-      "label": "Subtext",
-      "default": "Sorry, the page you’re looking for doesn’t exist."
-    },
-    {
-      "type": "image_picker",
-      "id": "image",
-      "label": "Optional Image"
-    },
-    {
-      "type": "text",
-      "id": "button_label",
-      "label": "Button Label",
-      "default": "Return to Homepage"
-    },
-    {
-      "type": "color_scheme",
-      "id": "color_scheme",
-      "label": "Color scheme",
-      "default": "scheme-1"
-    }
-  ],
-  "presets": [
-    {
-      "name": "404 Page Default"
-    }
-  ]
+	"name": "404 Page",
+	"settings": [
+		{
+			"type": "text",
+			"id": "heading",
+			"label": "Heading",
+			"default": "Page Not Found"
+		},
+		{
+			"type": "textarea",
+			"id": "subtext",
+			"label": "Subtext",
+			"default": "Sorry, the page you’re looking for doesn’t exist."
+		},
+		{
+			"type": "image_picker",
+			"id": "image",
+			"label": "Optional Image"
+		},
+		{
+			"type": "text",
+			"id": "button_label",
+			"label": "Button Label",
+			"default": "Return to Homepage"
+		},
+		{
+			"type": "color_scheme",
+			"id": "color_scheme",
+			"label": "Color scheme",
+			"default": "scheme-1"
+		}
+	],
+	"presets": [
+		{
+			"name": "404 Page Default"
+		}
+	]
 }
 {% endschema %}

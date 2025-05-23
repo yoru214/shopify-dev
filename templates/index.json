@@ -1,18 +1,15 @@
 {
-  "sections": {
-    "featured-collections":{
-      "type": "featured-collections",
-      "settings": {
-        "featured_collection": "all"
-      }
-    },
-      
-    "full-banner":{
-      "type": "full-banner"
-    }
-  },
-  "order": [
-    "full-banner",
-    "featured-collections"
-  ]
+	"sections": {
+		"featured-collections": {
+			"type": "featured-collections",
+			"settings": {
+				"featured_collection": "all"
+			}
+		},
+
+		"full-banner": {
+			"type": "full-banner"
+		}
+	},
+	"order": ["full-banner", "featured-collections"]
 }

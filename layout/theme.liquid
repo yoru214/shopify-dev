@@ -1,151 +1,240 @@
 <!doctype html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8">
-    <title>{{ page_title }}</title>
-    {{ 'application.css' | asset_url | stylesheet_tag }}
-    {{ content_for_header }}
-  </head>
-  <body>
-    {% section 'header' %}
-    <main>
-      {{ content_for_layout }}
-    </main>
+<html lang='en'>
+	<head>
+		<meta charset='UTF-8'>
+		<title>{{ page_title }}</title>
+		{{ 'application.css' | asset_url | stylesheet_tag }}
+		{{ content_for_header }}
+	</head>
+	<body>
+		{% section 'header' %}
+		<main>
+			{{ content_for_layout }}
+		</main>
 
-    <script>
-      class MobileSlideMenu extends HTMLElement {
-        connectedCallback() {
-          const toggle = this.querySelector('#menu-toggle');
-          const menu = this.querySelector('#mobile-menu');
-          const close = this.querySelector('#menu-close');
+		<script>
+			class MobileSlideMenu extends HTMLElement {
+				connectedCallback() {
+					const toggle = this.querySelector('#menu-toggle');
+					const menu = this.querySelector('#mobile-menu');
+					const close = this.querySelector('#menu-close');
 
-          if (!toggle || !menu || !close) {
-            console.warn('MobileSlideMenu: Missing toggle/menu/close element.');
-            return;
-          }
+					if (!toggle || !menu || !close) {
+						console.warn('MobileSlideMenu: Missing toggle/menu/close element.');
+						return;
+					}
 
-          toggle.addEventListener('click', () => {
-            menu.classList.remove('translate-x-full');
-            menu.classList.add('translate-x-0');
-          });
+					toggle.addEventListener('click', () => {
+						menu.classList.remove('translate-x-full');
+						menu.classList.add('translate-x-0');
+					});
 
-          close.addEventListener('click', () => {
-            menu.classList.add('translate-x-full');
-            menu.classList.remove('translate-x-0');
-          });
-        }
-      }
+					close.addEventListener('click', () => {
+						menu.classList.add('translate-x-full');
+						menu.classList.remove('translate-x-0');
+					});
+				}
+			}
 
-      customElements.define('mobile-slide-menu', MobileSlideMenu);
-    </script>
+			customElements.define('mobile-slide-menu', MobileSlideMenu);
+		</script>
 
-    <script>
-      class ShopifySearchToggle extends HTMLElement {
-        connectedCallback() {
-          const openBtn = this.querySelector('#open');
-          const overlay = this.querySelector('#overlay');
-          const input = this.querySelector('input');
-          const header = document.getElementById('site-header');
+		<script>
+			class ShopifySearchToggle extends HTMLElement {
+				connectedCallback() {
+					const openBtn = this.querySelector('#open');
+					const overlay = this.querySelector('#overlay');
+					const input = this.querySelector('input');
+					const header = document.getElementById('site-header');
 
-          openBtn?.addEventListener('click', (e) => {
-            e.stopPropagation();
+					openBtn?.addEventListener('click', (e) => {
+						e.stopPropagation();
 
-            if (header && overlay) {
-              overlay.style.height = `${header.offsetHeight}px`;
-            }
+						if (header && overlay) {
+							overlay.style.height = `${header.offsetHeight}px`;
+						}
 
-            overlay.classList.add('opacity-100', 'translate-y-0', 'pointer-events-auto');
-            overlay.classList.remove('opacity-0', '-translate-y-2', 'pointer-events-none');
-            input?.focus();
-          });
+						overlay.classList.add('opacity-100', 'translate-y-0', 'pointer-events-auto');
+						overlay.classList.remove('opacity-0', '-translate-y-2', 'pointer-events-none');
+						input?.focus();
+					});
 
-          document.addEventListener('click', (e) => {
-            if (!this.contains(e.target)) {
-              overlay.classList.add('opacity-0', '-translate-y-2', 'pointer-events-none');
-              overlay.classList.remove('opacity-100', 'translate-y-0', 'pointer-events-auto');
-            }
-          });
+					document.addEventListener('click', (e) => {
+						if (!this.contains(e.target)) {
+							overlay.classList.add('opacity-0', '-translate-y-2', 'pointer-events-none');
+							overlay.classList.remove('opacity-100', 'translate-y-0', 'pointer-events-auto');
+						}
+					});
 
-          input?.addEventListener('keydown', (e) => {
-            if (e.key === 'Escape') {
-              overlay.classList.add('opacity-0', '-translate-y-2', 'pointer-events-none');
-              overlay.classList.remove('opacity-100', 'translate-y-0', 'pointer-events-auto');
-            }
-            if (e.key === 'Enter') {
-              window.location.href = `/search?q=${encodeURIComponent(input.value)}`;
-            }
-          });
-        }
-      }
+					input?.addEventListener('keydown', (e) => {
+						if (e.key === 'Escape') {
+							overlay.classList.add('opacity-0', '-translate-y-2', 'pointer-events-none');
+							overlay.classList.remove('opacity-100', 'translate-y-0', 'pointer-events-auto');
+						}
+						if (e.key === 'Enter') {
+							window.location.href = `/search?q=${encodeURIComponent(input.value)}`;
+						}
+					});
+				}
+			}
 
-      customElements.define('shopify-search-toggle', ShopifySearchToggle);
-    </script>
+			customElements.define('shopify-search-toggle', ShopifySearchToggle);
+		</script>
 
-    <!-- Mega Dropdown Component JS -->
-    <script>
-      class MegaDropdown extends HTMLElement {
-        connectedCallback() {
-          const button = this.querySelector('button');
-          const panel = this.querySelector('#panel');
-          const chevron = this.querySelector('#chevron');
-          const header = document.getElementById('site-header');
+		<!-- Mega Dropdown Component JS -->
+		<script>
+			class MegaDropdown extends HTMLElement {
+				connectedCallback() {
+					const button = this.querySelector('button');
+					const panel = this.querySelector('#panel');
+					const chevron = this.querySelector('#chevron');
+					const header = document.getElementById('site-header');
 
-          button?.addEventListener('click', (e) => {
-            e.stopPropagation();
+					button?.addEventListener('click', (e) => {
+						e.stopPropagation();
 
-            // Dynamically calculate header height
-            if (header && panel) {
-              const height = header.offsetHeight;
-              panel.style.top = `${height}px`;
-            }
+						// Dynamically calculate header height
+						if (header && panel) {
+							const height = header.offsetHeight;
+							panel.style.top = `${height}px`;
+						}
 
-            panel.classList.toggle('hidden');
-            chevron.classList.toggle('rotate-180');
-          });
+						panel.classList.toggle('hidden');
+						chevron.classList.toggle('rotate-180');
+					});
 
-          document.addEventListener('click', (e) => {
-            if (!this.contains(e.target)) {
-              panel.classList.add('hidden');
-              chevron.classList.remove('rotate-180');
-            }
-          });
-        }
-      }
+					document.addEventListener('click', (e) => {
+						if (!this.contains(e.target)) {
+							panel.classList.add('hidden');
+							chevron.classList.remove('rotate-180');
+						}
+					});
+				}
+			}
 
-      customElements.define('mega-dropdown', MegaDropdown);
-    </script>
+			customElements.define('mega-dropdown', MegaDropdown);
+		</script>
 
-    <script>
-      class MediaViewer extends HTMLElement {
-        connectedCallback() {
-          this.mainImage = this.querySelector('#mainImage');
-          this.thumbnails = this.querySelectorAll('.thumbnail');
+		<script>
+			class MediaViewer extends HTMLElement {
+				connectedCallback() {
+					this.mainImage = this.querySelector('#mainImage');
+					this.thumbnails = this.querySelectorAll('.thumbnail');
 
-          if (!this.mainImage || this.thumbnails.length === 0) {
-            console.warn('MediaViewer: Missing main image or thumbnails.');
-            return;
-          }
+					if (!this.mainImage || this.thumbnails.length === 0) {
+						console.warn('MediaViewer: Missing main image or thumbnails.');
+						return;
+					}
 
-          this.bindThumbnailEvents();
-        }
+					this.bindThumbnailEvents();
+				}
 
-        bindThumbnailEvents() {
-          this.thumbnails.forEach((thumb) => {
-            thumb.addEventListener('click', this.onThumbClick.bind(this));
-          });
-        }
+				bindThumbnailEvents() {
+					this.thumbnails.forEach((thumb) => {
+						thumb.addEventListener('click', this.onThumbClick.bind(this));
+					});
+				}
 
-        onThumbClick(event) {
-          const clicked = event.currentTarget;
-          const newSrc = clicked.dataset.src || clicked.src;
+				onThumbClick(event) {
+					const clicked = event.currentTarget;
+					const newSrc = clicked.dataset.src || clicked.src;
 
-          if (newSrc) {
-            this.mainImage.src = newSrc;
-          }
-        }
-      }
+					if (newSrc) {
+						this.mainImage.src = newSrc;
+					}
+				}
+			}
 
-      customElements.define('media-viewer', MediaViewer);
-    </script>
-  </body>
+			customElements.define('media-viewer', MediaViewer);
+		</script>
+
+		<script>
+			class ProductInfo extends HTMLElement {
+				connectedCallback() {
+					this.optionInputs = this.querySelectorAll('input[type="radio"][name^="options["]');
+					this.variantInput = this.querySelector('input[name="id"]');
+					this.variants = JSON.parse(this.dataset.variants || '[]');
+
+					this.optionInputs.forEach((input) => {
+						input.addEventListener('change', () => this.updateVariant());
+					});
+
+					// Initial sync
+					this.updateVariant();
+				}
+
+				formatMoney(cents) {
+					const amount = (cents / 100).toFixed(2);
+					return `₱${amount}`; // Customize currency if needed
+				}
+
+				updateVariant() {
+					const selectedOptions = [];
+
+					const optionGroups = [...this.optionInputs].reduce((groups, input) => {
+						const name = input.name;
+						if (!groups[name]) groups[name] = [];
+						groups[name].push(input);
+						return groups;
+					}, {});
+
+					Object.values(optionGroups).forEach((inputs) => {
+						inputs.forEach((input) => {
+							const span = input.nextElementSibling;
+
+							// Reset all
+							span.classList.remove('bg-[var(--color-button)]', 'text-[var(--color-button-label)]');
+							span.classList.add('bg-transparent', 'text-inherit', 'border', 'border-gray-300');
+
+							if (input.checked) {
+								selectedOptions.push(input.value);
+								span.classList.remove('bg-transparent', 'text-inherit', 'border', 'border-gray-300');
+								span.classList.add('bg-[var(--color-button)]', 'text-[var(--color-button-label)]');
+							}
+						});
+					});
+
+					const matchedVariant = this.variants.find((v) => {
+						return JSON.stringify(v.options) === JSON.stringify(selectedOptions);
+					});
+
+					if (matchedVariant) {
+						this.variantInput.value = matchedVariant.id;
+
+						const priceEl = this.querySelector('#regularPrice');
+						const compareEl = this.querySelector('#compareAtPrice');
+						const badgeEl = this.querySelector('#saleBadge');
+
+						if (priceEl) priceEl.textContent = this.formatMoney(matchedVariant.price);
+						if (compareEl) compareEl.textContent = this.formatMoney(matchedVariant.compare_at_price);
+
+						if (matchedVariant.compare_at_price > matchedVariant.price) {
+							badgeEl.classList.remove('hidden');
+						} else {
+							badgeEl.classList.add('hidden');
+						}
+
+						const addToCartBtn = this.querySelector('#addToCartBtn');
+						const buyNowBtn = this.querySelector('[name="button"]');
+						const purchaseActions = this.querySelector('#purchaseActions');
+						const soldOutMessage = this.querySelector('#soldOutMessage');
+
+						if (matchedVariant.available) {
+							purchaseActions.classList.remove('hidden');
+							if (addToCartBtn) addToCartBtn.disabled = false;
+							if (buyNowBtn) buyNowBtn.disabled = false;
+							soldOutMessage.classList.add('hidden');
+							soldOutMessage.classList.remove('flex');
+						} else {
+							purchaseActions.classList.add('hidden');
+							soldOutMessage.classList.remove('hidden');
+							soldOutMessage.classList.add('flex');
+						}
+					}
+				}
+			}
+
+			customElements.define('product-info', ProductInfo);
+		</script>
+	</body>
 </html>

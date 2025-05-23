@@ -1,15 +1,13 @@
 {
-  "sections": {
-    "main": {
-      "type": "theme-list-collections",
-      "settings": {
-        "title": "Collections",
-        "sort": "alphabetical",
-        "image_ratio": "square"
-      }
-    }
-  },
-  "order": [
-    "main"
-  ]
+	"sections": {
+		"main": {
+			"type": "theme-list-collections",
+			"settings": {
+				"title": "Collections",
+				"sort": "alphabetical",
+				"image_ratio": "square"
+			}
+		}
+	},
+	"order": ["main"]
 }

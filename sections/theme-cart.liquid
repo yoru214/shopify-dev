@@ -1,99 +1,101 @@
-<section class="container mx-auto px-4 py-10 color-{{ section.settings.color_scheme }}">
-  <div class="flex justify-between items-center mb-6">
-    <h1 class="text-3xl font-bold text-primary">Your Cart</h1>
-    <a href="/collections/all" class="text-sm font-semibold text-blue-600 hover:underline"> Continue Shopping → </a>
-  </div>
+<section class='container mx-auto px-4 py-10 color-{{ section.settings.color_scheme }}'>
+	<div class='flex justify-between items-center mb-6'>
+		<h1 class='text-3xl font-bold text-primary'>Your Cart</h1>
+		<a href='/collections/all' class='text-sm font-semibold text-blue-600 hover:underline'> Continue Shopping → </a>
+	</div>
 
-  {% if cart.item_count > 0 %}
-    <form action="/cart" method="post" novalidate>
-      <table class="w-full text-left border-t border-gray-200 mb-6">
-        <thead>
-          <tr class="text-sm text-gray-700 uppercase">
-            <th class="py-3">Product</th>
-            <th class="py-3">Price</th>
-            <th class="py-3">Qty</th>
-            <th class="py-3">Total</th>
-            <th class="py-3"></th>
-          </tr>
-        </thead>
-        <tbody>
-          {% for item in cart.items %}
-            <tr class="border-t border-gray-100">
-              <td class="py-4">
-                <div class="flex items-center gap-4">
-                  <a href="{{ item.url }}">
-                    <img
-                      src="{{ item.image | image_url: width: 100 }}"
-                      alt="{{ item.product.title }}"
-                      class="w-16 h-16 object-cover rounded"
-                    >
-                  </a>
-                  <div>
-                    <a href="{{ item.url }}" class="font-semibold hover:underline text-primary">
-                      {{ item.product.title }}
-                    </a>
-                    {% if item.variant.title != 'Default Title' %}
-                      <p class="text-sm text-gray-500">{{ item.variant.title }}</p>
-                    {% endif %}
-                  </div>
-                </div>
-              </td>
+	{% if cart.item_count > 0 %}
+		<form action='/cart' method='post' novalidate>
+			<table class='w-full text-left border-t border-gray-200 mb-6'>
+				<thead>
+					<tr class='text-sm text-gray-700 uppercase'>
+						<th class='py-3'>Product</th>
+						<th class='py-3'>Price</th>
+						<th class='py-3'>Qty</th>
+						<th class='py-3'>Total</th>
+						<th class='py-3'></th>
+					</tr>
+				</thead>
+				<tbody>
+					{% for item in cart.items %}
+						<tr class='border-t border-gray-100'>
+							<td class='py-4'>
+								<div class='flex items-center gap-4'>
+									<a href='{{ item.url }}'>
+										<img
+											src='{{ item.image | image_url: width: 100 }}'
+											alt='{{ item.product.title }}'
+											class='w-16 h-16 object-cover rounded'
+										>
+									</a>
+									<div>
+										<a href='{{ item.url }}' class='font-semibold hover:underline text-primary'>
+											{{ item.product.title }}
+										</a>
+										{% if item.variant.title != 'Default Title' %}
+											<p class='text-sm text-gray-500'>{{ item.variant.title }}</p>
+										{% endif %}
+									</div>
+								</div>
+							</td>
 
-              <td class="py-4">{{ item.final_price | money }}</td>
+							<td class='py-4'>{{ item.final_price | money }}</td>
 
-              <td class="py-4">
-                <input
-                  class="w-16 border border-gray-300 rounded p-2 text-center"
-                  type="number"
-                  name="updates[]"
-                  value="{{ item.quantity }}"
-                  min="1"
-                >
-              </td>
+							<td class='py-4'>
+								<input
+									class='w-16 border border-gray-300 rounded p-2 text-center'
+									type='number'
+									name='updates[]'
+									value='{{ item.quantity }}'
+									min='1'
+								>
+							</td>
 
-              <td class="py-4">{{ item.final_line_price | money }}</td>
+							<td class='py-4'>{{ item.final_line_price | money }}</td>
 
-              <td class="py-4 text-right">
-                <a href="/cart/change?line={{ forloop.index }}&quantity=0" class="text-red-500 hover:underline"
-                  >Remove</a
-                >
-              </td>
-            </tr>
-          {% endfor %}
-        </tbody>
-      </table>
+							<td class='py-4 text-right'>
+								<a
+									href='/cart/change?line={{ forloop.index }}&quantity=0'
+									class='text-red-500 hover:underline'
+									>Remove</a
+								>
+							</td>
+						</tr>
+					{% endfor %}
+				</tbody>
+			</table>
 
-      <!-- Update & Checkout -->
-      <div class="flex justify-between items-center">
-        <button
-          type="submit"
-          class="bg-[var(--color-button)] text-[var(--color-button-label)] font-semibold py-3 px-6 rounded hover:bg-opacity-90 transition"
-        >
-          Update Cart
-        </button>
-        <a
-          href="/checkout"
-          class="inline-block bg-primary text-white font-semibold py-3 px-6 rounded hover:bg-primary/90 transition"
-        >
-          Checkout
-        </a>
-      </div>
-    </form>
-  {% else %}
-    <p class="text-lg text-gray-600">Your cart is currently empty.</p>
-  {% endif %}
+			<!-- Update & Checkout -->
+			<div class='flex justify-between items-center'>
+				<button
+					type='submit'
+					class='bg-[var(--color-button)] text-[var(--color-button-label)] font-semibold py-3 px-6 rounded hover:bg-opacity-90 transition'
+				>
+					Update Cart
+				</button>
+				<a
+					href='/checkout'
+					class='inline-block bg-primary text-white font-semibold py-3 px-6 rounded hover:bg-primary/90 transition'
+				>
+					Checkout
+				</a>
+			</div>
+		</form>
+	{% else %}
+		<p class='text-lg text-gray-600'>Your cart is currently empty.</p>
+	{% endif %}
 </section>
 
 {% schema %}
 {
-  "name": "Cart Page",
-  "settings": [
-    {
-      "type": "color_scheme",
-      "id": "color_scheme",
-      "label": "Color scheme",
-      "default": "scheme-1"
-    }
-  ]
+	"name": "Cart Page",
+	"settings": [
+		{
+			"type": "color_scheme",
+			"id": "color_scheme",
+			"label": "Color scheme",
+			"default": "scheme-1"
+		}
+	]
 }
 {% endschema %}

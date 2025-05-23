@@ -1,8 +1,8 @@
 {
-  "sections": {
-    "main": {
-      "type": "blank-section"
-    }
-  },
-  "order": ["main"]
+	"sections": {
+		"main": {
+			"type": "blank-section"
+		}
+	},
+	"order": ["main"]
 }

@@ -1,36 +1,36 @@
 /* stylelint-disable-next-line import-notation */
-@import "tailwindcss";
+@import 'tailwindcss';
 
 @layer utilities {
-  /* Set up CSS variables for each scheme */
-  .color-scheme-1 {
-    --color-background: #fff;
-    --color-text: #121212;
-    --color-button: #5E734A;
-    --color-button-label: #fff;
-  }
+	/* Set up CSS variables for each scheme */
+	.color-scheme-1 {
+		--color-background: #fff;
+		--color-text: #121212;
+		--color-button: #5e734a;
+		--color-button-label: #fff;
+	}
 
-  .color-scheme-2 {
-    --color-background: #f0f0f0;
-    --color-text: #333;
-    --color-button: #bada55;
-    --color-button-label: #000;
-  }
+	.color-scheme-2 {
+		--color-background: #f0f0f0;
+		--color-text: #333;
+		--color-button: #bada55;
+		--color-button-label: #000;
+	}
 
-  /* Utility classes to use those variables */
-  .bg-background {
-    background-color: var(--color-background);
-  }
+	/* Utility classes to use those variables */
+	.bg-background {
+		background-color: var(--color-background);
+	}
 
-  .text-text {
-    color: var(--color-text);
-  }
+	.text-text {
+		color: var(--color-text);
+	}
 
-  .bg-button {
-    background-color: var(--color-button);
-  }
+	.bg-button {
+		background-color: var(--color-button);
+	}
 
-  .text-button-label {
-    color: var(--color-button-label);
-  }
+	.text-button-label {
+		color: var(--color-button-label);
+	}
 }

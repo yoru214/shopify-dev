@@ -1,53 +1,53 @@
-<section class="container mx-auto px-4 py-8 color-{{ section.settings.color_scheme }}">
-  <h1 class="text-3xl font-bold mb-4 text-primary">{{ collection.title }}</h1>
+<section class='container mx-auto px-4 py-8 color-{{ section.settings.color_scheme }}'>
+	<h1 class='text-3xl font-bold mb-4 text-primary'>{{ collection.title }}</h1>
 
-  {% if collection.description != blank %}
-    <div class="text-subdued mb-8">
-      {{ collection.description }}
-    </div>
-  {% endif %}
+	{% if collection.description != blank %}
+		<div class='text-subdued mb-8'>
+			{{ collection.description }}
+		</div>
+	{% endif %}
 
-  {% if collection.products_count > 0 %}
-    {% paginate collection.products by section.settings.number_of_products_by_page %}
-      <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
-        {% for product in collection.products %}
-          {% render 'product-card', product: product %}
-        {% endfor %}
-      </div>
+	{% if collection.products_count > 0 %}
+		{% paginate collection.products by section.settings.number_of_products_by_page %}
+			<div class='grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6'>
+				{% for product in collection.products %}
+					{% render 'product-card', product: product %}
+				{% endfor %}
+			</div>
 
-      <!-- Pagination component -->
-      <div class="mt-10">
-        {% render 'pagination', pagination: paginate %}
-      </div>
-    {% endpaginate %}
-  {% else %}
-    <p class="text-subdued">No products found in this collection.</p>
-  {% endif %}
+			<!-- Pagination component -->
+			<div class='mt-10'>
+				{% render 'pagination', pagination: paginate %}
+			</div>
+		{% endpaginate %}
+	{% else %}
+		<p class='text-subdued'>No products found in this collection.</p>
+	{% endif %}
 </section>
 {% schema %}
 {
-  "name": "Collection Page Section",
-  "settings": [
-    {
-      "type": "range",
-      "id": "number_of_products_by_page",
-      "label": "Number of products by name",
-      "default": 8,
-      "min": 6,
-      "max": 24,
-      "step": 2
-    },
-    {
-      "type": "color_scheme",
-      "id": "color_scheme",
-      "label": "Color scheme",
-      "default": "scheme-1"
-    }
-  ],
-  "presets": [
-    {
-      "name": "Collection Page"
-    }
-  ]
+	"name": "Collection Page Section",
+	"settings": [
+		{
+			"type": "range",
+			"id": "number_of_products_by_page",
+			"label": "Number of products by name",
+			"default": 8,
+			"min": 6,
+			"max": 24,
+			"step": 2
+		},
+		{
+			"type": "color_scheme",
+			"id": "color_scheme",
+			"label": "Color scheme",
+			"default": "scheme-1"
+		}
+	],
+	"presets": [
+		{
+			"name": "Collection Page"
+		}
+	]
 }
 {% endschema %}
