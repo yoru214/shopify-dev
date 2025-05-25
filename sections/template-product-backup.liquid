@@ -1,125 +1,72 @@
 <section class='max-w-7xl mx-auto px-4 py-8 color-{{ section.settings.color_scheme }}'>
 	{% if product %}
 		<div class='grid grid-cols-1 md:grid-cols-2 gap-8 items-stretch min-h-[450px]'>
-			{% if product.media.size > 0 %}
-				<!-- Media Viewer -->
-				<media-viewer>
-					<div class='swiper main-swiper w-full h-96  overflow-hidden'>
-						<div class='swiper-wrapper flex space-x-4 w-max'>
+			<!-- Media Viewer -->
+			<media-viewer class='block max-w-5xl mx-auto'>
+				<!-- Main Media Viewer -->
+				<div class='swiper main-swiper w-full h-[500px] rounded overflow-hidden'>
+					<div class='swiper-wrapper h-full'>
+						{% if product.media.size > 0 %}
 							{% for media in product.media %}
-								<div class='swiper-slide flex-shrink-0 w-full h-96 snap-start m-0 cursor-pointer'>
+								<div class='swiper-slide w-full h-full flex items-center justify-center bg-white'>
 									{% case media.media_type %}
 										{% when 'image' %}
 											<img
 												src='{{ media | image_url: width: 800 }}'
 												alt='{{ media.alt | escape }}'
-												class='w-full h-full object-cover'
+												class='max-h-full max-w-full object-contain'
 											>
-
 										{% when 'video' %}
 											{{
 												media
 												| video_tag:
-													class: 'w-full h-full object-cover',
-													autoplay: true,
+													class: 'max-h-full max-w-full object-contain',
+													autoplay: false,
 													controls: true
 											}}
 										{% when 'external_video' %}
-											{% if media.host == 'youtube' %}
-												<iframe
-													class='w-full h-full object-cover'
-													src='https://www.youtube.com/embed/{{ media.external_id }}?autoplay=1&mute=1&playsinline=1'
-													frameborder='0'
-													allow='autoplay; encrypted-media'
-													allowfullscreen
-												></iframe>
-
-											{% elsif media.host == 'vimeo' %}
-												<iframe
-													class='w-full h-full object-cover'
-													src='https://player.vimeo.com/video/{{ media.external_id }}?autoplay=1&muted=1&playsinline=1'
-													frameborder='0'
-													allow='autoplay; fullscreen'
-													allowfullscreen
-												></iframe>
-
-											{% else %}
-												{% comment %}
-													Fallback: unknown video host (e.g., Wistia, self-hosted, or unsupported)
-													Shopify may still output a working embed with media | external_video_tag
-												{% endcomment %}
-												{{
-													media
-													| external_video_tag:
-														class: 'w-full h-full object-cover',
-														autoplay: true
-												}}
-											{% endif %}
-
+											{{
+												media
+												| external_video_tag: class: 'max-h-full max-w-full object-contain'
+											}}
 										{% else %}
 											<img
 												src='{{ 'logo.png' | asset_url }}'
 												alt='Default fallback'
-												class='w-full h-full object-cover'
+												class='max-h-full max-w-full object-contain'
 											>
 									{% endcase %}
 								</div>
 							{% endfor %}
-						</div>
-					</div>
-					<!-- Thumbs Swiper -->
-					<div class='swiper thumbs-swiper w-full h-24  overflow-hidden'>
-						<div class='swiper-wrapper  flex space-x-4 w-max'>
-							{% for media in product.media %}
-								<div class='swiper-slide w-24 h-24 flex-shrink-0  snap-start m-1 first:ml-0 mr-0 cursor-pointer'>
-									{% case media.media_type %}
-										{% when 'image' %}
-											<img
-												src='{{ media | image_url: width: 200 }}'
-												alt='thumb'
-												class='w-full h-full object-cover'
-											>
-										{% when 'video' %}
-											{{
-												media
-												| video_tag:
-													class: 'w-full h-full object-cover',
-													autoplay: false,
-													muted: true
-											}}
-										{% when 'external_video' %}
-											{{ media | external_video_tag: class: 'w-full h-full object-cover' }}
-										{% else %}
-											<img
-												src='{{ 'logo.png' | asset_url }}'
-												alt='Fallback'
-												class='w-full h-full object-cover'
-											>
-									{% endcase %}
-								</div>
-							{% endfor %}
-						</div>
-					</div>
-				</media-viewer>
-			{% else %}
-				<div class='flex-shrink-0 w-full h-96 snap-start m-0 cursor-pointer'>
-					<div class='w-full h-full flex items-center justify-center'>
-						{% if shop.logo %}
-							<img
-								src='{{ shop.logo | image_url: width: 800 }}'
-								alt='{{ shop.name | escape }} logo'
-								class='max-h-full max-w-full object-contain'
-							>
-						{% else %}
-							<img
-								src='{{ 'logo.png' | asset_url }}'
-								alt='Fallback logo'
-								class='max-h-full max-w-full object-contain'
-							>
 						{% endif %}
 					</div>
 				</div>
-			{% endif %}
+
+				<!-- Thumbnail Viewer -->
+				{% if product.media.size > 0 %}
+					<div class='swiper thumbs-swiper mt-4'>
+						<div class='swiper-wrapper'>
+							{% for media in product.media %}
+								<div class='swiper-slide w-20 h-20 rounded overflow-hidden'>
+									{% if media.media_type == 'image' %}
+										<img
+											src='{{ media | image_url: width: 120 }}'
+											alt='Thumbnail {{ forloop.index }}'
+											class='object-cover w-full h-full'
+										>
+									{% elsif media.preview_image %}
+										<img
+											src='{{ media.preview_image | image_url: width: 120 }}'
+											alt='Preview thumbnail {{ forloop.index }}'
+											class='object-cover w-full h-full'
+										>
+									{% endif %}
+								</div>
+							{% endfor %}
+						</div>
+					</div>
+				{% endif %}
+			</media-viewer>
 
 			<!-- Product Info + Form -->
 			<product-info data-variants='{{ product.variants | json | escape }}' class='flex flex-col h-full'>

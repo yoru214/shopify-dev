@@ -21,17 +21,23 @@
 	},
 	"homepage": "https://github.com/yoru214/shopify-dev#readme",
 	"dependencies": {
-		"@tailwindcss/cli": "^4.1.7"
+		"@tailwindcss/cli": "^4.1.7",
+		"swiper": "^11.2.7"
 	},
 	"devDependencies": {
 		"@shopify/prettier-plugin-liquid": "^1.9.3",
 		"@tailwindcss/postcss": "^4.1.7",
 		"autoprefixer": "^10.4.21",
+		"css-loader": "^7.1.2",
 		"postcss": "^8.5.3",
 		"postcss-cli": "^11.0.1",
+		"postcss-loader": "^8.1.1",
 		"prettier": "^3.5.3",
+		"style-loader": "^4.0.0",
 		"stylelint": "^16.19.1",
 		"stylelint-config-standard": "^38.0.0",
-		"tailwindcss": "^4.1.7"
+		"tailwindcss": "^4.1.7",
+		"webpack": "^5.99.9",
+		"webpack-cli": "^6.0.1"
 	}
 }
