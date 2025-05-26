@@ -17,16 +17,26 @@
 					{% assign fallback_image = 'logo.png' %}
 				{% endif %}
 
-				<img
-					src='{{ fallback_image | asset_url }}'
-					alt='Placeholder for {{ product.title }}'
-					width='600'
-					height='600'
-					class='w-full h-60 object-cover opacity-50 transition duration-1000 ease-in-out transform hover:scale-110'
-					loading='lazy'
-				>
+				{% if settings.logo %}
+					<img
+						src='{{ settings.logo | image_url: width: 600 }}'
+						alt='Fallback image for {{ product.title }}'
+						width='600'
+						height='600'
+						class='w-full h-60 object-cover opacity-50 transition duration-1000 ease-in-out transform hover:scale-110'
+						loading='lazy'
+					>
+				{% else %}
+					<img
+						src='{{ 'logo.png' | asset_url }}'
+						alt='Fallback image for {{ product.title }}'
+						width='600'
+						height='600'
+						class='w-full h-60 object-cover opacity-50 transition duration-1000 ease-in-out transform hover:scale-110'
+						loading='lazy'
+					>
+				{% endif %}
 			{% endif %}
-			{{ settings.logo }}
 		</div>
 	</a>
 
