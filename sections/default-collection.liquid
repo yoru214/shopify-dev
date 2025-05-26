@@ -10,6 +10,20 @@
 	<div class='grid grid-cols-1 md:grid-cols-4 gap-8'>
 		<!-- Sidebar -->
 		<aside class='md:col-span-1 space-y-6'>
+			{% if collection.filters == empty %}
+				<div class='bg-yellow-100 border border-yellow-300 text-yellow-800 text-sm rounded p-4 mb-4'>
+					⚠️ <strong>Filters are not active</strong><br>
+					To enable faceted filtering, please install and configure the
+					<a
+						href='https://apps.shopify.com/search-and-discovery'
+						class='underline font-medium'
+						target='_blank'
+						>Shopify Search & Discovery</a
+					>
+					app.
+				</div>
+			{% endif %}
+
 			<form method='get' id='collection-filter-form' class='space-y-4'>
 				<!-- Search -->
 				<div>
@@ -75,7 +89,7 @@
 					</select>
 				</div>
 
-				<!-- Price Range (slider handled via JS) -->
+				<!-- Price Range -->
 				<div>
 					<label class='block text-sm font-medium mb-1'>Price Range</label>
 					<input type='range' min='0' max='5000' step='50' value='0' class='w-full' id='price-range'>
