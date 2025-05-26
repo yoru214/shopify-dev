@@ -24,9 +24,8 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - name: Theme Check
-        uses: shopify/theme-check-action@v2
-        with:
-          token: ${{ github.token }}
-        env:
-          DISABLE_GITHUB_CHECKS: true # ✅ Prevents "resource not accessible" error
+      - name: Install Shopify CLI
+        run: npm install -g @shopify/cli @shopify/theme
+
+      - name: Run Theme Check
+        run: npx theme-check --fail-level error
