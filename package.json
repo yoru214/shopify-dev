@@ -6,6 +6,8 @@
 	"scripts": {
 		"build": "postcss src/tailwind.css -o assets/application.css",
 		"dev": "npx @tailwindcss/cli -i ./src/tailwind.css -o ./assets/application.css --watch",
+		"dev:shopify": "npm run pull:settings && shopify theme dev",
+  		"pull:settings": "shopify theme pull --development --nodelete -x 'assets/*' -x 'layout/*' -x 'locales/*' -x 'sections/*' -x 'snippets/*' -x 'templates/*.liquid' -x 'config/settings_schema.json'",
 		"lint:css": "stylelint src/tailwind.css",
 		"lint:css:fix": "stylelint src/tailwind.css --fix"
 	},
