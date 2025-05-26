@@ -50,25 +50,28 @@
 								</label>
 							{% endfor %}
 						{% elsif filter.type == 'price_range' %}
-							<div class='flex items-center space-x-2'>
-								<label>From</label>
-								<input
-									type='number'
-									name='{{ filter.min_value.param_name }}'
-									value='{{ filter.min_value.value }}'
-									min='{{ filter.min_value.min }}'
-									max='{{ filter.min_value.max }}'
-									class='w-20 border px-2 py-1 rounded'
-								>
-								<label>To</label>
-								<input
-									type='number'
-									name='{{ filter.max_value.param_name }}'
-									value='{{ filter.max_value.value }}'
-									min='{{ filter.max_value.min }}'
-									max='{{ filter.max_value.max }}'
-									class='w-20 border px-2 py-1 rounded'
-								>
+							<div>
+								<label class='block text-sm font-medium mb-1'>Price Range</label>
+								<div class='flex items-center space-x-2'>
+									<span>₱</span>
+									<input
+										type='number'
+										name='{{ filter.min_value.param_name }}'
+										min='{{ filter.min_value.min }}'
+										max='{{ filter.min_value.max }}'
+										value='{{ filter.min_value.value | default: filter.min_value.min }}'
+										class='border px-2 py-1 w-24 rounded'
+									>
+									<span>to ₱</span>
+									<input
+										type='number'
+										name='{{ filter.max_value.param_name }}'
+										min='{{ filter.max_value.min }}'
+										max='{{ filter.max_value.max }}'
+										value='{{ filter.max_value.value | default: filter.max_value.max }}'
+										class='border px-2 py-1 w-24 rounded'
+									>
+								</div>
 							</div>
 						{% endif %}
 					</fieldset>
