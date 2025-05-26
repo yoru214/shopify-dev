@@ -1,0 +1,65 @@
+<section class='w-full mx-auto px-0 py-0 color-{{ section.settings.color_scheme }}'>
+	<div class='w-full  items-stretch aspect-[16/7]'>
+		<hero-swiper>
+			<div class='swiper main-swiper  flex h-full transition-transform will-change-transform'>
+				{% if section.blocks.size > 0 %}
+					<div
+						class='swiper-wrapper flex space-x-4 w-max'
+					>
+						{% for block in section.blocks %}
+							<div class='swiper-slide flex-shrink-0 w-full  snap-start m-0 cursor-pointer'>
+								{% if block.settings.image %}
+									<div class='swiper-slide shrink-0 w-full h-full'>
+										<img
+											src='{{ block.settings.image | image_url }}'
+											alt='Hero Slide {{ forloop.index }}'
+											class='w-full h-full object-cover'
+											loading='lazy'
+										>
+									</div>
+								{% endif %}
+							</div>
+						{% endfor %}
+					</div>
+				{% endif %}
+			</div>
+		</hero-swiper>
+	</div>
+</section>
+
+{% schema %}
+{
+	"name": "Hero Slides",
+	"tag": "section",
+	"class": "hero-slides",
+	"settings": [],
+	"blocks": [
+		{
+			"type": "slide",
+			"name": "Slide",
+			"settings": [
+				{
+					"type": "image_picker",
+					"id": "image",
+					"label": "Slide Image"
+				}
+			]
+		}
+	],
+	"max_blocks": 10,
+	"presets": [
+		{
+			"name": "Full Banner Slider",
+			"category": "Custom",
+			"blocks": [
+				{
+					"type": "slide"
+				},
+				{
+					"type": "slide"
+				}
+			]
+		}
+	]
+}
+{% endschema %}

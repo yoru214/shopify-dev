@@ -350,6 +350,16 @@ eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpac
 
 /***/ }),
 
+/***/ "./src/components/heroSwiper.js":
+/*!**************************************!*\
+  !*** ./src/components/heroSwiper.js ***!
+  \**************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var swiper__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! swiper */ \"./node_modules/swiper/swiper.mjs\");\n/* harmony import */ var swiper_modules__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! swiper/modules */ \"./node_modules/swiper/modules/index.mjs\");\n\r\n\r\n\r\nswiper__WEBPACK_IMPORTED_MODULE_0__[\"default\"].use([swiper_modules__WEBPACK_IMPORTED_MODULE_1__.Autoplay]);\r\n\r\nclass HeroSlider extends HTMLElement {\r\n\tconnectedCallback() {\r\n\t\tthis.mainSwiper = null;\r\n\r\n\t\trequestAnimationFrame(() => {\r\n\t\t\tif (this.initialize()) {\r\n\t\t\t\tthis.loadEvents();\r\n\t\t\t}\r\n\t\t});\r\n\t}\r\n\tinitialize() {\r\n\t\tconst mainEl = this.querySelector('.main-swiper');\r\n\r\n\t\tif (!mainEl || !(mainEl instanceof Element)) {\r\n\t\t\tconsole.error(\r\n\t\t\t\t'Swiper cannot initialize: .main-swiper not found or invalid.',\r\n\t\t\t);\r\n\t\t\treturn false;\r\n\t\t}\r\n\r\n\t\tconst mainSlides = mainEl.querySelectorAll('.swiper-slide');\r\n\t\tif (mainSlides.length < 2) {\r\n\t\t\tconsole.warn('Not enough slides to initialize Hero Swiper');\r\n\t\t\treturn false;\r\n\t\t}\r\n\r\n\t\tthis.mainSwiper = new swiper__WEBPACK_IMPORTED_MODULE_0__[\"default\"](mainEl, {\r\n\t\t\tmodules: [swiper_modules__WEBPACK_IMPORTED_MODULE_1__.Autoplay],\r\n\t\t\tloop: true,\r\n\t\t\tslidesPerView: 1,\r\n\t\t\tspaceBetween: 0,\r\n\t\t\tautoplay: {\r\n\t\t\t\tdelay: 5000,\r\n\t\t\t\tdisableOnInteraction: false,\r\n\t\t\t},\r\n\t\t});\r\n\r\n\t\treturn true;\r\n\t}\r\n\r\n\tloadEvents() {\r\n\t\tif (!this.mainSwiper) return;\r\n\r\n\t\tthis.mainSwiper.on(\r\n\t\t\t'slideChangeTransitionStart',\r\n\t\t\tthis.onSlideChangeTransitionStart.bind(this),\r\n\t\t);\r\n\t}\r\n\tonSlideChangeTransitionStart() {\r\n\t\t// 💡 Blur active element inside previous slide before transition\r\n\t\tconst prevSlide = this.mainSwiper.slides[this.mainSwiper.previousIndex];\r\n\t\tif (prevSlide) {\r\n\t\t\tconst focused = prevSlide.querySelector(':focus');\r\n\t\t\tif (focused) {\r\n\t\t\t\tfocused.blur();\r\n\t\t\t}\r\n\t\t}\r\n\t}\r\n}\r\n\r\ncustomElements.define('hero-swiper', HeroSlider);\r\n\n\n//# sourceURL=webpack://shopify-dev/./src/components/heroSwiper.js?");
+
+/***/ }),
+
 /***/ "./src/components/media-viewer.js":
 /*!****************************************!*\
   !*** ./src/components/media-viewer.js ***!
@@ -366,7 +376,7 @@ eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var swip
   \**********************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
-eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var _components_media_viewer_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./components/media-viewer.js */ \"./src/components/media-viewer.js\");\n\r\n\n\n//# sourceURL=webpack://shopify-dev/./src/index.js?");
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var _components_media_viewer_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./components/media-viewer.js */ \"./src/components/media-viewer.js\");\n/* harmony import */ var _components_heroSwiper_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./components/heroSwiper.js */ \"./src/components/heroSwiper.js\");\n\r\n\r\n\n\n//# sourceURL=webpack://shopify-dev/./src/index.js?");
 
 /***/ })
 

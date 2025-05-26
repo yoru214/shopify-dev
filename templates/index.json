@@ -9,17 +9,9 @@
  */
 {
   "sections": {
-    "full-banner": {
-      "type": "full-banner",
+    "main-hero": {
+      "type": "main-hero",
       "settings": {
-        "background_image": "shopify://shop_images/sunset-1645103_1280.jpg",
-        "overlay_color": "#000000",
-        "overlay_opacity": 40,
-        "heading": "Welcome to Our Store",
-        "subheading": "Explore our latest collections and exclusive deals.",
-        "button_label": "Shop Now",
-        "button_link": "",
-        "overlay_enabled": true
       }
     },
     "featured-collections": {
@@ -60,7 +52,7 @@
     }
   },
   "order": [
-    "full-banner",
+    "main-hero",
     "featured-collections"
   ]
 }
