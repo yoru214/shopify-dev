@@ -8,10 +8,12 @@
 	</head>
 	<body>
 		{% section 'header' %}
-		<main>
-			{{ content_for_layout }}
-		</main>
 
+		<header-offset class='block transition-all duration-300'>
+			<main>
+				{{ content_for_layout }}
+			</main>
+		</header-offset>
 		<script>
 			class MobileSlideMenu extends HTMLElement {
 				connectedCallback() {
