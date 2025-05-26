@@ -140,11 +140,11 @@
           "background": "#ffffff",
           "background_gradient": "",
           "text": "#121212",
-          "button": "#5e734a",
+          "button": "#1a202c",
           "button_label": "#ffffff",
           "secondary_button": "#e6eae0",
           "secondary_button_label": "#1a1a1a",
-          "shadow": "#5e734a"
+          "shadow": "#1a202c"
         }
       },
       "scheme-2": {
