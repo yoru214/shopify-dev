@@ -1,0 +1,31 @@
+name: CI
+
+on: [push]
+
+jobs:
+  # 🔕 Lighthouse audit (commented out until configured properly)
+  # lhci:
+  #   name: Lighthouse
+  #   runs-on: ubuntu-latest
+  #   steps:
+  #     - uses: actions/checkout@v4
+  #     - name: Lighthouse
+  #       uses: shopify/lighthouse-ci-action@v1
+  #       with:
+  #         store: ez-development-store.myshopify.com
+  #         access_token: ${{ secrets.SHOP_ACCESS_TOKEN }}
+  #         collection_handle: all
+  #         lhci_github_app_token: ${{ secrets.LHCI_GITHUB_TOKEN }}
+  #         pull_theme: ${{ secrets.SHOP_PULL_THEME }}
+
+  theme-check:
+    name: Theme Check
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Install Shopify CLI
+        run: npm install -g @shopify/cli @shopify/theme
+
+      - name: Run Theme Check
+        run: npx theme-check --fail-level error
