@@ -9,18 +9,55 @@
  */
 {
   "sections": {
-    "full-banner": {
-      "type": "full-banner",
-      "settings": {
-        "background_image": "shopify://shop_images/sunset-1645103_1280.jpg",
-        "overlay_color": "#000000",
-        "overlay_opacity": 40,
-        "heading": "Welcome to Our Store",
-        "subheading": "Explore our latest collections and exclusive deals.",
-        "button_label": "Shop Now",
-        "button_link": "",
-        "overlay_enabled": true
-      }
+    "main-hero": {
+      "type": "main-hero",
+      "blocks": {
+        "slide_kWcfpL": {
+          "type": "slide",
+          "settings": {
+            "image": "shopify://shop_images/under_armour.png"
+          }
+        },
+        "slide_F34jJe": {
+          "type": "slide",
+          "settings": {
+            "image": "shopify://shop_images/adidas.png"
+          }
+        },
+        "slide_hbPzAn": {
+          "type": "slide",
+          "settings": {
+            "image": "shopify://shop_images/puma.png"
+          }
+        },
+        "slide_f7HfBQ": {
+          "type": "slide",
+          "settings": {
+            "image": "shopify://shop_images/nike.png"
+          }
+        },
+        "slide_hedjQa": {
+          "type": "slide",
+          "settings": {
+            "image": "shopify://shop_images/new_balance.png"
+          }
+        },
+        "slide_WQDMaM": {
+          "type": "slide",
+          "settings": {
+            "image": "shopify://shop_images/asics.png"
+          }
+        }
+      },
+      "block_order": [
+        "slide_kWcfpL",
+        "slide_F34jJe",
+        "slide_hbPzAn",
+        "slide_f7HfBQ",
+        "slide_hedjQa",
+        "slide_WQDMaM"
+      ],
+      "settings": {}
     },
     "featured-collections": {
       "type": "featured-collections",
@@ -28,25 +65,43 @@
         "collection_zGqwRE": {
           "type": "collection",
           "settings": {
-            "collection": "nike"
+            "collection": "adidas",
+            "collection_icon": "shopify://shop_images/adidas.svg"
           }
         },
         "collection_qaeD4X": {
           "type": "collection",
           "settings": {
-            "collection": "adidas"
+            "collection": "asics",
+            "collection_icon": "shopify://shop_images/asics.svg"
           }
         },
         "collection_4XeMYk": {
           "type": "collection",
           "settings": {
-            "collection": "puma"
+            "collection": "nike",
+            "collection_icon": "shopify://shop_images/nike-4-logo-svg-vector.svg"
           }
         },
         "collection_zaJn4r": {
           "type": "collection",
           "settings": {
-            "collection": "under-armour"
+            "collection": "puma",
+            "collection_icon": "shopify://shop_images/puma-logo-logo.svg"
+          }
+        },
+        "collection_YRQ9XF": {
+          "type": "collection",
+          "settings": {
+            "collection": "new-balance",
+            "collection_icon": "shopify://shop_images/new-balance.svg"
+          }
+        },
+        "collection_jzkXrD": {
+          "type": "collection",
+          "settings": {
+            "collection": "under-armour",
+            "collection_icon": "shopify://shop_images/under-armour.svg"
           }
         }
       },
@@ -54,13 +109,36 @@
         "collection_zGqwRE",
         "collection_qaeD4X",
         "collection_4XeMYk",
-        "collection_zaJn4r"
+        "collection_zaJn4r",
+        "collection_YRQ9XF",
+        "collection_jzkXrD"
       ],
-      "settings": {}
+      "settings": {
+        "title": "Our Brands"
+      }
+    },
+    "featured-collection": {
+      "type": "featured-collection",
+      "settings": {
+        "title": "Featured",
+        "custom_collection": "featured-products",
+        "number_of_products_by_page": 8,
+        "color_scheme": ""
+      }
+    },
+    "contact-form": {
+      "type": "contact-form",
+      "settings": {
+        "bg_color": "#1a202c",
+        "heading": "Get in Touch",
+        "subheading": "We’d love to hear from you. Send us a message using the form below."
+      }
     }
   },
   "order": [
-    "full-banner",
-    "featured-collections"
+    "main-hero",
+    "featured-collections",
+    "featured-collection",
+    "contact-form"
   ]
 }
