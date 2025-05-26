@@ -1,0 +1,63 @@
+<section class='container mx-auto px-4 py-8 color-{{ section.settings.color_scheme }}'>
+	<h1 class='text-3xl font-bold mb-4 text-primary text-center py-10'>{{ section.settings.title }}</h1>
+	{% assign selected_collection = collections[section.settings.custom_collection] %}
+
+	{% if selected_collection
+		and selected_collection.products_count != blank
+		and selected_collection.products_count > 0
+	%}
+		{% paginate selected_collection.products by section.settings.number_of_products_by_page %}
+			<div class='grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6'>
+				{% for product in selected_collection.products %}
+					{% render 'product-card', product: product %}
+				{% endfor %}
+			</div>
+
+			<div class='mt-10'>
+				{% render 'pagination', pagination: paginate %}
+			</div>
+		{% endpaginate %}
+	{% elsif selected_collection %}
+		<p class='text-subdued text-center m-25'>No products found in this collection.</p>
+	{% else %}
+		<p class='text-subdued text-center'>No collection selected.</p>
+	{% endif %}
+</section>
+{% schema %}
+{
+	"name": "Collection",
+	"settings": [
+		{
+			"type": "text",
+			"id": "title",
+			"label": "Title",
+			"default": "Collection Name"
+		},
+		{
+			"type": "collection",
+			"id": "custom_collection",
+			"label": "Select collection"
+		},
+		{
+			"type": "range",
+			"id": "number_of_products_by_page",
+			"label": "Number of products by name",
+			"default": 8,
+			"min": 6,
+			"max": 24,
+			"step": 2
+		},
+		{
+			"type": "color_scheme",
+			"id": "color_scheme",
+			"label": "Color scheme",
+			"default": "scheme-1"
+		}
+	],
+	"presets": [
+		{
+			"name": "Collection Page"
+		}
+	]
+}
+{% endschema %}
