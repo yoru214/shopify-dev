@@ -12,9 +12,18 @@
     "main": {
       "type": "theme-list-collections",
       "settings": {}
+    },
+    "contact-form": {
+      "type": "contact-form",
+      "settings": {
+        "bg_color": "#1a202c",
+        "heading": "Get in Touch",
+        "subheading": "We’d love to hear from you. Send us a message using the form below."
+      }
     }
   },
   "order": [
-    "main"
+    "main",
+	"contact-form"
   ]
 }
