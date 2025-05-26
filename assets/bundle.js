@@ -415,6 +415,16 @@ eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var swip
 
 /***/ }),
 
+/***/ "./src/components/shopifySearchToggle.js":
+/*!***********************************************!*\
+  !*** ./src/components/shopifySearchToggle.js ***!
+  \***********************************************/
+/***/ (() => {
+
+eval("class ShopifySearchToggle extends HTMLElement {\r\n\tconnectedCallback() {\r\n\t\tconst openBtn = this.querySelector('#open');\r\n\t\tconst closeBtn = this.querySelector('#close-button');\r\n\t\tconst searchBtn = this.querySelector('#search-button');\r\n\t\tconst overlay = this.querySelector('#overlay');\r\n\t\tconst input = this.querySelector('input');\r\n\t\tconst header = document.getElementById('site-header');\r\n\r\n\t\tconst openOverlay = () => {\r\n\t\t\tif (header && overlay) {\r\n\t\t\t\toverlay.style.height = `${header.offsetHeight}px`;\r\n\t\t\t}\r\n\r\n\t\t\toverlay.classList.add(\r\n\t\t\t\t'opacity-100',\r\n\t\t\t\t'translate-y-0',\r\n\t\t\t\t'pointer-events-auto',\r\n\t\t\t);\r\n\t\t\toverlay.classList.remove(\r\n\t\t\t\t'opacity-0',\r\n\t\t\t\t'-translate-y-2',\r\n\t\t\t\t'pointer-events-none',\r\n\t\t\t);\r\n\t\t\tinput?.focus();\r\n\t\t};\r\n\r\n\t\tconst closeOverlay = () => {\r\n\t\t\toverlay.classList.add(\r\n\t\t\t\t'opacity-0',\r\n\t\t\t\t'-translate-y-2',\r\n\t\t\t\t'pointer-events-none',\r\n\t\t\t);\r\n\t\t\toverlay.classList.remove(\r\n\t\t\t\t'opacity-100',\r\n\t\t\t\t'translate-y-0',\r\n\t\t\t\t'pointer-events-auto',\r\n\t\t\t);\r\n\t\t};\r\n\r\n\t\topenBtn?.addEventListener('click', (e) => {\r\n\t\t\te.stopPropagation();\r\n\t\t\topenOverlay();\r\n\t\t});\r\n\r\n\t\tcloseBtn?.addEventListener('click', (e) => {\r\n\t\t\te.stopPropagation();\r\n\t\t\tcloseOverlay();\r\n\t\t});\r\n\r\n\t\tsearchBtn?.addEventListener('click', () => {\r\n\t\t\tif (input?.value.trim()) {\r\n\t\t\t\twindow.location.href = `/search?q=${encodeURIComponent(input.value)}`;\r\n\t\t\t}\r\n\t\t});\r\n\r\n\t\tinput?.addEventListener('keydown', (e) => {\r\n\t\t\tif (e.key === 'Escape') closeOverlay();\r\n\t\t\tif (e.key === 'Enter') {\r\n\t\t\t\twindow.location.href = `/search?q=${encodeURIComponent(input.value)}`;\r\n\t\t\t}\r\n\t\t});\r\n\r\n\t\tdocument.addEventListener('click', (e) => {\r\n\t\t\tif (!this.contains(e.target)) {\r\n\t\t\t\tcloseOverlay();\r\n\t\t\t}\r\n\t\t});\r\n\t}\r\n}\r\n\r\ncustomElements.define('shopify-search-toggle', ShopifySearchToggle);\r\n\n\n//# sourceURL=webpack://shopify-dev/./src/components/shopifySearchToggle.js?");
+
+/***/ }),
+
 /***/ "./src/index.js":
 /*!**********************!*\
   !*** ./src/index.js ***!
@@ -422,7 +432,7 @@ eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var swip
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
-eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var _components_headerOffset_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./components/headerOffset.js */ \"./src/components/headerOffset.js\");\n/* harmony import */ var _components_headerOffset_js__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_components_headerOffset_js__WEBPACK_IMPORTED_MODULE_0__);\n/* harmony import */ var _components_heroSwiper_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./components/heroSwiper.js */ \"./src/components/heroSwiper.js\");\n/* harmony import */ var _components_media_viewer_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./components/media-viewer.js */ \"./src/components/media-viewer.js\");\n\r\n\r\n\r\n\n\n//# sourceURL=webpack://shopify-dev/./src/index.js?");
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var _components_headerOffset_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./components/headerOffset.js */ \"./src/components/headerOffset.js\");\n/* harmony import */ var _components_headerOffset_js__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(_components_headerOffset_js__WEBPACK_IMPORTED_MODULE_0__);\n/* harmony import */ var _components_shopifySearchToggle_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./components/shopifySearchToggle.js */ \"./src/components/shopifySearchToggle.js\");\n/* harmony import */ var _components_shopifySearchToggle_js__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_components_shopifySearchToggle_js__WEBPACK_IMPORTED_MODULE_1__);\n/* harmony import */ var _components_heroSwiper_js__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./components/heroSwiper.js */ \"./src/components/heroSwiper.js\");\n/* harmony import */ var _components_media_viewer_js__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./components/media-viewer.js */ \"./src/components/media-viewer.js\");\n\r\n\r\n\r\n\r\n\n\n//# sourceURL=webpack://shopify-dev/./src/index.js?");
 
 /***/ })
 
