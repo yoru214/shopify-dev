@@ -47,14 +47,15 @@
 						class='w-full border border-gray-300 rounded px-4 py-2 focus:outline-none focus:ring focus:border-blue-300'
 					></textarea>
 				</div>
+				{% comment %}
+					{% if form.errors %}
+						<div class='text-red-600'>{{ form.errors | default_errors }}</div>
+					{% endif %}
 
-				{% if form.errors %}
-					<div class='text-red-600'>{{ form.errors | default_errors }}</div>
-				{% endif %}
-
-				{% if form.posted_successfully? %}
-					<div class='text-green-600'>Thank you for contacting us. We'll get back to you soon.</div>
-				{% endif %}
+					{% if form.posted_successfully? %}
+						<div class='text-green-600'>Thank you for contacting us. We'll get back to you soon.</div>
+					{% endif %}
+				{% endcomment %}
 
 				<div>
 					<button
