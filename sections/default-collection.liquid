@@ -7,47 +7,108 @@
 		</div>
 	{% endif %}
 
-	{% if collection.products_count > 0 %}
-		{% paginate collection.products by section.settings.number_of_products_by_page %}
-			<div class='grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6'>
-				{% for product in collection.products %}
-					{% render 'product-card', product: product %}
-				{% endfor %}
-			</div>
+	<div class='grid grid-cols-1 md:grid-cols-4 gap-8'>
+		<!-- Sidebar -->
+		<aside class='md:col-span-1 space-y-6'>
+			<form method='get' id='collection-filter-form' class='space-y-4'>
+				<!-- Search -->
+				<div>
+					<label class='block text-sm font-medium mb-1'>Search</label>
+					<input
+						type='text'
+						name='q'
+						value='{{ search.terms }}'
+						class='w-full border border-gray-300 rounded px-3 py-2'
+						placeholder='Search within collection'
+					>
+				</div>
 
-			<!-- Pagination component -->
-			<div class='mt-10'>
-				{% render 'pagination', pagination: paginate %}
-			</div>
-		{% endpaginate %}
-	{% else %}
-		<p class='text-subdued'>No products found in this collection.</p>
-	{% endif %}
+				<!-- Color Filter -->
+				<div>
+					<label class='block text-sm font-medium mb-1'>Color</label>
+					<select name='color' class='w-full border border-gray-300 rounded px-3 py-2'>
+						<option value=''>All</option>
+						{% assign color_options = '' %}
+						{% for product in collection.products %}
+							{% for variant in product.variants %}
+								{% if variant.option1 contains 'Color' or variant.title contains 'Color' %}
+									{% unless color_options contains variant.option1 %}
+										{% assign color_options = color_options
+											| append: variant.option1
+											| append: ','
+										%}
+										<option value='{{ variant.option1 | downcase }}'>{{ variant.option1 }}</option>
+									{% endunless %}
+								{% endif %}
+							{% endfor %}
+						{% endfor %}
+					</select>
+				</div>
+
+				<!-- Size Filter -->
+				<div>
+					<label class='block text-sm font-medium mb-1'>Size</label>
+					<select name='size' class='w-full border border-gray-300 rounded px-3 py-2'>
+						<option value=''>All</option>
+						{% assign size_options = '' %}
+						{% for product in collection.products %}
+							{% for variant in product.variants %}
+								{% if variant.option2 contains 'Size' or variant.title contains 'Size' %}
+									{% unless size_options contains variant.option2 %}
+										{% assign size_options = size_options | append: variant.option2 | append: ',' %}
+										<option value='{{ variant.option2 | downcase }}'>{{ variant.option2 }}</option>
+									{% endunless %}
+								{% endif %}
+							{% endfor %}
+						{% endfor %}
+					</select>
+				</div>
+
+				<!-- Gender Filter -->
+				<div>
+					<label class='block text-sm font-medium mb-1'>Gender</label>
+					<select name='gender' class='w-full border border-gray-300 rounded px-3 py-2'>
+						<option value=''>All</option>
+						<option value='Men'>Men</option>
+						<option value='Women'>Women</option>
+						<option value='Unisex'>Unisex</option>
+					</select>
+				</div>
+
+				<!-- Price Range (slider handled via JS) -->
+				<div>
+					<label class='block text-sm font-medium mb-1'>Price Range</label>
+					<input type='range' min='0' max='5000' step='50' value='0' class='w-full' id='price-range'>
+					<div class='text-sm mt-1'>Up to <span id='price-value'>$5000</span></div>
+				</div>
+
+				<!-- Submit -->
+				<button
+					type='submit'
+					class='w-full bg-[var(--color-button)] text-[var(--color-button-label)] px-4 py-2 rounded'
+				>
+					Filter
+				</button>
+			</form>
+		</aside>
+
+		<!-- Product Grid -->
+		<div class='md:col-span-3'>
+			{% if collection.products_count > 0 %}
+				{% paginate collection.products by section.settings.number_of_products_by_page %}
+					<div class='grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6'>
+						{% for product in collection.products %}
+							{% render 'product-card', product: product %}
+						{% endfor %}
+					</div>
+
+					<div class='mt-10'>
+						{% render 'pagination', pagination: paginate %}
+					</div>
+				{% endpaginate %}
+			{% else %}
+				<p class='text-subdued'>No products found in this collection.</p>
+			{% endif %}
+		</div>
+	</div>
 </section>
-{% schema %}
-{
-	"name": "Collection Page Section",
-	"settings": [
-		{
-			"type": "range",
-			"id": "number_of_products_by_page",
-			"label": "Number of products by name",
-			"default": 8,
-			"min": 6,
-			"max": 24,
-			"step": 2
-		},
-		{
-			"type": "color_scheme",
-			"id": "color_scheme",
-			"label": "Color scheme",
-			"default": "scheme-1"
-		}
-	],
-	"presets": [
-		{
-			"name": "Collection Page"
-		}
-	]
-}
-{% endschema %}
