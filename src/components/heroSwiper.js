@@ -9,7 +9,7 @@ class HeroSlider extends HTMLElement {
 
 		requestAnimationFrame(() => {
 			if (this.initialize()) {
-				this.loadEvents();
+				this.bindEvents();
 			}
 		});
 	}
@@ -43,7 +43,7 @@ class HeroSlider extends HTMLElement {
 		return true;
 	}
 
-	loadEvents() {
+	bindEvents() {
 		if (!this.mainSwiper) return;
 
 		this.mainSwiper.on(
