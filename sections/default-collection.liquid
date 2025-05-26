@@ -83,9 +83,11 @@
 				>
 					Apply Filters
 				</button>
-				<pre class='text-xs text-gray-500'>
-  {{ collection.filters | json }}
-</pre>
+				<ul class='text-sm text-gray-500 space-y-1'>
+					{% for filter in collection.filters %}
+						<li>{{ filter.label }} — {{ filter.type }}</li>
+					{% endfor %}
+				</ul>
 			</form>
 		</aside>
 
