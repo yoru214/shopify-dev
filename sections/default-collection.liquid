@@ -24,84 +24,61 @@
 				</div>
 			{% endif %}
 
-			<form method='get' id='collection-filter-form' class='space-y-4'>
-				<!-- Search -->
-				<div>
-					<label class='block text-sm font-medium mb-1'>Search</label>
-					<input
-						type='text'
-						name='q'
-						value='{{ search.terms }}'
-						class='w-full border border-gray-300 rounded px-3 py-2'
-						placeholder='Search within collection'
-					>
-				</div>
+			<form method='get' id='collection-filters' class='space-y-6'>
+				{% for filter in collection.filters %}
+					<fieldset class='border-b pb-4'>
+						<legend class='font-semibold mb-2 block text-gray-800'>
+							{{ filter.label }}
+						</legend>
 
-				<!-- Color Filter -->
-				<div>
-					<label class='block text-sm font-medium mb-1'>Color</label>
-					<select name='color' class='w-full border border-gray-300 rounded px-3 py-2'>
-						<option value=''>All</option>
-						{% assign color_options = '' %}
-						{% for product in collection.products %}
-							{% for variant in product.variants %}
-								{% if variant.option1 contains 'Color' or variant.title contains 'Color' %}
-									{% unless color_options contains variant.option1 %}
-										{% assign color_options = color_options
-											| append: variant.option1
-											| append: ','
-										%}
-										<option value='{{ variant.option1 | downcase }}'>{{ variant.option1 }}</option>
-									{% endunless %}
-								{% endif %}
+						{% if filter.type == 'list' %}
+							{% for value in filter.values %}
+								<label class='flex items-center space-x-2 mb-1'>
+									<input
+										type='checkbox'
+										name='{{ filter.param_name }}'
+										value='{{ value.value }}'
+										{% if value.active %}
+											checked
+										{% endif %}
+										{% if value.count == 0 and value.active == false %}
+											disabled
+										{% endif %}
+										class='border-gray-300'
+									>
+									<span>{{ value.label }} ({{ value.count }})</span>
+								</label>
 							{% endfor %}
-						{% endfor %}
-					</select>
-				</div>
+						{% elsif filter.type == 'price_range' %}
+							<div class='flex items-center space-x-2'>
+								<label>From</label>
+								<input
+									type='number'
+									name='{{ filter.min_value.param_name }}'
+									value='{{ filter.min_value.value }}'
+									min='{{ filter.min_value.min }}'
+									max='{{ filter.min_value.max }}'
+									class='w-20 border px-2 py-1 rounded'
+								>
+								<label>To</label>
+								<input
+									type='number'
+									name='{{ filter.max_value.param_name }}'
+									value='{{ filter.max_value.value }}'
+									min='{{ filter.max_value.min }}'
+									max='{{ filter.max_value.max }}'
+									class='w-20 border px-2 py-1 rounded'
+								>
+							</div>
+						{% endif %}
+					</fieldset>
+				{% endfor %}
 
-				<!-- Size Filter -->
-				<div>
-					<label class='block text-sm font-medium mb-1'>Size</label>
-					<select name='size' class='w-full border border-gray-300 rounded px-3 py-2'>
-						<option value=''>All</option>
-						{% assign size_options = '' %}
-						{% for product in collection.products %}
-							{% for variant in product.variants %}
-								{% if variant.option2 contains 'Size' or variant.title contains 'Size' %}
-									{% unless size_options contains variant.option2 %}
-										{% assign size_options = size_options | append: variant.option2 | append: ',' %}
-										<option value='{{ variant.option2 | downcase }}'>{{ variant.option2 }}</option>
-									{% endunless %}
-								{% endif %}
-							{% endfor %}
-						{% endfor %}
-					</select>
-				</div>
-
-				<!-- Gender Filter -->
-				<div>
-					<label class='block text-sm font-medium mb-1'>Gender</label>
-					<select name='gender' class='w-full border border-gray-300 rounded px-3 py-2'>
-						<option value=''>All</option>
-						<option value='Men'>Men</option>
-						<option value='Women'>Women</option>
-						<option value='Unisex'>Unisex</option>
-					</select>
-				</div>
-
-				<!-- Price Range -->
-				<div>
-					<label class='block text-sm font-medium mb-1'>Price Range</label>
-					<input type='range' min='0' max='5000' step='50' value='0' class='w-full' id='price-range'>
-					<div class='text-sm mt-1'>Up to <span id='price-value'>$5000</span></div>
-				</div>
-
-				<!-- Submit -->
 				<button
 					type='submit'
-					class='w-full bg-[var(--color-button)] text-[var(--color-button-label)] px-4 py-2 rounded'
+					class='w-full bg-[var(--color-button)] text-[var(--color-button-label)] px-4 py-2 rounded mt-4'
 				>
-					Filter
+					Apply Filters
 				</button>
 			</form>
 		</aside>
@@ -110,7 +87,7 @@
 		<div class='md:col-span-3'>
 			{% if collection.products_count > 0 %}
 				{% paginate collection.products by section.settings.number_of_products_by_page %}
-					<div class='grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6'>
+					<div class='grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-6'>
 						{% for product in collection.products %}
 							{% render 'product-card', product: product %}
 						{% endfor %}
