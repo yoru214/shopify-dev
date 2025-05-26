@@ -1,0 +1,179 @@
+<section class='container mx-auto px-4 py-8 color-{{ section.settings.color_scheme }}'>
+	{% if search.results_count > 0 %}
+		<!-- ✅ RESULTS MODE -->
+		<h2 class='text-center text-xl font-semibold mb-2'>
+			{{ search.results_count }} result{% if search.results_count != 1 %}s{% endif %} found
+		</h2>
+
+		<!-- Search bar -->
+		<form method='get' action='/search' class='flex justify-center mb-6 gap-2'>
+			<input
+				type='text'
+				name='q'
+				value='{{ search.terms | escape }}'
+				placeholder='Search for products...'
+				class='w-full max-w-md border border-gray-300 rounded px-4 py-2 focus:outline-none'
+			>
+			<button
+				type='submit'
+				class='px-4 py-2 rounded bg-[var(--color-button)] text-[var(--color-button-label)] hover:opacity-90 transition'
+			>
+				Search
+			</button>
+		</form>
+
+		<div class='grid grid-cols-1 md:grid-cols-4 gap-8'>
+			<!-- Sidebar Filters -->
+			<aside class='md:col-span-1 space-y-6'>
+				{% if search.filters == empty %}
+					<div class='bg-yellow-100 border border-yellow-300 text-yellow-800 text-sm rounded p-4 mb-4'>
+						⚠️ <strong>Filters are not active</strong><br>
+						To enable faceted filtering, please install and configure the
+						<a
+							href='https://apps.shopify.com/search-and-discovery'
+							class='underline font-medium'
+							target='_blank'
+						>
+							Shopify Search & Discovery
+						</a>
+						app.
+					</div>
+				{% endif %}
+
+				<form method='get' class='space-y-6'>
+					<input type='hidden' name='q' value='{{ search.terms }}'>
+					{% for filter in search.filters %}
+						<div class='border-b pb-4'>
+							<label class='block font-semibold text-sm mb-2'>
+								{{ filter.label }}
+							</label>
+
+							{% case filter.type %}
+								{% when 'list' %}
+									{% for value in filter.values %}
+										<label class='flex items-center gap-2 text-sm mb-1'>
+											<input
+												type='checkbox'
+												name='{{ filter.param_name }}'
+												value='{{ value.value }}'
+												{% if value.active %}
+													checked
+												{% endif %}
+												{% if value.count == 0 and value.active == false %}
+													disabled
+												{% endif %}
+											>
+											<span>
+												{{ value.label }}
+												{% unless value.count == 0 %}({{ value.count }}){% endunless %}
+											</span>
+										</label>
+									{% endfor %}
+
+								{% when 'price_range' %}
+									<div class='flex items-center gap-2 text-sm'>
+										<input
+											type='number'
+											name='{{ filter.min_value.param_name }}'
+											value='{{ filter.min_value.value | default: filter.min_value.min }}'
+											min='{{ filter.min_value.min }}'
+											max='{{ filter.min_value.max }}'
+											class='w-20 border px-2 py-1 rounded'
+											placeholder='Min'
+										>
+										<span>to</span>
+										<input
+											type='number'
+											name='{{ filter.max_value.param_name }}'
+											value='{{ filter.max_value.value | default: filter.max_value.max }}'
+											min='{{ filter.max_value.min }}'
+											max='{{ filter.max_value.max }}'
+											class='w-20 border px-2 py-1 rounded'
+											placeholder='Max'
+										>
+									</div>
+							{% endcase %}
+						</div>
+					{% endfor %}
+					<button
+						type='submit'
+						class='w-full bg-[var(--color-button)] text-[var(--color-button-label)] px-4 py-2 rounded'
+					>
+						Apply Filters
+					</button>
+				</form>
+			</aside>
+
+			<!-- Product Grid -->
+			<div class='md:col-span-3'>
+				{% paginate search.results by 12 %}
+					<div class='grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-6'>
+						{% for item in search.results %}
+							{% if item.object_type == 'product' %}
+								{% render 'product-card', product: item %}
+							{% endif %}
+						{% endfor %}
+					</div>
+
+					<div class='mt-10'>
+						{% render 'pagination', pagination: paginate %}
+					</div>
+				{% endpaginate %}
+			</div>
+		</div>
+
+	{% else %}
+		<!-- ❌ NO RESULTS MODE -->
+		<div class='flex flex-col items-center text-center max-w-xl mx-auto'>
+			<h2 class='text-xl font-semibold mb-4'>No results found</h2>
+
+			<form method='get' action='/search' class='flex w-full max-w-md mb-4 gap-2'>
+				<input
+					type='text'
+					name='q'
+					value='{{ search.terms | escape }}'
+					placeholder='Try another search term'
+					class='flex-grow border border-gray-300 rounded px-4 py-2 focus:outline-none'
+				>
+				<button
+					type='submit'
+					class='px-4 py-2 rounded bg-[var(--color-button)] text-[var(--color-button-label)] hover:opacity-90 transition'
+				>
+					Search
+				</button>
+			</form>
+
+			<p class='text-subdued text-sm'>
+				No products matched your search for <strong>{{ search.terms }}</strong>.
+			</p>
+		</div>
+	{% endif %}
+</section>
+
+{% schema %}
+{
+	"name": "Search Section",
+	"settings": [
+		{
+			"type": "range",
+			"id": "number_of_products_by_page",
+			"label": "Number of products by name",
+			"default": 8,
+			"min": 4,
+			"max": 24,
+			"step": 2
+		},
+		{
+			"type": "color_scheme",
+			"id": "color_scheme",
+			"label": "Color scheme",
+			"default": "scheme-1"
+		}
+	],
+	"presets": [
+		{
+			"name": "Search Results"
+		}
+	]
+}
+{% endschema %}
