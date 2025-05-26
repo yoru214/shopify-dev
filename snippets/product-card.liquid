@@ -12,12 +12,6 @@
 				>
 			{% else %}
 				{% if settings.logo %}
-					{% assign fallback_image = settings.logo %}
-				{% else %}
-					{% assign fallback_image = 'logo.png' %}
-				{% endif %}
-
-				{% if settings.logo %}
 					<img
 						src='{{ settings.logo | image_url: width: 600 }}'
 						alt='Fallback image for {{ product.title }}'
