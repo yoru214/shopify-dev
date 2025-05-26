@@ -160,7 +160,7 @@
 											<span class='block text-sm font-semibold mb-2'>{{ option.name }}</span>
 											<div class='grid grid-cols-4 sm:grid-cols-6 gap-2'>
 												{% for value in option.values %}
-													<label class='cursor-pointer'>
+													<label class='cursor-pointer block'>
 														<input
 															type='radio'
 															name='options[{{ option.name }}]'
@@ -170,9 +170,15 @@
 																checked
 															{% endif %}
 														>
-														<span class='px-4 py-2 rounded bg-[var(--color-button)] text-[var(--color-button-label)] text-sm hover:opacity-90 transition text-center block'>
-															{{ value }}
-														</span>
+														{% if option.name == 'Color' %}
+															<span class='h-10 flex items-center justify-center px-4 rounded bg-[var(--color-button)] text-[var(--color-button-label)] text-sm hover:opacity-90 transition text-center'>
+																{{ value }}
+															</span>
+														{% else %}
+															<span class='px-4 py-2 rounded bg-[var(--color-button)] text-[var(--color-button-label)] text-sm hover:opacity-90 transition text-center block'>
+																{{ value }}
+															</span>
+														{% endif %}
 													</label>
 												{% endfor %}
 											</div>
