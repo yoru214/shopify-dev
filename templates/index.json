@@ -49,10 +49,22 @@
         "collection_zaJn4r"
       ],
       "settings": {}
-    }
+    },
+    "featured-collection": {
+      "type": "featured-collection",
+      "settings": {
+      }
+    },
+    "contact-form": {
+      "type": "contact-form",
+      "settings": {
+      }
+    },
   },
   "order": [
     "main-hero",
-    "featured-collections"
+    "featured-collections",
+    "featured-collection",
+	"contact-form"
   ]
 }
