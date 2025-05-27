@@ -137,11 +137,9 @@
 								<h1 class='text-3xl font-bold text-primary mb-2'>{{ product.title }}</h1>
 							</div>
 							<div class='my-3'>
-								{% if product.selected_or_first_available_variant.compare_at_price > 0 %}
-									<span id='compareAtPrice' class='text-xl text-secondary mb-4 line-through'>
-										{{ product.selected_or_first_available_variant.compare_at_price | money }}
-									</span>
-								{% endif %}
+								<span id='compareAtPrice' class='text-xl text-secondary mb-4 line-through'>
+									{{ product.selected_or_first_available_variant.compare_at_price | money }}
+								</span>
 								<span id='regularPrice' class='text-xl text-secondary font-bold mb-4'>
 									{{ product.selected_or_first_available_variant.price | money }}
 								</span>
