@@ -1,0 +1,27 @@
+<div class='color-{{ settings.color_scheme | default: 'scheme-1' }}'>
+	<toast-notification>
+		<div
+			id='toast'
+			class='hidden fixed top-4 left-1/2 transform -translate-x-1/2 z-50 w-full max-w-5xl px-4'
+			style='background-color: var(--color-button); color: var(--color-button-label);'
+		>
+			<div
+				id='toast-message'
+				class='px-8 py-5 rounded shadow-md text-base font-medium whitespace-nowrap'
+			>
+				Toast goes here
+			</div>
+		</div>
+	</toast-notification>
+</div>
+{% schema %}
+{
+	"name": "Toast Notification",
+	"settings": [],
+	"presets": [
+		{
+			"name": "Toast Notification"
+		}
+	]
+}
+{% endschema %}
