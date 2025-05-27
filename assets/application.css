@@ -667,9 +667,6 @@
   .bg-red-500 {
     background-color: var(--color-red-500);
   }
-  .bg-transparent {
-    background-color: transparent;
-  }
   .bg-white {
     background-color: var(--color-white);
   }
@@ -833,9 +830,6 @@
   }
   .text-green-600 {
     color: var(--color-green-600);
-  }
-  .text-inherit {
-    color: inherit;
   }
   .text-red-500 {
     color: var(--color-red-500);
