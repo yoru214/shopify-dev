@@ -1,0 +1,125 @@
+<product-info
+	data-variants='{{ product.variants | json | escape }}'
+	id='product-info'
+	class='flex flex-col h-full'
+>
+	{% form 'product', product, id: 'product-form' %}
+		<div class='flex flex-col justify-between h-full'>
+			<div>
+				<div class='my-3'>
+					<span class='text-xs text-gray-500'>{{ product.vendor }}</span>
+				</div>
+				<div class='my-3'>
+					<h1 class='text-3xl font-bold text-primary mb-2'>{{ product.title }}</h1>
+				</div>
+				<div class='my-3'>
+					<span id='compareAtPrice' class='text-xl text-secondary mb-4 line-through'>
+						{{ product.selected_or_first_available_variant.compare_at_price | money }}
+					</span>
+					<span id='regularPrice' class='text-xl text-secondary font-bold mb-4'>
+						{{ product.selected_or_first_available_variant.price | money }}
+					</span>
+					{% if product.selected_or_first_available_variant.price
+							< product.selected_or_first_available_variant.compare_at_price
+					%}
+						<span
+							id='saleBadge'
+							class='px-5 py-1 text-sm font-bold bg-red-500 rounded-full text-white mx-4'
+						>
+							Sale
+						</span>
+					{% else %}
+						<span id='saleBadge' class='hidden'></span>
+					{% endif %}
+				</div>
+
+				<div class='my-3 space-y-4'>
+					{% unless product.has_only_default_variant %}
+						{% for option in product.options_with_values %}
+							<div class='mb-4'>
+								<span class='block text-sm font-semibold mb-2'>{{ option.name }}</span>
+								<div class='grid grid-cols-4 sm:grid-cols-6 gap-2'>
+									{% for value in option.values %}
+										{% assign is_checked = false %}
+										{% if forloop.first %}
+											{% assign is_checked = true %}
+										{% endif %}
+
+										<label class='cursor-pointer block'>
+											<input
+												type='radio'
+												name='options[{{ option.name }}]'
+												value='{{ value }}'
+												class='sr-only'
+												{% if forloop.first %}
+													checked
+												{% endif %}
+											>
+
+											{% assign is_checked = forloop.first %}
+											{% assign base_classes = 'text-sm hover:opacity-90 transition text-center border' %}
+
+											<span
+												class='
+													variant-button
+													{% if option.name == "Color" %}
+													  h-10 flex items-center justify-center px-4 rounded
+													{% else %}
+													  px-4 py-2 rounded block
+													{% endif %}
+													{{ base_classes }}
+												'
+												data-name='options[{{ option.name }}]'
+												data-value='{{ value }}'
+												data-selected='{{ is_checked }}'
+											>
+												{{ value }}
+											</span>
+										</label>
+									{% endfor %}
+								</div>
+							</div>
+						{% endfor %}
+					{% endunless %}
+				</div>
+
+				<input type='hidden' name='id' value='{{ product.selected_or_first_available_variant.id }}'>
+				<div class='my-4'>
+					<label for='quantity' class='block text-sm font-medium text-gray-700 mb-1'>Quantity</label>
+					<input
+						type='number'
+						id='quantity'
+						name='quantity'
+						value='1'
+						min='1'
+						class='w-20 px-3 py-2 rounded border border-gray-300 focus:ring focus:ring-blue-300 focus:outline-none text-center'
+					>
+				</div>
+			</div>
+
+			<div class='mt-auto space-y-3 pt-4'>
+				<div id='purchaseActions' class='flex flex-col space-y-3 py-3'>
+					<add-to-cart>
+						<button
+							type='submit'
+							class='w-full bg-[var(--color-button)] text-[var(--color-button-label)] font-semibold py-3 hover:bg-opacity-90 transition cursor-pointer'
+						>
+							Add to Cart
+						</button>
+					</add-to-cart>
+
+					<!-- Ensure payment button renders as a block element -->
+					<div class='w-full'>
+						{{ form | payment_button }}
+					</div>
+				</div>
+				<div
+					id='soldOutMessage'
+					class='h-[100px] flex items-center justify-center text-red-600 font-bold text-center bg-gray-100 rounded'
+				>
+					SOLD OUT
+				</div>
+			</div>
+		</div>
+	{% endform %}
+</product-info>
