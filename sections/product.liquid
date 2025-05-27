@@ -3,7 +3,7 @@
 		<div class='grid grid-cols-1 md:grid-cols-2 gap-8 items-stretch min-h-[450px]'>
 			{% if product.media.size > 0 %}
 				<!-- Media Viewer -->
-				<media-viewer>
+				<media-viewer product-info='product-info'>
 					<div class='swiper main-swiper w-full h-96  overflow-hidden'>
 						<div class='swiper-wrapper flex space-x-4 w-max'>
 							{% for media in product.media %}
@@ -71,7 +71,11 @@
 					<div class='swiper thumbs-swiper w-full h-24  overflow-hidden'>
 						<div class='swiper-wrapper  flex space-x-4 w-max'>
 							{% for media in product.media %}
-								<div class='swiper-slide w-24 h-24 flex-shrink-0  snap-start m-1 first:ml-0 mr-0 cursor-pointer'>
+								<div class='swiper-slide relative overflow-hidden w-24 h-24 flex-shrink-0 snap-start m-0 mt-1 first:ml-0 mr-0 cursor-pointer'>
+									<div
+										class='overlay absolute inset-0 bg-black/40 z-10 pointer-events-none hidden'
+									></div>
+
 									{% case media.media_type %}
 										{% when 'image' %}
 											<img
@@ -122,7 +126,11 @@
 			{% endif %}
 
 			<!-- Product Info + Form -->
-			<product-info data-variants='{{ product.variants | json | escape }}' class='flex flex-col h-full'>
+			<product-info
+				data-variants='{{ product.variants | json | escape }}'
+				id='product-info'
+				class='flex flex-col h-full'
+			>
 				{% form 'product', product %}
 					<div class='flex flex-col justify-between h-full'>
 						<div>
@@ -158,23 +166,41 @@
 									{% for option in product.options_with_values %}
 										<div class='mb-4'>
 											<span class='block text-sm font-semibold mb-2'>{{ option.name }}</span>
-											<div class='flex flex-wrap gap-2'>
+											<div class='grid grid-cols-4 sm:grid-cols-6 gap-2'>
 												{% for value in option.values %}
-													{% assign checked = false %}
+													{% assign is_checked = false %}
 													{% if forloop.first %}
-														{% assign checked = true %}
+														{% assign is_checked = true %}
 													{% endif %}
-													<label class='cursor-pointer'>
+
+													<label class='cursor-pointer block'>
 														<input
 															type='radio'
 															name='options[{{ option.name }}]'
 															value='{{ value }}'
 															class='sr-only'
-															{% if checked %}
+															{% if forloop.first %}
 																checked
 															{% endif %}
 														>
-														<span class='px-4 py-2 rounded bg-[var(--color-button)] text-[var(--color-button-label)] text-sm hover:opacity-90 transition'>
+
+														{% assign is_checked = forloop.first %}
+														{% assign base_classes = 'text-sm hover:opacity-90 transition text-center border' %}
+
+														<span
+															class='
+																variant-button
+																{% if option.name == "Color" %}
+																  h-10 flex items-center justify-center px-4 rounded
+																{% else %}
+																  px-4 py-2 rounded block
+																{% endif %}
+																{{ base_classes }}
+															'
+															data-name='options[{{ option.name }}]'
+															data-value='{{ value }}'
+															data-selected='{{ is_checked }}'
+														>
 															{{ value }}
 														</span>
 													</label>
