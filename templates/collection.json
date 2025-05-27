@@ -10,20 +10,11 @@
 {
   "sections": {
     "main": {
-      "type": "default-collection",
+      "type": "template-collection",
       "settings": {}
-    },
-    "contact-form": {
-      "type": "contact-form",
-      "settings": {
-        "bg_color": "#1a202c",
-        "heading": "Get in Touch",
-        "subheading": "We’d love to hear from you. Send us a message using the form below."
-      }
     }
   },
   "order": [
-    "main",
-	"contact-form"
+    "main"
   ]
 }

@@ -1,51 +1,46 @@
-<div class='bg-background overflow-hidden shadow hover:shadow-md transition'>
-	<a href='{{ product.url }}' class='block hover:bg-contrast/5'>
-		<div class='overflow-hidden'>
-			{% if product.featured_image %}
-				<img
-					src='{{ product.featured_image | image_url: width: 600 }}'
-					alt='{{ product.title }}'
-					width='600'
-					height='{{ 600 | divided_by: product.featured_image.aspect_ratio | round }}'
-					class='w-full h-60 object-cover transition duration-1000 ease-in-out transform hover:scale-110'
-					loading='lazy'
-				>
-			{% else %}
-				{% if settings.logo %}
-					<img
-						src='{{ settings.logo | image_url: width: 600 }}'
-						alt='Fallback image for {{ product.title }}'
-						width='600'
-						height='600'
-						class='w-full h-60 object-cover opacity-50 transition duration-1000 ease-in-out transform hover:scale-110'
-						loading='lazy'
-					>
-				{% else %}
-					<img
-						src='{{ 'logo.png' | asset_url }}'
-						alt='Fallback image for {{ product.title }}'
-						width='600'
-						height='600'
-						class='w-full h-60 object-cover opacity-50 transition duration-1000 ease-in-out transform hover:scale-110'
-						loading='lazy'
-					>
-				{% endif %}
-			{% endif %}
-		</div>
-	</a>
+<div class="bg-background overflow-hidden shadow hover:shadow-md transition">
+  <a href="{{ product.url }}" class="block hover:bg-contrast/5">
+    <div class="overflow-hidden">
+      {% if product.featured_image %}
+        <img
+          src="{{ product.featured_image | image_url: width: 600 }}"
+          alt="{{ product.title }}"
+          width="600"
+          height="{{ 600 | divided_by: product.featured_image.aspect_ratio | round }}"
+          class="w-full h-60 object-cover transition duration-1000 ease-in-out transform hover:scale-110"
+          loading="lazy"
+        >
+      {% else %}
+        {% if settings.logo %}
+          {% assign fallback_image = settings.logo %}
+        {% else %}
+          {% assign fallback_image = 'logo.png' %}
+        {% endif %}
 
-	<div class='p-4'>
-		<h2 class='text-lg font-semibold text-foreground'>{{ product.title }}</h2>
-		<p class='text-subdued'>{{ product.price | money }}</p>
+        <img
+          src="{{ fallback_image | asset_url }}"
+          alt="Placeholder for {{ product.title }}"
+          width="600"
+          height="600"
+          class="w-full h-60 object-cover opacity-50 transition duration-1000 ease-in-out transform hover:scale-110"
+          loading="lazy"
+        >
+      {% endif %}
+    </div>
+  </a>
 
-		<form method='post' action='/cart/add'>
-			<input type='hidden' name='id' value='{{ product.variants.first.id }}'>
-			<button
-				type='submit'
-				class='mt-4 w-full px-4 py-2 rounded bg-[var(--color-button)] text-[var(--color-button-label)] hover:opacity-90 transition'
-			>
-				Add to Cart
-			</button>
-		</form>
-	</div>
+  <div class="p-4">
+    <h2 class="text-lg font-semibold text-foreground">{{ product.title }}</h2>
+    <p class="text-subdued">{{ product.price | money }}</p>
+
+    <form method="post" action="/cart/add">
+      <input type="hidden" name="id" value="{{ product.variants.first.id }}">
+      <button
+        type="submit"
+        class="mt-4 w-full px-4 py-2 rounded bg-[var(--color-button)] text-[var(--color-button-label)] hover:opacity-90 transition"
+      >
+        Add to Cart
+      </button>
+    </form>
+  </div>
 </div>
