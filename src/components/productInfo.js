@@ -18,6 +18,7 @@ class ProductInfo extends HTMLElement {
 		this.buyNowBtn = this.querySelector('[name="button"]');
 		this.purchaseActions = this.querySelector('#purchaseActions');
 		this.soldOutMessage = this.querySelector('#soldOutMessage');
+		this.quantityInput = this.querySelector('#quantity');
 	}
 
 	bindEvents() {
@@ -39,6 +40,11 @@ class ProductInfo extends HTMLElement {
 		document.addEventListener(
 			'mediaViewerImageSelected',
 			this.onMediaViewerImageSelected.bind(this),
+		);
+
+		document.addEventListener(
+			'cart:item:added',
+			this.onCartItemAdded.bind(this),
 		);
 	}
 
@@ -86,6 +92,12 @@ class ProductInfo extends HTMLElement {
 				input.checked = false;
 			}
 		});
+	}
+
+	onCartItemAdded(e) {
+		if (this.quantityInput) {
+			this.quantityInput.value = 1;
+		}
 	}
 
 	formatMoney(cents) {
@@ -161,6 +173,17 @@ class ProductInfo extends HTMLElement {
 					detail: { color: matchedVariant.option1 },
 				}),
 			);
+		}
+		if (this.quantityInput) {
+			const max = matchedVariant.inventory_quantity ?? 999;
+			this.quantityInput.max = max;
+			this.quantityInput.min = 1;
+
+			// Clamp value to valid range
+			let qty = parseInt(this.quantityInput.value, 10);
+			if (isNaN(qty) || qty < 1) qty = 1;
+			if (qty > max) qty = max;
+			this.quantityInput.value = qty;
 		}
 	}
 }
