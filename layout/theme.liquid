@@ -74,7 +74,15 @@
 
 			customElements.define('mega-dropdown', MegaDropdown);
 		</script>
-		<toast-notification></toast-notification>
+		<toast-notification>
+			<div
+				id='toast'
+				class='hidden fixed top-4 left-1/2 transform -translate-x-1/2 z-50 max-w-sm w-auto px-4'
+				style='background-color: var(--color-button); color: var(--color-button-label);'
+			>
+				<div class='px-4 py-2 rounded shadow-md text-sm font-medium' id='toast-message'>This is a toast</div>
+			</div>
+		</toast-notification>
 
 		<script src='{{ 'bundle.js' | asset_url }}' defer></script>
 	</body>
