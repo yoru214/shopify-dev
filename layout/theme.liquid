@@ -6,7 +6,7 @@
 		{{ 'application.css' | asset_url | stylesheet_tag }}
 		{{ content_for_header }}
 	</head>
-	<body>
+	<body class='color-{{ settings.color_scheme }}'>
 		{% section 'header' %}
 
 		<header-offset class='block transition-all duration-300'>
@@ -76,5 +76,7 @@
 		</script>
 
 		<script src='{{ 'bundle.js' | asset_url }}' defer></script>
+
+		{% section 'toast-notification' %}
 	</body>
 </html>
