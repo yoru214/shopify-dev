@@ -175,24 +175,26 @@
 																checked
 															{% endif %}
 														>
-														{% assign is_checked = forloop.first %}
-														{% assign base_classes = 'text-sm hover:opacity-90 transition text-center' %}
 
-														{% if option.name == 'Color' %}
-															<span
-																data-selected='{{ is_checked }}'
-																class='h-10 flex items-center justify-center px-4 rounded border {{ base_classes }}'
-															>
-																{{ value }}
-															</span>
-														{% else %}
-															<span
-																data-selected='{{ is_checked }}'
-																class='px-4 py-2 rounded border block {{ base_classes }}'
-															>
-																{{ value }}
-															</span>
-														{% endif %}
+														{% assign is_checked = forloop.first %}
+														{% assign base_classes = 'text-sm hover:opacity-90 transition text-center border' %}
+
+														<span
+															class='
+																variant-button
+																{% if option.name == "Color" %}
+																  h-10 flex items-center justify-center px-4 rounded
+																{% else %}
+																  px-4 py-2 rounded block
+																{% endif %}
+																{{ base_classes }}
+															'
+															data-name='options[{{ option.name }}]'
+															data-value='{{ value }}'
+															data-selected='{{ is_checked }}'
+														>
+															{{ value }}
+														</span>
 													</label>
 												{% endfor %}
 											</div>
