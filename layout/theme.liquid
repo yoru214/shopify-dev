@@ -77,10 +77,15 @@
 		<toast-notification>
 			<div
 				id='toast'
-				class='hidden fixed top-4 left-1/2 transform -translate-x-1/2 z-50 max-w-xl w-full px-6'
+				class='hidden fixed top-4 left-1/2 transform -translate-x-1/2 z-50 max-w-sm w-auto px-6'
 				style='background-color: var(--color-button); color: var(--color-button-label);'
 			>
-				<div class='px-6 py-3 rounded shadow-md text-sm font-medium' id='toast-message'>This is a toast</div>
+				<div
+					id='toast-message'
+					class='px-6 py-4 rounded shadow-md text-sm font-medium'
+				>
+					This is a toast
+				</div>
 			</div>
 		</toast-notification>
 
