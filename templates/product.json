@@ -13,17 +13,18 @@
       "type": "product",
       "settings": {}
     },
-	"featured-collection": {
-		"type": "featured-collection",
-		"settings": {}
-	},
-	"contact-form": {
-		"type": "contact-form"
-	}
+    "featured-collection": {
+      "type": "featured-collection",
+      "settings": {}
+    },
+    "contact-form": {
+      "type": "contact-form",
+      "settings": {}
+    }
   },
   "order": [
     "main",
-	"featured-collection",
-	"contact-form"
+    "featured-collection",
+    "contact-form"
   ]
 }
