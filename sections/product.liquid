@@ -2,8 +2,6 @@
 	{% if product %}
 		<div class='grid grid-cols-1 md:grid-cols-2 gap-8 items-stretch min-h-[450px]'>
 			{% if product.media.size > 0 %}
-				<!-- Media Viewer -->
-
 				{% render 'product-media-viewer', product: product %}
 			{% else %}
 				<div class='flex-shrink-0 w-full h-96 snap-start m-0 cursor-pointer'>
