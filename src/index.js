@@ -1,4 +1,5 @@
 import './components/headerOffset.js';
 import './components/shopifySearchToggle.js';
 import './components/heroSwiper.js';
-import './components/media-viewer.js';
+import './components/mediaViewer.js';
+import './components/productInfo.js';
