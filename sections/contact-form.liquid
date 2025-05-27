@@ -5,8 +5,10 @@
 			<p class='mb-10'>{{ section.settings.subheading }}</p>
 
 			{% form 'contact', id: 'contact-form' %}
-				method='post' action='/contact#contact-form' id='contact-form' accept-charset='UTF-8' class='space-y-6
-				bg-white p-6 rounded-lg shadow-lg text-left text-gray-800' >
+				{% comment %}
+					method='post' action='/contact#contact-form' id='contact-form' accept-charset='UTF-8' class='space-y-6
+					bg-white p-6 rounded-lg shadow-lg text-left text-gray-800' >
+				{% endcomment %}
 				<input type='hidden' name='form_type' value='contact'>
 				<input type='hidden' name='utf8' value='✓'>
 
