@@ -10,11 +10,21 @@
 {
   "sections": {
     "main": {
-      "type": "template-product",
+      "type": "product",
+      "settings": {}
+    },
+    "featured-collection": {
+      "type": "featured-collection",
+      "settings": {}
+    },
+    "contact-form": {
+      "type": "contact-form",
       "settings": {}
     }
   },
   "order": [
-    "main"
+    "main",
+    "featured-collection",
+    "contact-form"
   ]
 }
