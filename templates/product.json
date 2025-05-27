@@ -11,19 +11,31 @@
   "sections": {
     "main": {
       "type": "product",
-      "settings": {}
+      "settings": {
+        "color_scheme": ""
+      }
     },
-	"featured-collection": {
-		"type": "featured-collection",
-		"settings": {}
-	},
-	"contact-form": {
-		"type": "contact-form"
-	}
+    "featured-collection": {
+      "type": "featured-collection",
+      "settings": {
+        "title": "Featured Products",
+        "custom_collection": "featured-products",
+        "number_of_products_by_page": 8,
+        "color_scheme": ""
+      }
+    },
+    "contact-form": {
+      "type": "contact-form",
+      "settings": {
+        "bg_color": "#1a202c",
+        "heading": "Get in Touch",
+        "subheading": "We’d love to hear from you. Send us a message using the form below."
+      }
+    }
   },
   "order": [
     "main",
-	"featured-collection",
-	"contact-form"
+    "featured-collection",
+    "contact-form"
   ]
 }
