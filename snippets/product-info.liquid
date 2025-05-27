@@ -82,17 +82,16 @@
 						{% endfor %}
 					{% endunless %}
 				</div>
-				<div class='my-3'>
-					<label for='quantity' class='block text-sm font-medium text-gray-700'>Quantity</label>
-					<input
-						type='number'
-						id='quantity'
-						name='quantity'
-						value='1'
-						min='1'
-						class='mt-1 w-20 rounded border border-gray-300 text-center'
-					>
-				</div>
+
+				<input type='hidden' name='id' value='{{ product.selected_or_first_available_variant.id }}'>
+				<input
+					type='number'
+					id='quantity'
+					name='quantity'
+					value='1'
+					min='1'
+					class='mt-1 w-20 rounded border border-gray-300 text-center'
+				>
 			</div>
 
 			<div class='mt-auto space-y-3 pt-4'>
