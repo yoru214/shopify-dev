@@ -122,7 +122,11 @@
 			{% endif %}
 
 			<!-- Product Info + Form -->
-			<product-info data-variants='{{ product.variants | json | escape }}' class='flex flex-col h-full'>
+			<product-info
+				data-variants='{{ product.variants | json | escape }}'
+				id='product-info'
+				class='flex flex-col h-full'
+			>
 				{% form 'product', product %}
 					<div class='flex flex-col justify-between h-full'>
 						<div>
