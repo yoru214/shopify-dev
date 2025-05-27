@@ -74,21 +74,9 @@
 
 			customElements.define('mega-dropdown', MegaDropdown);
 		</script>
-		<toast-notification>
-			<div
-				id='toast'
-				class='hidden fixed top-4 left-1/2 transform -translate-x-1/2 z-50 w-full max-w-5xl px-4'
-				style='background-color: var(--color-button); color: var(--color-button-label);'
-			>
-				<div
-					id='toast-message'
-					class='w-full px-8 py-5 rounded shadow-md text-base font-medium whitespace-nowrap'
-				>
-					This is a wide toast message that does not wrap.
-				</div>
-			</div>
-		</toast-notification>
 
 		<script src='{{ 'bundle.js' | asset_url }}' defer></script>
+
+		{% section 'toast-notification' %}
 	</body>
 </html>
