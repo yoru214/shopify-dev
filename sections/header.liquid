@@ -135,14 +135,16 @@
 				</div>
 			</shopify-search-toggle>
 
-			<a href='{{ routes.cart_url }}' class='relative text-lg'>
-				{% render 'icon-shopping-bag' %}
-				{% if cart.item_count > 0 %}
-					<span class='absolute -top-2 -right-2 bg-[var(--color-button)] text-white text-xs font-bold rounded-full px-1.5 py-0.5 leading-none'>
-						{{ cart.item_count }}
-					</span>
-				{% endif %}
-			</a>
+			<cart-icon count='{{ cart.item_count }}' url='{{ routes.cart_url }}'>
+				<a href='{{ routes.cart_url }}' class='relative text-lg'>
+					{% render 'icon-shopping-bag' %}
+					{% if cart.item_count > 0 %}
+						<span class='cart-count absolute -top-2 -right-2 bg-[var(--color-button)] text-white text-xs font-bold rounded-full px-1.5 py-0.5 leading-none'>
+							{{ cart.item_count }}
+						</span>
+					{% endif %}
+				</a>
+			</cart-icon>
 
 			{% if shop.customer_accounts_enabled %}
 				<a href='{{ routes.account_login_url }}' class='text-lg hover:text-black'>
