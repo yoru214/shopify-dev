@@ -23,7 +23,6 @@ class AddToCart extends HTMLElement {
 
 		e.preventDefault();
 
-		// ✅ Disable the button & show loading state
 		button.disabled = true;
 		button.classList.add('opacity-50', 'cursor-not-allowed');
 		const originalText = button.innerHTML;
@@ -50,10 +49,17 @@ class AddToCart extends HTMLElement {
 						detail: { item: data },
 					}),
 				);
+				const toastEl = document.querySelector('toast-notification');
+				const title = data.product_title || 'Item';
+				const quantityAdded = Number(formData.get('quantity')) || 1;
+
+				toastEl?.showToast(
+					`${quantityAdded} × ${data.product_title} was successfully added to cart`,
+					3000,
+				);
 			})
 			.catch((err) => {
 				console.error('[AddToCart] Error:', err);
-				alert('Failed to add to cart. Please try again.');
 			})
 			.finally(() => {
 				button.disabled = false;
