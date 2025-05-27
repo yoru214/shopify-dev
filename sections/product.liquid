@@ -160,22 +160,48 @@
 											<span class='block text-sm font-semibold mb-2'>{{ option.name }}</span>
 											<div class='grid grid-cols-4 sm:grid-cols-6 gap-2'>
 												{% for value in option.values %}
+													{% assign is_checked = false %}
+													{% if forloop.first %}
+														{% assign is_checked = true %}
+													{% endif %}
+
 													<label class='cursor-pointer block'>
 														<input
 															type='radio'
 															name='options[{{ option.name }}]'
 															value='{{ value }}'
 															class='sr-only'
-															{% if forloop.first %}
+															{% if is_checked %}
 																checked
 															{% endif %}
 														>
+														{% assign baseClasses = 'text-sm hover:opacity-90 transition text-center' %}
 														{% if option.name == 'Color' %}
-															<span class='h-10 flex items-center justify-center px-4 rounded bg-[var(--color-button)] text-[var(--color-button-label)] text-sm hover:opacity-90 transition text-center'>
+															<span
+																class='
+																	h-10 flex items-center justify-center px-4 rounded
+																	{% if is_checked %}
+																	  bg-[var(--color-button)] text-[var(--color-button-label)]
+																	{% else %}
+																	  bg-transparent text-inherit border border-gray-300
+																	{% endif %}
+																	{{ baseClasses }}
+																'
+															>
 																{{ value }}
 															</span>
 														{% else %}
-															<span class='px-4 py-2 rounded bg-[var(--color-button)] text-[var(--color-button-label)] text-sm hover:opacity-90 transition text-center block'>
+															<span
+																class='
+																	px-4 py-2 rounded
+																	{% if is_checked %}
+																	  bg-[var(--color-button)] text-[var(--color-button-label)]
+																	{% else %}
+																	  bg-transparent text-inherit border border-gray-300
+																	{% endif %}
+																	{{ baseClasses }} block
+																'
+															>
 																{{ value }}
 															</span>
 														{% endif %}
