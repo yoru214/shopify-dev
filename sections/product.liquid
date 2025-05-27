@@ -171,36 +171,24 @@
 															name='options[{{ option.name }}]'
 															value='{{ value }}'
 															class='sr-only'
-															{% if is_checked %}
+															{% if forloop.first %}
 																checked
 															{% endif %}
 														>
-														{% assign baseClasses = 'text-sm hover:opacity-90 transition text-center' %}
+														{% assign is_checked = forloop.first %}
+														{% assign base_classes = 'text-sm hover:opacity-90 transition text-center' %}
+
 														{% if option.name == 'Color' %}
 															<span
-																class='
-																	h-10 flex items-center justify-center px-4 rounded
-																	{% if is_checked %}
-																	  bg-[var(--color-button)] text-[var(--color-button-label)]
-																	{% else %}
-																	  bg-transparent text-inherit border border-gray-300
-																	{% endif %}
-																	{{ baseClasses }}
-																'
+																data-selected='{{ is_checked }}'
+																class='h-10 flex items-center justify-center px-4 rounded {{ base_classes }}'
 															>
 																{{ value }}
 															</span>
 														{% else %}
 															<span
-																class='
-																	px-4 py-2 rounded
-																	{% if is_checked %}
-																	  bg-[var(--color-button)] text-[var(--color-button-label)]
-																	{% else %}
-																	  bg-transparent text-inherit border border-gray-300
-																	{% endif %}
-																	{{ baseClasses }} block
-																'
+																data-selected='{{ is_checked }}'
+																class='px-4 py-2 rounded block {{ base_classes }}'
 															>
 																{{ value }}
 															</span>
