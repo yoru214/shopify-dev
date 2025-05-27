@@ -44,6 +44,10 @@
 												></iframe>
 
 											{% else %}
+												{% comment %}
+													Fallback: unknown video host (e.g., Wistia, self-hosted, or unsupported)
+													Shopify may still output a working embed with media | external_video_tag
+												{% endcomment %}
 												{{
 													media
 													| external_video_tag:
