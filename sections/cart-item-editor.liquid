@@ -21,7 +21,7 @@
 			{% else %}
 				{% render 'product-media-empty', shop: shop %}
 			{% endif %}
-
+			{{ qty }}
 			{% render 'product-info', product: product, variant_id: variant_id ||  null, quantity: qty ||  null %}
 		</div>
 
