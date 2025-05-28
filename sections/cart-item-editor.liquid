@@ -2,9 +2,9 @@
 	cart-item-editor.liquid
 	Renders a product + variant quick-edit form inside modal
 {% endcomment %}
+{% assign product_handle = request.params.product_handle %}
+{% assign variant_id = request.params.variant_id %}
 
-{% assign product_handle = request.query.product_handle %}
-{% assign variant_id = request.query.variant_id %}
 {% assign product = all_products[product_handle] %}
 
 <div data-cart-item-editor class='p-6 max-w-xl space-y-4 bg-white rounded shadow'>
