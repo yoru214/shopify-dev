@@ -13,6 +13,12 @@
 	{% assign qty = after_qty | split: '\u0026' | first %}
 {% endif %}
 
+{% assign url_parts = content_for_header | split: 'line=' %}
+{% if url_parts.size > 1 %}
+	{% assign after_qty = url_parts[1] | split: '&' | first %}
+	{% assign line = after_qty | split: '\u0026' | first %}
+{% endif %}
+
 <section class='max-w-7xl mx-auto px-4 py-8 color-{{ section.settings.color_scheme }}' data-product-preview>
 	{% if product %}
 		<div class='grid grid-cols-1 md:grid-cols-2 gap-8 items-stretch min-h-[450px]'>
@@ -21,7 +27,7 @@
 			{% else %}
 				{% render 'product-media-empty', shop: shop %}
 			{% endif %}
-			{% render 'product-info', product: product, variant_id: variant_id ||  null, quantity: qty ||  null %}
+			{% render 'product-info', product: product, variant_id: variant_id ||  null, quantity: qty ||  null, line: line ||  null %}
 		</div>
 
 		<div class='mt-12 prose prose-sm md:prose lg:prose-lg max-w-none text-gray-800'>
