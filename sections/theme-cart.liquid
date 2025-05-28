@@ -45,13 +45,7 @@
 							<td class='py-4'>{{ item.final_price | money }}</td>
 
 							<td class='py-4'>
-								<input
-									class='w-16 border border-gray-300 rounded p-2 text-center'
-									type='number'
-									name='updates[]'
-									value='{{ item.quantity }}'
-									min='1'
-								>
+								<span>{{ item.quantity }}</span>
 							</td>
 
 							<td class='py-4'>{{ item.final_line_price | money }}</td>
