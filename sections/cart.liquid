@@ -12,28 +12,7 @@
 				{% render 'cart-table' %}
 			</cart-table>
 
-			<!-- Order Summary -->
-			<div class='w-full max-w-md ml-auto mb-6 bg-gray-50 p-4 rounded border border-gray-200'>
-				<h2 class='text-lg font-bold mb-4'>Order Summary</h2>
-				<div class='flex justify-between text-sm mb-2'>
-					<span>Subtotal</span>
-					<span>{{ cart.total_price | money }}</span>
-				</div>
-				{% if shop.taxes_included or shop.shipping_policy.body != blank %}
-					<div class='text-sm text-gray-500 mb-2'>Taxes and shipping calculated at checkout.</div>
-				{% endif %}
-			</div>
-
-			<!-- Update & Checkout -->
-			<div class='flex justify-end items-center gap-4'>
-				<button
-					type='submit'
-					name='checkout'
-					class='bg-[var(--color-button)] text-[var(--color-button-label)] font-semibold py-3 px-6 rounded hover:bg-opacity-90 transition'
-				>
-					Checkout
-				</button>
-			</div>
+			{% render 'cart-summary' %}
 		</form>
 	{% else %}
 		<p class='text-lg text-gray-600'>Your cart is currently empty.</p>
