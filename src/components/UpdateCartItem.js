@@ -51,34 +51,10 @@ class UpdateCartItem extends HTMLElement {
 
 		try {
 			// Remove old variant if it changed
-			if (
-				this.originalVariantId &&
-				this.originalVariantId !== newVariantId
-			) {
-				await fetch('/cart/change.js', {
-					method: 'POST',
-					headers: { Accept: 'application/json' },
-					body: new URLSearchParams({
-						line: this.line,
-						quantity: 0,
-					}),
-				});
-
-				if (!res.ok) throw new Error('Failed to add updated item');
-			} else {
-				const res = await fetch('/cart/change.js', {
-					method: 'POST',
-					headers: { Accept: 'application/json' },
-					body: new URLSearchParams({
-						id: newVariantId,
-						quantity: quantity,
-					}),
-				});
-			}
 
 			ThemeEvent.emit('cart:item:updated', {});
 			ThemeEvent.emit('toast:show', {
-				message: `Cart Successfully updated`,
+				message: `Cart Successfully updated test`,
 				duration: 3000,
 			});
 
