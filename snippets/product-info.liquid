@@ -1,5 +1,6 @@
 <product-info
 	data-variants='{{ product.variants | json | escape }}'
+	data-option-names='{{ product.options | json }}'
 	variant_id='{{ variant_id }}'
 	class='flex flex-col h-full'
 >
