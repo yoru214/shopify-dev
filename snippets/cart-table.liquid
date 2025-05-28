@@ -50,11 +50,9 @@
 						<button class='text-blue-600 hover:underline text-sm cursor-pointer'>Edit</button>
 					</cart-item-edit-button>
 
-					<a
-						href='/cart/change?line={{ forloop.index }}&quantity=0'
-						class='text-red-500 hover:underline text-sm cursor-pointer'
-						>Remove</a
-					>
+					<cart-item-remove-button line='{{ forloop.index }}'>
+						<span class='text-red-500 hover:underline text-sm cursor-pointer'>Remove</span>
+					</cart-item-remove-button>
 				</td>
 			</tr>
 		{% endfor %}
