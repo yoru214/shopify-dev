@@ -16,7 +16,7 @@
 				{% render 'product-media-empty', shop: shop %}
 			{% endif %}
 
-			{% render 'product-info', product: product, variant_id: request.params.variant_id ||  null %}
+			{% render 'product-info', product: product, variant_id: variant_id ||  null %}
 		</div>
 
 		<div class='mt-12 prose prose-sm md:prose lg:prose-lg max-w-none text-gray-800'>
