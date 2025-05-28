@@ -411,7 +411,7 @@ eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var _uti
   \****************************************/
 /***/ (() => {
 
-eval("class HeaderOffset extends HTMLElement {\r\n\tconnectedCallback() {\r\n\t\tthis.initialize();\r\n\t}\r\n\r\n\tinitialize() {\r\n\t\tthis.onResize();\r\n\t}\r\n\r\n\tbindEvents() {\r\n\t\tthis._onResize = this.onResize.bind(this);\r\n\t\twindow.addEventListener('resize', this._onResize);\r\n\t}\r\n\r\n\tunbindEvents() {\r\n\t\tThemeEvent.off('toast:show', this._onShowToast);\r\n\t}\r\n\r\n\tonResize() {\r\n\t\tconst header = document.getElementById('site-header');\r\n\t\tif (header) {\r\n\t\t\tconst headerHeight = header.offsetHeight;\r\n\t\t\tthis.style.paddingTop = `${headerHeight}px`;\r\n\t\t}\r\n\t}\r\n}\r\n\r\ncustomElements.define('header-offset', HeaderOffset);\r\n\n\n//# sourceURL=webpack://shopify-dev/./src/components/HeaderOffset.js?");
+eval("class HeaderOffset extends HTMLElement {\r\n\tconnectedCallback() {\r\n\t\tthis.initialize();\r\n\t}\r\n\r\n\tinitialize() {\r\n\t\tthis.onResize();\r\n\t}\r\n\r\n\tbindEvents() {\r\n\t\tthis._onResize = this.onResize.bind(this);\r\n\t\twindow.addEventListener('resize', this._onResize);\r\n\t}\r\n\r\n\tunbindEvents() {\r\n\t\tthis.removeEventListener('resize', this._onResize);\r\n\t}\r\n\r\n\tonResize() {\r\n\t\tconst header = document.querySelector('header');\r\n\t\tif (header) {\r\n\t\t\tconst headerHeight = header.offsetHeight;\r\n\t\t\tthis.style.paddingTop = `${headerHeight}px`;\r\n\t\t}\r\n\t}\r\n}\r\n\r\ncustomElements.define('header-offset', HeaderOffset);\r\n\n\n//# sourceURL=webpack://shopify-dev/./src/components/HeaderOffset.js?");
 
 /***/ }),
 
