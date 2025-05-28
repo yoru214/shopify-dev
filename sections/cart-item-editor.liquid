@@ -1,3 +1,14 @@
-<p>Handle: {{ request.query.product_handle }}</p>
-<p>Variant: {{ request.query.variant_id }}</p>
-<p>Product title: {{ all_products[request.query.product_handle].title }}</p>
+{% assign product_handle = request.query.product_handle %}
+{% assign variant_id = request.query.variant_id %}
+{% assign product = all_products[product_handle] %}
+
+{% if product %}
+	<div class='p-6 space-y-4 max-w-xl' data-cart-item-editor>
+		<h2 class='text-xl font-bold'>{{ product.title }}</h2>
+		<!-- form content -->
+	</div>
+{% else %}
+	<div class='text-red-500 p-4' data-cart-item-editor>
+		Product not found for handle: <strong>{{ product_handle }}</strong>
+	</div>
+{% endif %}
