@@ -49,59 +49,59 @@ class UpdateCartItem extends HTMLElement {
 		this.button.disabled = true;
 		this.button.textContent = 'Updating...';
 
-		try {
-			// Remove old variant if it changed
-			if (
-				this.originalVariantId &&
-				this.originalVariantId !== newVariantId
-			) {
-				await fetch('/cart/change.js', {
-					method: 'POST',
-					headers: { Accept: 'application/json' },
-					body: new URLSearchParams({
-						line: this.line,
-						quantity: 0,
-					}),
-				});
+		// try {
+		// 	// Remove old variant if it changed
+		// 	if (
+		// 		this.originalVariantId &&
+		// 		this.originalVariantId !== newVariantId
+		// 	) {
+		// 		await fetch('/cart/change.js', {
+		// 			method: 'POST',
+		// 			headers: { Accept: 'application/json' },
+		// 			body: new URLSearchParams({
+		// 				line: this.line,
+		// 				quantity: 0,
+		// 			}),
+		// 		});
 
-				// Add new variant
-				const res = await fetch('/cart/add.js', {
-					method: 'POST',
-					headers: { Accept: 'application/json' },
-					body: new URLSearchParams({
-						id: newVariantId,
-						quantity: quantity,
-					}),
-				});
+		// 		// Add new variant
+		// 		const res = await fetch('/cart/add.js', {
+		// 			method: 'POST',
+		// 			headers: { Accept: 'application/json' },
+		// 			body: new URLSearchParams({
+		// 				id: newVariantId,
+		// 				quantity: quantity,
+		// 			}),
+		// 		});
 
-				if (!res.ok) throw new Error('Failed to add updated item');
-			} else {
-				const res = await fetch('/cart/change.js', {
-					method: 'POST',
-					headers: { Accept: 'application/json' },
-					body: new URLSearchParams({
-						id: newVariantId,
-						quantity: quantity,
-					}),
-				});
-			}
+		// 		if (!res.ok) throw new Error('Failed to add updated item');
+		// 	} else {
+		// 		const res = await fetch('/cart/change.js', {
+		// 			method: 'POST',
+		// 			headers: { Accept: 'application/json' },
+		// 			body: new URLSearchParams({
+		// 				id: newVariantId,
+		// 				quantity: quantity,
+		// 			}),
+		// 		});
+		// 	}
 
-			ThemeEvent.emit('cart:item:updated', {});
-			ThemeEvent.emit('toast:show', {
-				message: `Cart Successfully updated`,
-				duration: 3000,
-			});
+		// 	ThemeEvent.emit('cart:item:updated', {});
+		// 	ThemeEvent.emit('toast:show', {
+		// 		message: `Cart Successfully updated`,
+		// 		duration: 3000,
+		// 	});
 
-			this.button.textContent = 'Updated';
-			setTimeout(() => {
-				this.button.textContent = 'Update';
-				this.button.disabled = false;
-			}, 1000);
-		} catch (err) {
-			console.error('[UpdateCartItem] Failed', err);
-			this.button.disabled = false;
-			this.button.textContent = 'Update';
-		}
+		// 	this.button.textContent = 'Updated';
+		// 	setTimeout(() => {
+		// 		this.button.textContent = 'Update';
+		// 		this.button.disabled = false;
+		// 	}, 1000);
+		// } catch (err) {
+		// 	console.error('[UpdateCartItem] Failed', err);
+		// 	this.button.disabled = false;
+		// 	this.button.textContent = 'Update';
+		// }
 	}
 }
 
