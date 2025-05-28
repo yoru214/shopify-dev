@@ -1,14 +1,5 @@
 <div class='color-{{ settings.color_scheme | default: 'scheme-1' }}'>
-	<toast-notification>
-		<toast
-			class='block fixed top-4 left-1/2 transform -translate-x-1/2 z-50 w-full max-w-3xl px-4 transition duration-300 ease-out opacity-0 -translate-y-8'
-			style='background-color: var(--color-button); color: var(--color-button-label);'
-		>
-			<toast-message
-				class='block w-full px-8 py-5 rounded shadow-md font-medium whitespace-nowrap text-base text-center'
-			>
-				Toast message goes here
-			</toast-message>
-		</toast>
-	</toast-notification>
+	<toast-notification
+		class='fixed top-4 left-1/2 -translate-x-1/2 z-50 w-full max-w-3xl pointer-events-none flex flex-col items-center space-y-2'
+	></toast-notification>
 </div>
