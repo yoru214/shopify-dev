@@ -1,5 +1,6 @@
 <product-info
 	data-variants='{{ product.variants | json | escape }}'
+	variant_id='{{ variant_id }}'
 	class='flex flex-col h-full'
 >
 	{% form 'product', product, id: 'product-form' %}
