@@ -23,13 +23,18 @@ class CartIcon extends HTMLElement {
 	bindEvents() {
 		this._loadCartCount = this.loadCartCount.bind(this);
 		ThemeEvent.on('cart:item:added', this._loadCartCount);
+		ThemeEvent.on('cart:item:updated', this._loadCartCount);
+		ThemeEvent.on('cart:item:removed', this._loadCartCount);
 	}
 
 	unbindEvents() {
 		ThemeEvent.off('cart:item:added', this._loadCartCount);
+		ThemeEvent.off('cart:item:updated', this._loadCartCount);
+		ThemeEvent.off('cart:item:removed', this._loadCartCount);
 	}
 
 	loadCartCount() {
+		console.log('cart update called');
 		fetch('/cart.js')
 			.then((res) => res.json())
 			.then((cart) => {

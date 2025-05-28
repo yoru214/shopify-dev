@@ -51,6 +51,7 @@ class ModalViewer extends HTMLElement {
 		document.addEventListener('keydown', this._onEscape);
 
 		ThemeEvent.on('modal:product:preview', this._onThemeEvent);
+		ThemeEvent.on('modal:cart:item:edit', this._onThemeEvent);
 	}
 
 	disconnectedCallback() {
@@ -79,19 +80,18 @@ class ModalViewer extends HTMLElement {
 
 	async onThemeEvent({ detail }) {
 		if (!detail?.url) return;
+
 		try {
 			const res = await fetch(detail.url);
 			const html = await res.text();
-			const temp = document.createElement('div');
-			temp.innerHTML = html;
+			const parser = new DOMParser();
+			const doc = parser.parseFromString(html, 'text/html');
 
-			const preview = temp.querySelector('[data-product-preview]');
-			if (preview) {
-				this.slotEl.replaceChildren(preview);
-				this.open();
-			} else {
-				console.warn('[ModalViewer] No product preview section found.');
-			}
+			// If you want to insert the entire body content
+			const bodyNodes = Array.from(doc.body.childNodes);
+
+			this.slotEl.replaceChildren(...bodyNodes);
+			this.open();
 		} catch (err) {
 			console.error('[ModalViewer] Failed to load preview', err);
 		}
