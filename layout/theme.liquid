@@ -80,10 +80,17 @@
 		<modal-viewer>
 			<modal-backdrop class='fixed inset-0 bg-black/50 z-50 hidden items-center justify-center'>
 				<modal-wrapper class='bg-white rounded-lg shadow-lg max-w-4xl w-full max-h-[90vh] overflow-y-auto relative'>
-					// more dom nodes
+					<button
+						class='absolute top-4 right-4 text-gray-500 hover:text-black close-modal'
+						aria-label='Close modal'
+					>
+						&times;
+					</button>
+					<div data-modal-slot></div>
 				</modal-wrapper>
 			</modal-backdrop>
 		</modal-viewer>
+
 		{% section 'toast-notification' %}
 	</body>
 </html>
