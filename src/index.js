@@ -1,8 +1,11 @@
-import './components/headerOffset.js';
-import './components/shopifySearchToggle.js';
-import './components/heroSwiper.js';
-import './components/mediaViewer.js';
-import './components/productInfo.js';
-import './components/addToCart.js';
-import './components/cartIcon.js';
-import './components/toastNotification.js';
+import './components/HeaderOffset.js';
+import './components/ShopifySearchToggle.js';
+import './components/HeroSwiper.js';
+import './components/MediaViewer.js';
+import './components/ProductInfo.js';
+import './components/AddToCart.js';
+import './components/CartIcon.js';
+import './components/ToastNotification.js';
+import './components/ModalViewer.js';
+
+import './components/ProductCard.js';

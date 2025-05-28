@@ -1,5 +1,6 @@
 import Swiper from 'swiper';
 import { Autoplay } from 'swiper/modules';
+import { ThemeEvent } from '../utils/themeEvent.js';
 
 Swiper.use([Autoplay]);
 
@@ -8,20 +9,20 @@ class MediaViewer extends HTMLElement {
 		super();
 		this.mainSwiper = null;
 		this.thumbSwiper = null;
-		this.productInfoEl = null;
+		this.variants = [];
+		this._checkingVariantMatch = false;
+		this._isScrollingToSlide = false;
 	}
 
 	connectedCallback() {
-		const productInfoSelector = this.getAttribute('product-info');
-		if (productInfoSelector) {
-			this.productInfoEl = document.querySelector(productInfoSelector);
-		}
-
 		requestAnimationFrame(() => {
-			if (this.initialize()) {
-				this.loadEvents();
-			}
+			if (!this.initialize()) return;
+			this.bindEvents();
 		});
+	}
+
+	disconnectedCallback() {
+		this.unbindEvents();
 	}
 
 	initialize() {
@@ -62,33 +63,35 @@ class MediaViewer extends HTMLElement {
 			simulateTouch: true,
 			allowTouchMove: true,
 		});
-		this.updateThumbnailOverlays();
 
+		// Load product variants from data attribute
+		try {
+			const variantsRaw = this.dataset.variants || '[]';
+			this.variants = JSON.parse(variantsRaw);
+		} catch (err) {
+			console.warn('[MediaViewer] Invalid or missing data-variants.');
+			this.variants = [];
+		}
+
+		this.updateThumbnailOverlays();
 		return true;
 	}
 
-	loadEvents() {
+	bindEvents() {
 		if (!this.mainSwiper || !this.thumbSwiper) return;
 
-		this.mainSwiper.on('slideChangeTransitionStart', () => {
-			const prevSlide =
-				this.mainSwiper.slides[this.mainSwiper.previousIndex];
-			if (prevSlide) {
-				const focused = prevSlide.querySelector(':focus');
-				if (focused) focused.blur();
-			}
-		});
+		this._onSlideChange = this.onSlideChange.bind(this);
+		this.mainSwiper.on('slideChange', this._onSlideChange);
 
-		this.mainSwiper.on('slideChange', this.onSlideChange.bind(this));
+		this._onProductInfoUpdated = (e) => {
+			this.scrollToSlideMatchingColor(e.detail.color);
+		};
+		ThemeEvent.on('product:info:updated', this._onProductInfoUpdated);
+	}
 
-		const productInfoSelector = this.getAttribute('product-info');
-		if (productInfoSelector) {
-			this.productInfoEl = document.querySelector(productInfoSelector);
-
-			document.addEventListener('mediaViewerColorSelected', (e) => {
-				this.scrollToSlideMatchingColor(e.detail.color);
-			});
-		}
+	unbindEvents() {
+		this.mainSwiper.off('slideChange', this._onSlideChange);
+		ThemeEvent.off('product:info:updated', this.__onProductInfoUpdated);
 	}
 
 	onSlideChange() {
@@ -123,7 +126,7 @@ class MediaViewer extends HTMLElement {
 	}
 
 	checkVariantMatch() {
-		if (!this.productInfoEl || this._checkingVariantMatch) return;
+		if (!this.variants.length || this._checkingVariantMatch) return;
 
 		this._checkingVariantMatch = true;
 
@@ -137,11 +140,8 @@ class MediaViewer extends HTMLElement {
 			}
 
 			const imgPath = new URL(imgEl.src, location.origin).pathname;
-			const variants = JSON.parse(
-				this.productInfoEl.dataset.variants || '[]',
-			);
 
-			const matchedVariant = variants.find((variant) => {
+			const matchedVariant = this.variants.find((variant) => {
 				const variantPath = variant.featured_image?.src
 					? new URL('https:' + variant.featured_image.src).pathname
 					: null;
@@ -149,27 +149,13 @@ class MediaViewer extends HTMLElement {
 			});
 
 			if (matchedVariant?.option1) {
-				document.dispatchEvent(
-					new CustomEvent('mediaViewerImageSelected', {
-						detail: { color: matchedVariant.option1 },
-					}),
-				);
+				ThemeEvent.emit('product:media:selected', {
+					color: matchedVariant.option1,
+				});
 			}
 
 			this._checkingVariantMatch = false;
 		});
-	}
-
-	dispatchColorChange(colorValue) {
-		if (!this.productInfoEl) return;
-
-		const event = new CustomEvent('mediaViewerColorSelected', {
-			detail: { color: colorValue },
-			bubbles: true,
-			composed: true,
-		});
-
-		this.productInfoEl.dispatchEvent(event);
 	}
 
 	rotateThumbs(direction) {
@@ -219,22 +205,19 @@ class MediaViewer extends HTMLElement {
 			if (!overlay) return;
 
 			if (index === 0) {
-				overlay.classList.add('hidden'); // no overlay on first
+				overlay.classList.add('hidden');
 			} else {
-				overlay.classList.remove('hidden'); // overlay on others
+				overlay.classList.remove('hidden');
 			}
 		});
 	}
 
 	scrollToSlideMatchingColor(color) {
-		if (this._isScrollingToSlide) return;
+		if (this._isScrollingToSlide || !this.variants.length) return;
 
 		this._isScrollingToSlide = true;
 
-		const variants = JSON.parse(
-			this.productInfoEl.dataset.variants || '[]',
-		);
-		const match = variants.find(
+		const match = this.variants.find(
 			(v) => v.option1 === color && v.featured_image?.src,
 		);
 
@@ -263,7 +246,7 @@ class MediaViewer extends HTMLElement {
 			this.mainSwiper.slideToLoop(targetIndex, 300);
 			setTimeout(() => {
 				this._isScrollingToSlide = false;
-			}, 350); // wait for animation to end
+			}, 350);
 		} else {
 			this._isScrollingToSlide = false;
 		}

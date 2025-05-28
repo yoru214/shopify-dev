@@ -1,7 +1,13 @@
+import { ThemeEvent } from '../utils/themeEvent.js';
+
 class AddToCart extends HTMLElement {
 	connectedCallback() {
-		this.inititalize();
+		if (!this.inititalize()) return;
 		this.bindEvents();
+	}
+
+	disconnectedCallback() {
+		this.unbindEvents();
 	}
 
 	inititalize() {
@@ -9,12 +15,18 @@ class AddToCart extends HTMLElement {
 
 		if (!this.form) {
 			console.error(`[AddToCart] Could not find parent <form>`);
-			return;
+			return false;
 		}
+
+		return true;
 	}
 
 	bindEvents() {
-		this.addEventListener('click', this.onAddToCartClick.bind(this));
+		this._onAddToCartClick = this.onAddToCartClick.bind(this);
+		this.addEventListener('click', this._onAddToCartClick);
+	}
+	unbindEvents() {
+		this.removeEventListener('click', this._onAddToCartClick);
 	}
 
 	onAddToCartClick(e) {
@@ -25,8 +37,8 @@ class AddToCart extends HTMLElement {
 
 		button.disabled = true;
 		button.classList.add('opacity-50', 'cursor-not-allowed');
-		const originalText = button.innerHTML;
-		button.innerHTML = 'Adding...';
+		const originalText = button.textContent;
+		button.textContent = 'Adding...';
 
 		const form = this.closest('form');
 		const formData = new FormData(form);
@@ -43,20 +55,13 @@ class AddToCart extends HTMLElement {
 				return res.json();
 			})
 			.then((data) => {
-				this.dispatchEvent(
-					new CustomEvent('cart:item:added', {
-						bubbles: true,
-						detail: { item: data },
-					}),
-				);
-				const toastEl = document.querySelector('toast-notification');
+				ThemeEvent.emit('cart:item:added', { item: data });
 				const title = data.product_title || 'Item';
 				const quantityAdded = Number(formData.get('quantity')) || 1;
-
-				toastEl?.showToast(
-					`${quantityAdded} × ${data.product_title} was successfully added to cart`,
-					3000,
-				);
+				ThemeEvent.emit('toast:show', {
+					message: `${quantityAdded} × ${title} was successfully added to cart`,
+					duration: 3000,
+				});
 			})
 			.catch((err) => {
 				console.error('[AddToCart] Error:', err);

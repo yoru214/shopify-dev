@@ -1,19 +1,34 @@
+import { ThemeEvent } from '../utils/themeEvent.js';
+
 class CartIcon extends HTMLElement {
 	connectedCallback() {
-		this.initialize();
+		if (!this.initialize()) return;
 		this.bindEvents();
 	}
 
+	disconnectedCallback() {
+		this.unbindEvents();
+	}
+
 	initialize() {
-		this.countSpan = this.querySelector('.cart-count');
+		this.countSpan = this.querySelector('cart-count');
+		if (!this.countSpan) {
+			console.error(`[CartIcon] Could not find child <cart-icon>`);
+			return false;
+		}
 		this.loadCartCount();
+		return true;
 	}
+
 	bindEvents() {
-		document.addEventListener(
-			'cart:item:added',
-			this.loadCartCount.bind(this),
-		);
+		this._loadCartCount = this.loadCartCount.bind(this);
+		ThemeEvent.on('cart:item:added', this._loadCartCount);
 	}
+
+	unbindEvents() {
+		ThemeEvent.off('cart:item:added', this._loadCartCount);
+	}
+
 	loadCartCount() {
 		fetch('/cart.js')
 			.then((res) => res.json())
@@ -26,16 +41,12 @@ class CartIcon extends HTMLElement {
 	renderCount(count) {
 		if (this.countSpan) {
 			this.countSpan.textContent = count;
-		} else if (count > 0) {
-			// If span wasn't rendered initially (e.g. cart was empty), create it
-			const badge = document.createElement('span');
-			badge.className =
-				'cart-count absolute -top-2 -right-2 bg-[var(--color-button)] text-white text-xs font-bold rounded-full px-1.5 py-0.5 leading-none';
-			badge.textContent = count;
 
-			const link = this.querySelector('a');
-			if (link) link.appendChild(badge);
-			this.countSpan = badge;
+			if (count > 0) {
+				this.countSpan.classList.remove('hidden');
+			} else {
+				this.countSpan.classList.add('hidden');
+			}
 		}
 	}
 }

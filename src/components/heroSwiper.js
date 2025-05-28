@@ -8,11 +8,15 @@ class HeroSlider extends HTMLElement {
 		this.mainSwiper = null;
 
 		requestAnimationFrame(() => {
-			if (this.initialize()) {
-				this.bindEvents();
-			}
+			if (!this.initialize()) return;
+			this.bindEvents();
 		});
 	}
+
+	disconnectedCallback() {
+		this.unbindEvents();
+	}
+
 	initialize() {
 		const mainEl = this.querySelector('.main-swiper');
 
@@ -46,13 +50,24 @@ class HeroSlider extends HTMLElement {
 	bindEvents() {
 		if (!this.mainSwiper) return;
 
+		this._onSlideChangeTransitionStart =
+			this.onSlideChangeTransitionStart.bind(this);
 		this.mainSwiper.on(
 			'slideChangeTransitionStart',
-			this.onSlideChangeTransitionStart.bind(this),
+			this._onSlideChangeTransitionStart,
 		);
 	}
+
+	unbindEvents() {
+		if (this.mainSwiper && this._onSlideChangeTransitionStart) {
+			this.mainSwiper.off(
+				'slideChangeTransitionStart',
+				this._onSlideChangeTransitionStart,
+			);
+		}
+	}
+
 	onSlideChangeTransitionStart() {
-		// 💡 Blur active element inside previous slide before transition
 		const prevSlide = this.mainSwiper.slides[this.mainSwiper.previousIndex];
 		if (prevSlide) {
 			const focused = prevSlide.querySelector(':focus');
