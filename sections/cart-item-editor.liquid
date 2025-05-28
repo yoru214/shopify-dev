@@ -2,7 +2,7 @@
 {% assign variant_id = request.params.variant_id %}
 
 {% if product %}
-	<div class='space-y-4 p-6 max-w-xl'>
+	<div class='space-y-4 p-6 max-w-xl' data-cart-item-editor>
 		<h2 class='text-xl font-bold'>{{ product.title }}</h2>
 
 		{% if product.variants.size > 1 %}
