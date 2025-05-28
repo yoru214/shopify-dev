@@ -36,7 +36,7 @@ class UpdateCartItem extends HTMLElement {
 
 	async onClick(e) {
 		e.preventDefault();
-
+		console.log('asdad');
 		const formData = new FormData(this.form);
 		const newVariantId = formData.get('id');
 		const quantity = formData.get('quantity');
@@ -50,41 +50,41 @@ class UpdateCartItem extends HTMLElement {
 		this.button.textContent = 'Updating...';
 
 		try {
-			// Remove old variant if it changed
-			if (
-				this.originalVariantId &&
-				this.originalVariantId !== newVariantId
-			) {
-				await fetch('/cart/change.js', {
-					method: 'POST',
-					headers: { Accept: 'application/json' },
-					body: new URLSearchParams({
-						line: this.line,
-						quantity: 0,
-					}),
-				});
+			// // Remove old variant if it changed
+			// if (
+			// 	this.originalVariantId &&
+			// 	this.originalVariantId !== newVariantId
+			// ) {
+			// 	await fetch('/cart/change.js', {
+			// 		method: 'POST',
+			// 		headers: { Accept: 'application/json' },
+			// 		body: new URLSearchParams({
+			// 			line: this.line,
+			// 			quantity: 0,
+			// 		}),
+			// 	});
 
-				// Add new variant
-				const res = await fetch('/cart/add.js', {
-					method: 'POST',
-					headers: { Accept: 'application/json' },
-					body: new URLSearchParams({
-						id: newVariantId,
-						quantity: quantity,
-					}),
-				});
+			// 	// Add new variant
+			// 	const res = await fetch('/cart/add.js', {
+			// 		method: 'POST',
+			// 		headers: { Accept: 'application/json' },
+			// 		body: new URLSearchParams({
+			// 			id: newVariantId,
+			// 			quantity: quantity,
+			// 		}),
+			// 	});
 
-				if (!res.ok) throw new Error('Failed to add updated item');
-			} else {
-				const res = await fetch('/cart/change.js', {
-					method: 'POST',
-					headers: { Accept: 'application/json' },
-					body: new URLSearchParams({
-						id: newVariantId,
-						quantity: quantity,
-					}),
-				});
-			}
+			// 	if (!res.ok) throw new Error('Failed to add updated item');
+			// } else {
+			// 	const res = await fetch('/cart/change.js', {
+			// 		method: 'POST',
+			// 		headers: { Accept: 'application/json' },
+			// 		body: new URLSearchParams({
+			// 			id: newVariantId,
+			// 			quantity: quantity,
+			// 		}),
+			// 	});
+			// }
 
 			ThemeEvent.emit('cart:item:updated', {});
 			ThemeEvent.emit('toast:show', {
