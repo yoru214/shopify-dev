@@ -62,12 +62,12 @@
 									variant-id='{{ item.variant.id }}'
 									quantity='{{ item.quantity }}'
 								>
-									<button class='text-blue-600 hover:underline text-sm'>Edit</button>
+									<button class='text-blue-600 hover:underline text-sm cursor-pointer'>Edit</button>
 								</cart-item-edit-button>
 
 								<a
 									href='/cart/change?line={{ forloop.index }}&quantity=0'
-									class='text-red-500 hover:underline text-sm'
+									class='text-red-500 hover:underline text-sm cursor-pointer'
 									>Remove</a
 								>
 							</td>
