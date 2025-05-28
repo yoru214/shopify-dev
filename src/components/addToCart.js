@@ -69,7 +69,7 @@ class AddToCart extends HTMLElement {
 			.finally(() => {
 				button.disabled = false;
 				button.classList.remove('opacity-50', 'cursor-not-allowed');
-				button.innerHTML = originalText;
+				button.textContent = originalText;
 			});
 	}
 }
