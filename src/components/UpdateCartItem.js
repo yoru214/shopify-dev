@@ -65,14 +65,14 @@ class UpdateCartItem extends HTMLElement {
 				});
 
 				// Add new variant
-				const res = await fetch('/cart/add.js', {
-					method: 'POST',
-					headers: { Accept: 'application/json' },
-					body: new URLSearchParams({
-						id: newVariantId,
-						quantity: quantity,
-					}),
-				});
+				// const res = await fetch('/cart/add.js', {
+				// 	method: 'POST',
+				// 	headers: { Accept: 'application/json' },
+				// 	body: new URLSearchParams({
+				// 		id: newVariantId,
+				// 		quantity: quantity,
+				// 	}),
+				// });
 
 				if (!res.ok) throw new Error('Failed to add updated item');
 			} else {
