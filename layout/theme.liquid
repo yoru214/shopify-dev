@@ -80,13 +80,14 @@
 		<modal-viewer>
 			<modal-backdrop class='fixed inset-0 bg-black/50 z-50 hidden items-center justify-center'>
 				<modal-wrapper class='bg-white rounded-lg shadow-lg max-w-4xl w-full max-h-[90vh] overflow-y-auto relative'>
-					<button
+					<modal-close-button
 						is='modal-close'
 						aria-label='Close'
-						class='absolute top-4 right-4 p-2 w-10 h-10'
+						class='absolute top-4 right-4 p-2 w-10 h-10 cursor-pointer'
 					>
 						{% render 'icon-close' %}
-					</button>
+					</modal-close-button>
+
 					<div data-modal-slot></div>
 				</modal-wrapper>
 			</modal-backdrop>
