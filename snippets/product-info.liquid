@@ -2,7 +2,7 @@
 	data-variants='{{ product.variants | json | escape }}'
 	data-option-names='{{ product.options | json }}'
 	variant_id='{{ variant_id }}'
-	quantity='{{ qty }}'
+	quantity='{{ quantity }}'
 	class='flex flex-col h-full'
 >
 	{% form 'product', product, id: 'product-form' %}
