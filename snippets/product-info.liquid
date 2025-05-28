@@ -95,14 +95,16 @@
 
 			<div class='mt-auto space-y-3 pt-4'>
 				<purchase-actions id='purchaseActions' class='flex flex-col space-y-3 py-3'>
-					<add-to-cart>
-						<button
-							type='submit'
-							class='w-full bg-[var(--color-button)] text-[var(--color-button-label)] font-semibold py-3 hover:bg-opacity-90 transition cursor-pointer'
-						>
-							Add to Cart
-						</button>
-					</add-to-cart>
+					{% comment %}
+						<add-to-cart>
+							<button
+								type='submit'
+								class='w-full bg-[var(--color-button)] text-[var(--color-button-label)] font-semibold py-3 hover:bg-opacity-90 transition cursor-pointer'
+							>
+								Add to Cart
+							</button>
+						</add-to-cart>
+					{% endcomment %}
 
 					<!-- Ensure payment button renders as a block element -->
 					<div class='w-full'>
