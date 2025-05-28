@@ -1,17 +1,22 @@
-{% assign variant_id = '' %}
-{% assign qty = '1' %}
+{% comment %}
+	{% assign variant_id = '' %}
+	{% assign qty = '1' %}
 
-{% assign url_parts = content_for_header | split: 'variant_id=' %}
-{% if url_parts.size > 1 %}
-	{% assign after_variant = url_parts[1] | split: '&' | first %}
-	{% assign variant_id = after_variant | split: '\u0026' | first %}
-{% endif %}
+	{% assign url_parts = content_for_header | split: 'variant_id=' %}
+	{% if url_parts.size > 1 %}
+		{% assign after_variant = url_parts[1] | split: '&' | first %}
+		{% assign variant_id = after_variant | split: '\u0026' | first %}
+	{% endif %}
 
-{% assign url_parts = content_for_header | split: 'qty=' %}
-{% if url_parts.size > 1 %}
-	{% assign after_qty = url_parts[1] | split: '&' | first %}
-	{% assign qty = after_qty | split: '\u0026' | first %}
-{% endif %}
+	{% assign url_parts = content_for_header | split: 'qty=' %}
+	{% if url_parts.size > 1 %}
+		{% assign after_qty = url_parts[1] | split: '&' | first %}
+		{% assign qty = after_qty | split: '\u0026' | first %}
+	{% endif %}
+{% endcomment %}
+
+{% assign variant_id = request.params.variant_id %}
+{% assign qty = request.params.qty | default: 1 %}
 
 <section class='max-w-7xl mx-auto px-4 py-8 color-{{ section.settings.color_scheme }}' data-product-preview>
 	{% if product %}
@@ -21,7 +26,6 @@
 			{% else %}
 				{% render 'product-media-empty', shop: shop %}
 			{% endif %}
-			{{ qty }}
 			{% render 'product-info', product: product, variant_id: variant_id ||  null, quantity: qty ||  null %}
 		</div>
 
