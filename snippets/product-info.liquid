@@ -97,12 +97,11 @@
 				<purchase-actions class='flex flex-col space-y-3 py-3'>
 					{% if variant_id %}
 						<update-cart-item cart_line='{{ line }}' variant_id='{{ variant_id }}'
-							><button
-								type='button'
+							><span
 								class='w-full bg-[var(--color-button)] text-[var(--color-button-label)] font-semibold py-3 hover:bg-opacity-90 transition cursor-pointer'
 							>
 								Update
-							</button>
+							</span>
 						</update-cart-item>
 					{% else %}
 						<add-to-cart>
