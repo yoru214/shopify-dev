@@ -15,7 +15,7 @@
 						<th class='py-3'>Price</th>
 						<th class='py-3'>Qty</th>
 						<th class='py-3'>Total</th>
-						<th class='py-3'></th>
+						<th class='py-3 text-right'>Actions</th>
 					</tr>
 				</thead>
 				<tbody>
@@ -55,10 +55,15 @@
 
 							<td class='py-4'>{{ item.final_line_price | money }}</td>
 
-							<td class='py-4 text-right'>
+							<td class='py-4 text-right space-x-3'>
+								<a
+									href='{{ item.url }}'
+									class='text-blue-600 hover:underline text-sm'
+									>Edit</a
+								>
 								<a
 									href='/cart/change?line={{ forloop.index }}&quantity=0'
-									class='text-red-500 hover:underline'
+									class='text-red-500 hover:underline text-sm'
 									>Remove</a
 								>
 							</td>
@@ -67,8 +72,28 @@
 				</tbody>
 			</table>
 
+			<!-- Order Summary -->
+			<div class='w-full max-w-md ml-auto mb-6 bg-gray-50 p-4 rounded border border-gray-200'>
+				<h2 class='text-lg font-bold mb-4'>Order Summary</h2>
+				<div class='flex justify-between text-sm mb-2'>
+					<span>Subtotal</span>
+					<span>{{ cart.total_price | money }}</span>
+				</div>
+				{% if shop.taxes_included or shop.shipping_policy.body != blank %}
+					<div class='text-sm text-gray-500 mb-2'>Taxes and shipping calculated at checkout.</div>
+				{% endif %}
+			</div>
+
 			<!-- Update & Checkout -->
-			<div class='flex justify-between items-center'>
+			<div class='flex justify-end items-center gap-4'>
+				<button
+					type='submit'
+					name='update'
+					class='text-sm text-[var(--color-button)] font-semibold underline'
+				>
+					Update Cart
+				</button>
+
 				<button
 					type='submit'
 					name='checkout'
