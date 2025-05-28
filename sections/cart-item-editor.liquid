@@ -1,40 +1,14 @@
-{% assign product = all_products[request.params.product_handle] %}
-{% assign variant_id = request.params.variant_id %}
+{% assign product_handle = request.query.product_handle %}
+{% assign variant_id = request.query.variant_id %}
+{% assign product = all_products[product_handle] %}
 
 {% if product %}
-	<div class='space-y-4 p-6 max-w-xl' data-cart-item-editor>
+	<div class='p-6 space-y-4 max-w-xl' data-cart-item-editor>
 		<h2 class='text-xl font-bold'>{{ product.title }}</h2>
-
-		{% if product.variants.size > 1 %}
-			<!-- Variant Selector -->
-			<form id='cartItemEditForm' class='space-y-3'>
-				{% for option in product.options_with_values %}
-					<div>
-						<label class='block font-semibold text-sm mb-1'>{{ option.name }}</label>
-						<select name='options[]' class='w-full border p-2 rounded'>
-							{% for value in option.values %}
-								<option value='{{ value }}'>{{ value }}</option>
-							{% endfor %}
-						</select>
-					</div>
-				{% endfor %}
-
-				<!-- Quantity -->
-				<div>
-					<label class='block font-semibold text-sm mb-1'>Quantity</label>
-					<input type='number' name='quantity' value='1' min='1' class='w-20 border p-2 rounded'>
-				</div>
-
-				<input type='hidden' name='product_handle' value='{{ product.handle }}'>
-				<input type='hidden' name='variant_id' value='{{ variant_id }}'>
-
-				<div class='flex justify-end gap-3'>
-					<button type='button' onclick='closeModal()' class='text-sm underline'>Cancel</button>
-					<button type='submit' class='bg-[var(--color-button)] text-white font-semibold px-4 py-2 rounded'>
-						Update Item
-					</button>
-				</div>
-			</form>
-		{% endif %}
+		<!-- form content -->
+	</div>
+{% else %}
+	<div class='text-red-500 p-4' data-cart-item-editor>
+		Product not found for handle: <strong>{{ product_handle }}</strong>
 	</div>
 {% endif %}
