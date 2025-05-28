@@ -1,39 +1,83 @@
+import { ThemeEvent } from '../utils/themeEvent.js';
+
 class ToastNotification extends HTMLElement {
 	connectedCallback() {
-		this.toast = this.querySelector('#toast');
-		this.toastMsg = this.querySelector('#toast-message');
+		if (!this.initialize()) return;
+		this.bindEvents();
+	}
 
-		if (!this.toast || !this.toastMsg) {
-			console.warn('[ToastNotification] toast/message element missing');
-			return;
+	disconnectedCallback() {
+		this.unbindEvents();
+	}
+
+	initialize() {
+		this.template = this.querySelector('template');
+
+		if (!this.template) {
+			console.warn('[ToastNotification] Missing <template>');
+			return false;
 		}
+
+		const testClone = this.template.content.cloneNode(true);
+		const toast = testClone.querySelector('toast');
+		const toastMsg = testClone.querySelector('toast-message');
+
+		if (!toast || !toastMsg) {
+			console.warn(
+				'[ToastNotification] Template is missing <toast> or <toast-message>',
+			);
+			return false;
+		}
+
+		return true;
+	}
+
+	bindEvents() {
+		this._onShowToast = this.onShowToast.bind(this);
+		ThemeEvent.on('toast:show', this._onShowToast);
+	}
+
+	unbindEvents() {
+		ThemeEvent.off('toast:show', this._onShowToast);
+	}
+
+	onShowToast({ detail }) {
+		this.showToast(detail.message, detail.duration);
 	}
 
 	showToast(message, duration = 3000) {
-		const toast = this.toast;
-		const msg = this.toastMsg;
+		const template = this.querySelector('template');
+		if (!template) {
+			console.warn('[ToastNotification] Missing <template>');
+			return;
+		}
 
-		if (!toast || !msg) return;
+		// Clone the entire <toast> structure
+		const clone = template.content.cloneNode(true);
+		const toast = clone.querySelector('toast');
+		const msg = clone.querySelector('toast-message');
+
+		if (!toast || !msg) {
+			console.warn(
+				'[ToastNotification] Invalid toast template structure.',
+			);
+			return;
+		}
 
 		msg.textContent = message;
+		this.appendChild(toast);
 
-		// Reset animation state
-		toast.classList.remove('hidden');
-		toast.classList.add('transition', 'duration-300', 'ease-out');
+		// Animate in
+		requestAnimationFrame(() => {
+			toast.classList.remove('opacity-0', '-translate-y-8');
+			toast.classList.add('opacity-100', 'translate-y-0');
+		});
 
-		// Force reflow to restart transition (important!)
-		void toast.offsetWidth;
-
-		toast.classList.remove('opacity-0', '-translate-y-8');
-		toast.classList.add('opacity-100', 'translate-y-0');
-
-		// Hide after duration
+		// Auto-dismiss
 		setTimeout(() => {
 			toast.classList.remove('opacity-100', 'translate-y-0');
 			toast.classList.add('opacity-0', '-translate-y-8');
-			setTimeout(() => {
-				toast.classList.add('hidden');
-			}, 300); // match duration
+			setTimeout(() => toast.remove(), 300);
 		}, duration);
 	}
 }

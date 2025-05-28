@@ -1,51 +1,161 @@
+import { ThemeEvent } from '../utils/themeEvent.js';
+
+class ProductQuantity extends HTMLElement {
+	constructor() {
+		super();
+		this.input = null;
+	}
+
+	connectedCallback() {
+		if (!this.closest('product-info')) {
+			console.warn(
+				'<product-quantity> can only be used inside <product-info>',
+			);
+			return;
+		}
+
+		this.render();
+	}
+
+	disconnectedCallback() {
+		this.removeEventListener('input', this._onInput);
+	}
+
+	render() {
+		if (this.querySelector('input')) return;
+
+		const input = document.createElement('input');
+		input.type = 'number';
+
+		input.setAttribute('id', 'product-quantity');
+
+		this.min = this.getAttribute('min') || '1';
+		input.setAttribute('min', this.min);
+
+		const name = this.getAttribute('name') || 'quantity';
+		input.setAttribute('name', name);
+
+		const attributes = ['value', 'max', 'step', 'placeholder'];
+		for (const attr of attributes) {
+			if (this.hasAttribute(attr)) {
+				input.setAttribute(attr, this.getAttribute(attr));
+			}
+		}
+
+		input.className = this.getAttribute('class');
+		this.removeAttribute('class');
+
+		this._onInput = this.onInput.bind(this);
+		input.addEventListener('input', this._onInput);
+
+		this.appendChild(input);
+		this.input = input;
+	}
+
+	onInput() {
+		let val = parseInt(this.value, 10);
+		if (isNaN(val) || val < parseInt(this.min)) {
+			this.value = this.min;
+		}
+	}
+
+	get value() {
+		return this.input?.value;
+	}
+
+	set value(val) {
+		if (this.input) {
+			this.input.value = Math.max(parseInt(val, 10), 1);
+		}
+	}
+}
+
 class ProductInfo extends HTMLElement {
 	connectedCallback() {
-		this.initialize();
-		this.bindEvents();
-		this.updateVariant();
+		requestAnimationFrame(() => {
+			this.initialize();
+			this.bindEvents();
+			setTimeout(() => {
+				this.updateVariant();
+			}, 1000);
+		});
+	}
+
+	disconnectedCallback() {
+		this.unbindEvents();
 	}
 
 	initialize() {
+		if (!customElements.get('product-quantity')) {
+			customElements.define('product-quantity', ProductQuantity);
+		}
+
+		if (!customElements.get('purchase-actions')) {
+			customElements.define(
+				'purchase-actions',
+				class extends HTMLElement {},
+			);
+		}
+
+		if (!customElements.get('sold-out-message')) {
+			customElements.define(
+				'sold-out-message',
+				class extends HTMLElement {},
+			);
+		}
+
 		this.optionInputs = this.querySelectorAll(
 			'input[type="radio"][name^="options["]',
 		);
 		this.variantInput = this.querySelector('input[name="id"]');
 		this.variants = JSON.parse(this.dataset.variants || '[]');
-		this.optionSpans = this.querySelectorAll('.variant-button');
-		this.compareEl = this.querySelector('#compareAtPrice');
-		this.badgeEl = this.querySelector('#saleBadge');
-		this.addToCartBtn = this.querySelector('#addToCartBtn');
+		this.optionSpans = this.querySelectorAll('variant-button');
+		this.regularEl = this.querySelector('regular-price');
+		this.compareEl = this.querySelector('compare-at-price');
+		this.badgeEl = this.querySelector('sale-badge');
 		this.buyNowBtn = this.querySelector('[name="button"]');
-		this.purchaseActions = this.querySelector('#purchaseActions');
-		this.soldOutMessage = this.querySelector('#soldOutMessage');
-		this.quantityInput = this.querySelector('#quantity');
+		this.purchaseActions = this.querySelector('purchase-actions');
+		this.soldOutMessage = this.querySelector('sold-out-message');
+		this.quantityInput = this.querySelector('product-quantity');
 	}
 
 	bindEvents() {
+		this._onOptionInputChange = this.onOptionInputChange.bind(this);
 		this.optionInputs.forEach((input) => {
-			input.addEventListener(
-				'change',
-				this.onOptionInputChange.bind(this),
-			);
+			input.addEventListener('change', this._onOptionInputChange);
 		});
+
+		this._onOptionSpanClick = this.onOptionSpanClick.bind(this);
 		this.optionSpans.forEach((span) => {
-			span.addEventListener('click', this.onOptionSpanClick.bind(this));
+			span.addEventListener('click', this._onOptionSpanClick);
 		});
 
-		this.addEventListener(
-			'mediaViewerColorSelected',
-			this.onMediaViewerColorSelected.bind(this),
+		this._onMediaViewerImageSelected =
+			this.onMediaViewerImageSelected.bind(this);
+		ThemeEvent.on(
+			'product:media:selected',
+			this._onMediaViewerImageSelected,
 		);
 
-		document.addEventListener(
-			'mediaViewerImageSelected',
-			this.onMediaViewerImageSelected.bind(this),
+		this._onCartItemAdded = this.onCartItemAdded.bind(this);
+		ThemeEvent.on('cart:item:added', this._onCartItemAdded);
+	}
+
+	unbindEvents() {
+		this.optionInputs.forEach((input) => {
+			input.removeEventListener('change', this._onOptionInputChange);
+		});
+
+		this.optionSpans.forEach((span) => {
+			span.removeEventListener('click', this._onOptionSpanClick);
+		});
+
+		ThemeEvent.off(
+			'product:media:selected',
+			this._onMediaViewerImageSelected,
 		);
 
-		document.addEventListener(
-			'cart:item:added',
-			this.onCartItemAdded.bind(this),
-		);
+		ThemeEvent.off('cart:item:added', this._onCartItemAdded);
 	}
 
 	onOptionInputChange(e) {
@@ -66,24 +176,13 @@ class ProductInfo extends HTMLElement {
 		}
 	}
 
-	onMediaViewerColorSelected(e) {
-		const color = e.detail.color;
-		const colorInputs = this.querySelectorAll(
-			`input[name="options[Color]"]`,
-		);
-		colorInputs.forEach((input) => {
-			if (input.value === color) {
-				input.checked = true;
-				input.dispatchEvent(new Event('change', { bubbles: true }));
-			}
-		});
-	}
 	onMediaViewerImageSelected(e) {
 		const color = e.detail.color;
 
 		const colorInputs = this.querySelectorAll(
 			`input[name="options[Color]"]`,
 		);
+
 		colorInputs.forEach((input) => {
 			if (input.value === color) {
 				input.checked = true;
@@ -142,6 +241,8 @@ class ProductInfo extends HTMLElement {
 			const compareAt = matchedVariant.compare_at_price;
 			const price = matchedVariant.price;
 
+			this.regularEl.textContent = this.formatMoney(price);
+
 			if (compareAt && compareAt > price) {
 				this.compareEl.textContent = this.formatMoney(compareAt);
 				this.compareEl.classList.remove('hidden');
@@ -157,22 +258,18 @@ class ProductInfo extends HTMLElement {
 			}
 
 			if (matchedVariant.available) {
-				purchaseActions.classList.remove('hidden');
-				if (this.addToCartBtn) this.addToCartBtn.disabled = false;
-				if (this.buyNowBtn) this.buyNowBtn.disabled = false;
+				this.purchaseActions.classList.remove('hidden');
 				this.soldOutMessage.classList.add('hidden');
 				this.soldOutMessage.classList.remove('flex');
 			} else {
-				purchaseActions.classList.add('hidden');
+				this.purchaseActions.classList.add('hidden');
 				this.soldOutMessage.classList.remove('hidden');
 				this.soldOutMessage.classList.add('flex');
 			}
 
-			document.dispatchEvent(
-				new CustomEvent('mediaViewerColorSelected', {
-					detail: { color: matchedVariant.option1 },
-				}),
-			);
+			ThemeEvent.emit('product:info:updated', {
+				color: matchedVariant.option1,
+			});
 		}
 		if (this.quantityInput) {
 			const max = matchedVariant.inventory_quantity ?? 999;

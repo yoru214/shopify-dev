@@ -1,4 +1,7 @@
-<div class='bg-background overflow-hidden shadow hover:shadow-md transition'>
+<product-card
+	data-handle='{{ product.handle }}'
+	class='bg-background overflow-hidden shadow hover:shadow-md transition'
+>
 	<a href='{{ product.url }}' class='block hover:bg-contrast/5'>
 		<div class='overflow-hidden'>
 			{% if product.featured_image %}
@@ -48,4 +51,4 @@
 			</button>
 		</form>
 	</div>
-</div>
+</product-card>

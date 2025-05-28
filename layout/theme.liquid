@@ -48,7 +48,7 @@
 					const button = this.querySelector('button');
 					const panel = this.querySelector('#panel');
 					const chevron = this.querySelector('#chevron');
-					const header = document.getElementById('site-header');
+					const header = document.querySelector('header');
 
 					button?.addEventListener('click', (e) => {
 						e.stopPropagation();
@@ -76,6 +76,22 @@
 		</script>
 
 		<script src='{{ 'bundle.js' | asset_url }}' defer></script>
+
+		<modal-viewer>
+			<modal-backdrop class='fixed inset-0 bg-black/50 z-50 hidden items-center justify-center'>
+				<modal-wrapper class='bg-white rounded-lg shadow-lg max-w-4xl w-full max-h-[90vh] overflow-y-auto relative'>
+					<modal-close-button
+						is='modal-close'
+						aria-label='Close'
+						class='absolute top-4 right-4 p-2 w-10 h-10 cursor-pointer'
+					>
+						{% render 'icon-close' %}
+					</modal-close-button>
+
+					<div data-modal-slot></div>
+				</modal-wrapper>
+			</modal-backdrop>
+		</modal-viewer>
 
 		{% section 'toast-notification' %}
 	</body>

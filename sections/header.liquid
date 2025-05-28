@@ -1,6 +1,5 @@
 {% assign main_menu_linklist = linklists[section.settings.menu].links %}
 <header
-	id='site-header'
 	class='w-full bg-white border-b shadow-sm fixed z-50  color-{{ section.settings.color_scheme }}'
 >
 	<div class='max-w-screen-xl mx-auto flex items-center justify-between p-0'>
@@ -138,11 +137,10 @@
 			<cart-icon count='{{ cart.item_count }}' url='{{ routes.cart_url }}'>
 				<a href='{{ routes.cart_url }}' class='relative text-lg'>
 					{% render 'icon-shopping-bag' %}
-					{% if cart.item_count > 0 %}
-						<span class='cart-count absolute -top-2 -right-2 bg-[var(--color-button)] text-white text-xs font-bold rounded-full px-1.5 py-0.5 leading-none'>
-							{{ cart.item_count }}
-						</span>
-					{% endif %}
+
+					<cart-count class='absolute hidden -top-2 -right-2 bg-[var(--color-button)] text-white text-xs font-bold rounded-full px-1.5 py-0.5 leading-none'>
+						{{ cart.item_count }}
+					</cart-count>
 				</a>
 			</cart-icon>
 

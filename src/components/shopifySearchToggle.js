@@ -10,7 +10,7 @@ class ShopifySearchToggle extends HTMLElement {
 		this.searchBtn = this.querySelector('#search-button');
 		this.overlay = this.querySelector('#overlay');
 		this.input = this.querySelector('input');
-		this.header = document.getElementById('site-header');
+		this.header = document.querySelector('header');
 	}
 
 	bindEvents() {
