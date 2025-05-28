@@ -15,9 +15,9 @@
 					<compare-at-price class='text-xl text-secondary mb-4 line-through'>
 						{{ product.selected_or_first_available_variant.compare_at_price | money }}
 					</compare-at-price>
-					<span id='regularPrice' class='text-xl text-secondary font-bold mb-4'>
+					<regular-price class='text-xl text-secondary font-bold mb-4'>
 						{{ product.selected_or_first_available_variant.price | money }}
-					</span>
+					</regular-price>
 					{% if product.selected_or_first_available_variant.price
 							< product.selected_or_first_available_variant.compare_at_price
 					%}
