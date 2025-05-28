@@ -5,126 +5,124 @@
 	quantity='{{ quantity }}'
 	class='flex flex-col h-full'
 >
-	<form data-no-recaptcha>
-		<div class='flex flex-col justify-between h-full'>
-			<div>
-				<div class='my-3'>
-					<span class='text-xs text-gray-500'>{{ product.vendor }}</span>
-				</div>
-				<div class='my-3'>
-					<h1 class='text-3xl font-bold text-primary mb-2'>{{ product.title }}</h1>
-				</div>
-				<div class='my-3'>
-					<compare-at-price class='text-xl text-secondary mb-4 line-through'>
-						{{ product.selected_or_first_available_variant.compare_at_price | money }}
-					</compare-at-price>
-					<regular-price class='text-xl text-secondary font-bold mb-4'>
-						{{ product.selected_or_first_available_variant.price | money }}
-					</regular-price>
-					{% if product.selected_or_first_available_variant.price
-							< product.selected_or_first_available_variant.compare_at_price
-					%}
-						<sale-badge
-							class='px-5 py-1 text-sm font-bold bg-red-500 rounded-full text-white mx-4'
-						>
-							Sale
-						</sale-badge>
-					{% else %}
-						<sale-badge class='hidden'></sale-badge>
-					{% endif %}
-				</div>
-
-				<div class='my-3 space-y-4'>
-					{% unless product.has_only_default_variant %}
-						{% for option in product.options_with_values %}
-							<div class='mb-4'>
-								<span class='block text-sm font-semibold mb-2'>{{ option.name }}</span>
-								<div class='grid grid-cols-4 sm:grid-cols-6 gap-2'>
-									{% for value in option.values %}
-										{% assign is_checked = false %}
-										{% if forloop.first %}
-											{% assign is_checked = true %}
-										{% endif %}
-
-										<label class='cursor-pointer block'>
-											<input
-												type='radio'
-												name='options[{{ option.name }}]'
-												value='{{ value }}'
-												class='sr-only'
-												{% if forloop.first %}
-													checked
-												{% endif %}
-											>
-
-											{% assign is_checked = forloop.first %}
-											{% assign base_classes = 'text-sm hover:opacity-90 transition text-center border' %}
-
-											<variant-button
-												class='
-													{% if option.name == "Color" %}
-													  h-10 flex items-center justify-center px-4 rounded
-													{% else %}
-													  px-4 py-2 rounded block
-													{% endif %}
-													{{ base_classes }}
-												'
-												data-name='options[{{ option.name }}]'
-												data-value='{{ value }}'
-												data-selected='{{ is_checked }}'
-											>
-												{{ value }}
-											</variant-button>
-										</label>
-									{% endfor %}
-								</div>
-							</div>
-						{% endfor %}
-					{% endunless %}
-				</div>
-
-				<input type='hidden' name='id' value='{{ product.selected_or_first_available_variant.id }}'>
-				<div class='my-4'>
-					<label class='block text-sm font-medium text-gray-700 mb-1'> Quantity </label>
-					<product-quantity
-						value='1'
-						class='px-3 py-2 rounded border border-gray-300 focus:ring focus:ring-blue-300 focus:outline-none text-center w-20'
-					></product-quantity>
-				</div>
+	<div class='flex flex-col justify-between h-full'>
+		<div>
+			<div class='my-3'>
+				<span class='text-xs text-gray-500'>{{ product.vendor }}</span>
+			</div>
+			<div class='my-3'>
+				<h1 class='text-3xl font-bold text-primary mb-2'>{{ product.title }}</h1>
+			</div>
+			<div class='my-3'>
+				<compare-at-price class='text-xl text-secondary mb-4 line-through'>
+					{{ product.selected_or_first_available_variant.compare_at_price | money }}
+				</compare-at-price>
+				<regular-price class='text-xl text-secondary font-bold mb-4'>
+					{{ product.selected_or_first_available_variant.price | money }}
+				</regular-price>
+				{% if product.selected_or_first_available_variant.price
+						< product.selected_or_first_available_variant.compare_at_price
+				%}
+					<sale-badge
+						class='px-5 py-1 text-sm font-bold bg-red-500 rounded-full text-white mx-4'
+					>
+						Sale
+					</sale-badge>
+				{% else %}
+					<sale-badge class='hidden'></sale-badge>
+				{% endif %}
 			</div>
 
-			<div class='mt-auto space-y-3 pt-4'>
-				<purchase-actions class='flex flex-col space-y-3 py-3'>
-					{% if variant_id %}
-						<update-cart-item cart_line='{{ line }}' variant_id='{{ variant_id }}'>
-							<button
-								class='w-full bg-[var(--color-button)] text-[var(--color-button-label)] font-semibold py-3 hover:bg-opacity-90 transition cursor-pointer'
-							>
-								Update
-							</button>
-						</update-cart-item>
+			<div class='my-3 space-y-4'>
+				{% unless product.has_only_default_variant %}
+					{% for option in product.options_with_values %}
+						<div class='mb-4'>
+							<span class='block text-sm font-semibold mb-2'>{{ option.name }}</span>
+							<div class='grid grid-cols-4 sm:grid-cols-6 gap-2'>
+								{% for value in option.values %}
+									{% assign is_checked = false %}
+									{% if forloop.first %}
+										{% assign is_checked = true %}
+									{% endif %}
 
-					{% else %}
-						<add-to-cart>
-							<button
-								type='submit'
-								class='w-full bg-[var(--color-button)] text-[var(--color-button-label)] font-semibold py-3 hover:bg-opacity-90 transition cursor-pointer'
-							>
-								Add to Cart
-							</button>
-						</add-to-cart>
+									<label class='cursor-pointer block'>
+										<input
+											type='radio'
+											name='options[{{ option.name }}]'
+											value='{{ value }}'
+											class='sr-only'
+											{% if forloop.first %}
+												checked
+											{% endif %}
+										>
 
-						<div class='w-full'>
-							{{ form | payment_button }}
+										{% assign is_checked = forloop.first %}
+										{% assign base_classes = 'text-sm hover:opacity-90 transition text-center border' %}
+
+										<variant-button
+											class='
+												{% if option.name == "Color" %}
+												  h-10 flex items-center justify-center px-4 rounded
+												{% else %}
+												  px-4 py-2 rounded block
+												{% endif %}
+												{{ base_classes }}
+											'
+											data-name='options[{{ option.name }}]'
+											data-value='{{ value }}'
+											data-selected='{{ is_checked }}'
+										>
+											{{ value }}
+										</variant-button>
+									</label>
+								{% endfor %}
+							</div>
 						</div>
-					{% endif %}
-				</purchase-actions>
-				<sold-out-message
-					class='h-[100px] flex items-center justify-center text-red-600 font-bold text-center bg-gray-100 rounded'
-				>
-					SOLD OUT
-				</sold-out-message>
+					{% endfor %}
+				{% endunless %}
+			</div>
+
+			<input type='hidden' name='id' value='{{ product.selected_or_first_available_variant.id }}'>
+			<div class='my-4'>
+				<label class='block text-sm font-medium text-gray-700 mb-1'> Quantity </label>
+				<product-quantity
+					value='1'
+					class='px-3 py-2 rounded border border-gray-300 focus:ring focus:ring-blue-300 focus:outline-none text-center w-20'
+				></product-quantity>
 			</div>
 		</div>
-	</form>
+
+		<div class='mt-auto space-y-3 pt-4'>
+			<purchase-actions class='flex flex-col space-y-3 py-3'>
+				{% if variant_id %}
+					<update-cart-item cart_line='{{ line }}' variant_id='{{ variant_id }}'>
+						<button
+							class='w-full bg-[var(--color-button)] text-[var(--color-button-label)] font-semibold py-3 hover:bg-opacity-90 transition cursor-pointer'
+						>
+							Update
+						</button>
+					</update-cart-item>
+
+				{% else %}
+					<add-to-cart>
+						<button
+							type='submit'
+							class='w-full bg-[var(--color-button)] text-[var(--color-button-label)] font-semibold py-3 hover:bg-opacity-90 transition cursor-pointer'
+						>
+							Add to Cart
+						</button>
+					</add-to-cart>
+
+					<div class='w-full'>
+						{{ form | payment_button }}
+					</div>
+				{% endif %}
+			</purchase-actions>
+			<sold-out-message
+				class='h-[100px] flex items-center justify-center text-red-600 font-bold text-center bg-gray-100 rounded'
+			>
+				SOLD OUT
+			</sold-out-message>
+		</div>
+	</div>
 </product-info>
