@@ -9,7 +9,7 @@
 	{% if cart.item_count > 0 %}
 		<form action='/cart' method='post' novalidate>
 			<cart-table>
-				{% section 'cart-table' %}
+				{% render 'cart-table' %}
 			</cart-table>
 
 			<!-- Order Summary -->
