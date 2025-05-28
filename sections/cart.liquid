@@ -11,8 +11,9 @@
 			<cart-table>
 				{% render 'cart-table' %}
 			</cart-table>
-
-			{% render 'cart-summary' %}
+			<cart-summary>
+				{% render 'cart-summary' %}
+			</cart-summary>
 		</form>
 	{% else %}
 		<p class='text-lg text-gray-600'>Your cart is currently empty.</p>
