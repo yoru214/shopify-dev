@@ -78,7 +78,11 @@
 		<script src='{{ 'bundle.js' | asset_url }}' defer></script>
 
 		<modal-viewer>
-			<modal-backdrop class='fixed inset-0 bg-black/50 z-50 hidden items-center justify-center'> </modal-backdrop>
+			<modal-backdrop class='fixed inset-0 bg-black/50 z-50 hidden items-center justify-center'>
+				<modal-wrapper class='bg-white rounded-lg shadow-lg max-w-4xl w-full max-h-[90vh] overflow-y-auto relative'>
+					// more dom nodes
+				</modal-wrapper>
+			</modal-backdrop>
 		</modal-viewer>
 		{% section 'toast-notification' %}
 	</body>
