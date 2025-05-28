@@ -1,0 +1,35 @@
+<section class='container mx-auto px-4 py-10 color-{{ section.settings.color_scheme }}'>
+	<div class='flex justify-between items-center mb-6'>
+		<h1 class='text-3xl font-bold text-primary'>Your Cart</h1>
+		<a href='/collections/all' class='text-sm font-semibold text-[var(--color-button)] hover:underline'>
+			Continue Shopping →
+		</a>
+	</div>
+
+	{% if cart.item_count > 0 %}
+		<form action='/cart' method='post' novalidate>
+			<cart-table>
+				{% render 'cart-table' %}
+			</cart-table>
+			<cart-summary>
+				{% render 'cart-summary' %}
+			</cart-summary>
+		</form>
+	{% else %}
+		<p class='text-lg text-gray-600'>Your cart is currently empty.</p>
+	{% endif %}
+</section>
+
+{% schema %}
+{
+	"name": "Cart Page",
+	"settings": [
+		{
+			"type": "color_scheme",
+			"id": "color_scheme",
+			"label": "Color scheme",
+			"default": "scheme-1"
+		}
+	]
+}
+{% endschema %}

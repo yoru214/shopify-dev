@@ -25,7 +25,7 @@ class ProductCard extends HTMLElement {
 	onPreviewClick(e) {
 		e.preventDefault(); // prevent form submission
 		ThemeEvent.emit('modal:product:preview', {
-			url: `/products/${this.handle}?view=preview`,
+			url: `/products/${this.handle}?section_id=product-preview`,
 		});
 	}
 }

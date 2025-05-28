@@ -1,5 +1,8 @@
 <product-info
 	data-variants='{{ product.variants | json | escape }}'
+	data-option-names='{{ product.options | json }}'
+	variant_id='{{ variant_id }}'
+	quantity='{{ quantity }}'
 	class='flex flex-col h-full'
 >
 	{% form 'product', product, id: 'product-form' %}
@@ -92,19 +95,29 @@
 
 			<div class='mt-auto space-y-3 pt-4'>
 				<purchase-actions id='purchaseActions' class='flex flex-col space-y-3 py-3'>
-					<add-to-cart>
-						<button
-							type='submit'
-							class='w-full bg-[var(--color-button)] text-[var(--color-button-label)] font-semibold py-3 hover:bg-opacity-90 transition cursor-pointer'
-						>
-							Add to Cart
-						</button>
-					</add-to-cart>
+					{% if variant_id %}
+						<update-cart-item cart_line='{{ line }}' variant_id='{{ variant_id }}'
+							><button
+								type='submit'
+								class='w-full bg-[var(--color-button)] text-[var(--color-button-label)] font-semibold py-3 hover:bg-opacity-90 transition cursor-pointer'
+							>
+								Update
+							</button>
+						</update-cart-item>
+					{% else %}
+						<add-to-cart>
+							<button
+								type='submit'
+								class='w-full bg-[var(--color-button)] text-[var(--color-button-label)] font-semibold py-3 hover:bg-opacity-90 transition cursor-pointer'
+							>
+								Add to Cart
+							</button>
+						</add-to-cart>
 
-					<!-- Ensure payment button renders as a block element -->
-					<div class='w-full'>
-						{{ form | payment_button }}
-					</div>
+						<div class='w-full'>
+							{{ form | payment_button }}
+						</div>
+					{% endif %}
 				</purchase-actions>
 				<sold-out-message
 					class='h-[100px] flex items-center justify-center text-red-600 font-bold text-center bg-gray-100 rounded'

@@ -72,12 +72,14 @@ class ProductQuantity extends HTMLElement {
 
 class ProductInfo extends HTMLElement {
 	connectedCallback() {
+		this.blur();
 		requestAnimationFrame(() => {
 			this.initialize();
 			this.bindEvents();
 			setTimeout(() => {
 				this.updateVariant();
-			}, 1000);
+				this.unblur();
+			}, 100);
 		});
 	}
 
@@ -109,6 +111,10 @@ class ProductInfo extends HTMLElement {
 		);
 		this.variantInput = this.querySelector('input[name="id"]');
 		this.variants = JSON.parse(this.dataset.variants || '[]');
+		this.optionNames = this.dataset.optionNames
+			? JSON.parse(this.dataset.optionNames)
+			: [];
+
 		this.optionSpans = this.querySelectorAll('variant-button');
 		this.regularEl = this.querySelector('regular-price');
 		this.compareEl = this.querySelector('compare-at-price');
@@ -117,6 +123,20 @@ class ProductInfo extends HTMLElement {
 		this.purchaseActions = this.querySelector('purchase-actions');
 		this.soldOutMessage = this.querySelector('sold-out-message');
 		this.quantityInput = this.querySelector('product-quantity');
+
+		this.variantId = this.getAttribute('variant_id') || null;
+
+		this.quantity = parseInt(this.getAttribute('quantity'), 10) || 1;
+		if (this.variantId) {
+			const selected = this.variants.find((v) => v.id == this.variantId);
+			if (selected) {
+				this.selectVariantOptions(selected);
+			}
+		}
+
+		if (this.quantityInput) {
+			this.quantityInput.value = this.quantity;
+		}
 	}
 
 	bindEvents() {
@@ -234,7 +254,10 @@ class ProductInfo extends HTMLElement {
 				JSON.stringify(v.options) === JSON.stringify(selectedOptions)
 			);
 		});
-
+		if (!matchedVariant) {
+			console.warn('[ProductInfo] No matching variant found.');
+			return;
+		}
 		if (matchedVariant) {
 			this.variantInput.value = matchedVariant.id;
 
@@ -282,6 +305,27 @@ class ProductInfo extends HTMLElement {
 			if (qty > max) qty = max;
 			this.quantityInput.value = qty;
 		}
+	}
+	selectVariantOptions(variant) {
+		if (!variant || !variant.options || !this.optionNames) return;
+
+		variant.options.forEach((value, index) => {
+			const optionName = this.optionNames[index]; // e.g., "Size", "Color"
+			const radio = this.querySelector(
+				`input[name="options[${optionName}]"][value="${value}"]`,
+			);
+			if (radio) {
+				radio.checked = true;
+			} else {
+				console.warn(`No radio found for ${optionName} = ${value}`);
+			}
+		});
+	}
+	blur() {
+		this.classList.add('blur-3xl', 'transition');
+	}
+	unblur() {
+		this.classList.remove('blur-3xl');
 	}
 }
 

@@ -1,26 +1,8 @@
 <div class='flex-shrink-0 w-full h-96 snap-start m-0 cursor-pointer'>
 	<div class='w-full h-full flex items-center justify-center'>
-		{% if shop.logo %}
+		{% if settings.logo %}
 			<img
-				src='{{ shop.logo | image_url: width: 800 }}'
-				alt='{{ shop.name | escape }} logo'
-				class='max-h-full max-w-full object-contain'
-			>
-		{% else %}
-			<img
-				src='{{ 'logo.png' | asset_url }}'
-				alt='Fallback logo'
-				class='max-h-full max-w-full object-contain'
-			>
-		{% endif %}
-	</div>
-</div>
-=======
-<div class='flex-shrink-0 w-full h-96 snap-start m-0 cursor-pointer'>
-	<div class='w-full h-full flex items-center justify-center'>
-		{% if shop.logo %}
-			<img
-				src='{{ shop.logo | image_url: width: 800 }}'
+				src='{{ settings.logo | image_url: width: 800 }}'
 				alt='{{ shop.name | escape }} logo'
 				class='max-h-full max-w-full object-contain'
 			>

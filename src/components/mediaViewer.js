@@ -15,9 +15,13 @@ class MediaViewer extends HTMLElement {
 	}
 
 	connectedCallback() {
+		this.blur();
 		requestAnimationFrame(() => {
 			if (!this.initialize()) return;
 			this.bindEvents();
+			setTimeout(() => {
+				this.unblur();
+			}, 100);
 		});
 	}
 
@@ -250,6 +254,12 @@ class MediaViewer extends HTMLElement {
 		} else {
 			this._isScrollingToSlide = false;
 		}
+	}
+	blur() {
+		this.classList.add('blur-3xl', 'transition');
+	}
+	unblur() {
+		this.classList.remove('blur-3xl');
 	}
 }
 
