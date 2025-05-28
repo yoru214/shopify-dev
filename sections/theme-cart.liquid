@@ -55,6 +55,7 @@
 									product-handle='{{ item.product.handle }}'
 									variant-id='{{ item.variant.id }}'
 									quantity='{{ item.quantity }}'
+									line='{{ forloop.index }}'
 								>
 									<button class='text-blue-600 hover:underline text-sm cursor-pointer'>Edit</button>
 								</cart-item-edit-button>
