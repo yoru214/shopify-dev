@@ -137,10 +137,11 @@
 			<cart-icon count='{{ cart.item_count }}' url='{{ routes.cart_url }}'>
 				<a href='{{ routes.cart_url }}' class='relative text-lg'>
 					{% render 'icon-shopping-bag' %}
-					
-						<cart-count class='absolute -top-2 -right-2 bg-[var(--color-button)] text-white text-xs font-bold rounded-full px-1.5 py-0.5 leading-none'>
-							{{ cart.item_count }}
-						</cart-count>
+
+					<cart-count class='absolute -top-2 -right-2 bg-[var(--color-button)] text-white text-xs font-bold rounded-full px-1.5 py-0.5 leading-none'>
+						{{ cart.item_count }}
+					</cart-count>
+				</a>
 			</cart-icon>
 
 			{% if shop.customer_accounts_enabled %}
