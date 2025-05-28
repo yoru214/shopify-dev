@@ -78,5 +78,13 @@
 		<script src='{{ 'bundle.js' | asset_url }}' defer></script>
 
 		{% section 'toast-notification' %}
+		<modal-component id='myModal'>
+			<template>
+				<div class='p-6 bg-white rounded shadow max-w-md w-full'>
+					<h2 class='text-xl font-semibold mb-4'>Modal Title</h2>
+					<p class='text-gray-700'>This is some modal content.</p>
+				</div>
+			</template>
+		</modal-component>
 	</body>
 </html>
