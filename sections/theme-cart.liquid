@@ -24,11 +24,12 @@
 							<td class='py-4'>
 								<div class='flex items-center gap-4'>
 									<a href='{{ item.url }}'>
-										<img
-											src='{{ item.image | image_url: width: 100 }}'
-											alt='{{ item.product.title }}'
-											class='w-16 h-16 object-cover rounded'
-										>
+										{% if item.image %}
+											<img
+												src='{{ item.image | image_url: width: 100 }}'
+												alt='{{ item.product.title }}'
+											>
+										{% endif %}
 									</a>
 									<div>
 										<a href='{{ item.url }}' class='font-semibold hover:underline text-primary'>
