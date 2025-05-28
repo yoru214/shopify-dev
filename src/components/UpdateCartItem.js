@@ -105,4 +105,4 @@ class UpdateCartItem extends HTMLElement {
 	}
 }
 
-customElements.define('temp-test', UpdateCartItem);
+customElements.define('update-cart-item-button', UpdateCartItem);
