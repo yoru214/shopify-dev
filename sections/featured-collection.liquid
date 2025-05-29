@@ -1,7 +1,7 @@
 <section class='container mx-auto px-4 py-8 color-{{ section.settings.color_scheme }}'>
 	<h1 class='text-3xl font-bold mb-4 text-primary text-center py-10'>{{ section.settings.title }}</h1>
 	{% assign selected_collection = collections[section.settings.custom_collection] %}
-	{{ selected_collection }}
+	{{ selected_collection.url }}
 	<dynamic-section
 		data-dynamic-url='/'
 		data-section-id='featured-collection-content'
