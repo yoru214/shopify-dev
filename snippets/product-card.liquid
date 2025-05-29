@@ -4,19 +4,45 @@
 >
 	<a href='{{ product.url }}' class='block hover:bg-contrast/5'>
 		<div class='overflow-hidden'>
-			<!-- Image code stays the same -->
+			{% if product.featured_image %}
+				<img
+					src='{{ product.featured_image | image_url: width: 600 }}'
+					alt='{{ product.title }}'
+					width='600'
+					height='{{ 600 | divided_by: product.featured_image.aspect_ratio | round }}'
+					class='w-full h-60 object-cover transition duration-1000 ease-in-out transform hover:scale-110'
+					loading='lazy'
+				>
+			{% else %}
+				{% if settings.logo %}
+					<img
+						src='{{ settings.logo | image_url: width: 600 }}'
+						alt='Fallback image for {{ product.title }}'
+						width='600'
+						height='600'
+						class='w-full h-60 object-cover opacity-50 transition duration-1000 ease-in-out transform hover:scale-110'
+						loading='lazy'
+					>
+				{% else %}
+					<img
+						src='{{ 'logo.png' | asset_url }}'
+						alt='Fallback image for {{ product.title }}'
+						width='600'
+						height='600'
+						class='w-full h-60 object-cover opacity-50 transition duration-1000 ease-in-out transform hover:scale-110'
+						loading='lazy'
+					>
+				{% endif %}
+			{% endif %}
 		</div>
 	</a>
 
-	<!-- Flex column to stretch content and push button -->
 	<div class='p-4 flex flex-col flex-1'>
-		<!-- Title and price grow to fill space -->
 		<div class='flex-1'>
 			<h2 class='text-lg font-semibold text-foreground'>{{ product.title }}</h2>
 			<p class='text-subdued'>{{ product.price | money }}</p>
 		</div>
 
-		<!-- Button sticks to the bottom of the card -->
 		<form method='post' action='/cart/add' class='mt-4'>
 			<input type='hidden' name='id' value='{{ product.variants.first.id }}'>
 			<button
