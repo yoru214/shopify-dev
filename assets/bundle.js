@@ -456,7 +456,7 @@ eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var _uti
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
-eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var _utils_htmlElementMixin_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../utils/htmlElementMixin.js */ \"./src/utils/htmlElementMixin.js\");\n\r\n\r\nclass DynamicSection extends (0,_utils_htmlElementMixin_js__WEBPACK_IMPORTED_MODULE_0__.HTMLElementMixin)(HTMLElement) {\r\n\tconnectedCallback() {\r\n\t\tconsole.log(this.windowParams.variantId);\r\n\t}\r\n}\r\n\r\ncustomElements.define('dynamic-section', DynamicSection);\r\n\n\n//# sourceURL=webpack://shopify-dev/./src/components/DynamicSection.js?");
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var _utils_htmlElementMixin_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../utils/htmlElementMixin.js */ \"./src/utils/htmlElementMixin.js\");\n\r\n\r\nclass DynamicSection extends (0,_utils_htmlElementMixin_js__WEBPACK_IMPORTED_MODULE_0__.HTMLElementMixin)(HTMLElement) {\r\n\tconnectedCallback() {\r\n\t\tconsole.log(this.windowParams);\r\n\t}\r\n}\r\n\r\ncustomElements.define('dynamic-section', DynamicSection);\r\n\n\n//# sourceURL=webpack://shopify-dev/./src/components/DynamicSection.js?");
 
 /***/ }),
 
