@@ -1,12 +1,6 @@
 <section class='container mx-auto px-4 py-8 color-{{ section.settings.color_scheme }}'>
 	<h1 class='text-3xl font-bold mb-4 text-primary'>{{ collection.title }}</h1>
 
-	{% if collection.description != blank %}
-		<div class='text-subdued mb-8'>
-			{{ collection.description }}
-		</div>
-	{% endif %}
-
 	<div class='grid grid-cols-1 md:grid-cols-4 gap-8'>
 		<!-- Sidebar -->
 		<aside class='md:col-span-1 space-y-6'>
