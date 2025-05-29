@@ -44,13 +44,10 @@ class UpdateCartItem extends HTMLElement {
 			return;
 		}
 
-		console.log('newVariantId', newVariantId);
-
 		this.button.disabled = true;
 		this.button.textContent = 'Updating...';
 
 		try {
-			// Remove old variant if it changed
 			if (
 				this.originalVariantId &&
 				this.originalVariantId !== newVariantId
@@ -86,7 +83,7 @@ class UpdateCartItem extends HTMLElement {
 				});
 			}
 
-			ThemeEvent.emit('cart:item:updated', {});
+			ThemeEvent.emit('cart:item:updated', { data: 'cart updated' });
 			ThemeEvent.emit('toast:show', {
 				message: `Cart Successfully updated`,
 				duration: 3000,

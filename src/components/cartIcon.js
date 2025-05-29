@@ -34,7 +34,6 @@ class CartIcon extends HTMLElement {
 	}
 
 	loadCartCount() {
-		console.log('cart update called');
 		fetch('/cart.js')
 			.then((res) => res.json())
 			.then((cart) => {

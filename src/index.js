@@ -14,4 +14,3 @@ import './components/UpdateCartItem.js';
 import './components/CartTable.js';
 import './components/CartSummary.js';
 import './components/CartItemRemoveButton.js';
-import './components/ItemButton.js';
