@@ -26,7 +26,7 @@
 			<!-- Sidebar Filters -->
 			<aside class='md:col-span-1 space-y-6'>
 				<dynamic-section
-					data-dynamic-url='{{ collection.url }}'
+					data-dynamic-url='{{ search.url }}'
 					data-section-id='search-sidebar'
 					data-load-group='search-collection'
 				>
@@ -36,19 +36,14 @@
 
 			<!-- Product Grid -->
 			<div class='md:col-span-3'>
-				{% paginate search.results by 12 %}
-					<div class='grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-6'>
-						{% for item in search.results %}
-							{% if item.object_type == 'product' %}
-								{% render 'product-card', product: item %}
-							{% endif %}
-						{% endfor %}
-					</div>
-
-					<div class='mt-10'>
-						{% render 'pagination', pagination: paginate %}
-					</div>
-				{% endpaginate %}
+				<dynamic-section
+					data-dynamic-url='{{ search.url }}'
+					data-section-id='search-content'
+					data-load-group='default-collection'
+					data-blur-duration='500'
+				>
+					{% render 'collection-content' %}
+				</dynamic-section>
 			</div>
 		</div>
 
