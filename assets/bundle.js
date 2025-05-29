@@ -455,7 +455,7 @@ eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var _uti
   \************************************************/
 /***/ (() => {
 
-eval("class CollectionPagination extends HTMLElement {\r\n\tconnectedCallback() {\r\n\t\tthis.addEventListener('click', this._onClick.bind(this));\r\n\t}\r\n\r\n\t_onClick(event) {\r\n\t\tconst link = event.target.closest('a');\r\n\t\tif (!link || !this.contains(link)) return;\r\n\r\n\t\t// Prevent normal navigation\r\n\t\tevent.preventDefault();\r\n\r\n\t\tconst url = link.getAttribute('href');\r\n\t\tif (!url) return;\r\n\r\n\t\tconsole.log('url', url);\r\n\t}\r\n}\r\n\r\ncustomElements.define('collection-pagination', CollectionPagination);\r\n\n\n//# sourceURL=webpack://shopify-dev/./src/components/CollectionPagination.js?");
+eval("class CollectionPagination extends HTMLElement {\r\n\tconnectedCallback() {\r\n\t\tthis.section = this.closest('dynamic-section');\r\n\r\n\t\tthis.addEventListener('click', this._onClick.bind(this));\r\n\t}\r\n\r\n\t_onClick(event) {\r\n\t\tconst link = event.target.closest('a');\r\n\t\tif (!link || !this.contains(link)) return;\r\n\r\n\t\t// Prevent normal navigation\r\n\t\tevent.preventDefault();\r\n\r\n\t\tconst url = link.getAttribute('href');\r\n\t\tif (!url) return;\r\n\r\n\t\tthis.section.loadUrl(url);\r\n\t}\r\n}\r\n\r\ncustomElements.define('collection-pagination', CollectionPagination);\r\n\n\n//# sourceURL=webpack://shopify-dev/./src/components/CollectionPagination.js?");
 
 /***/ }),
 
