@@ -1,4 +1,4 @@
-{{ collection }}
+{{ collection.products_count }}
 
 {% if selected_collection and selected_collection.products_count != blank and selected_collection.products_count > 0 %}
 	{% paginate selected_collection.products by section.settings.number_of_products_by_page %}
