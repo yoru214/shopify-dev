@@ -1,5 +1,14 @@
 <section class='container mx-auto px-4 py-8 color-{{ section.settings.color_scheme }}'>
 	<h1 class='text-3xl font-bold mb-4 text-primary text-center py-10'>{{ section.settings.title }}</h1>
+
+	<dynamic-section
+		data-dynamic-url='{{ collection.url }}'
+		data-section-id='featured-collection-content'
+		data-load-group='featured-collection'
+		data-blur-duration='500'
+	>
+		{% render 'featured-collection-content' %}
+	</dynamic-section>
 </section>
 {% schema %}
 {
