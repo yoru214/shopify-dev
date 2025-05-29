@@ -1,3 +1,5 @@
+{{ section.settings.number_of_products_by_page }}
+
 {% if collection.products_count > 0 %}
 	{% paginate collection.products by section.settings.number_of_products_by_page %}
 		<div class='grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-6'>
