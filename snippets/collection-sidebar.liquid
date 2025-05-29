@@ -92,7 +92,6 @@
 		app.
 	</div>
 {% endif %}
-
 <facet-filter>
 	<form method='get' class='space-y-6'>
 		{% for filter in filters %}
@@ -103,7 +102,8 @@
 
 				{% case filter.type %}
 					{% when 'list' %}
-						<div class='flex flex-wrap gap-2'>
+						<!-- ✅ Added safe overflow wrapper -->
+						<div class='flex flex-wrap gap-2 max-w-full overflow-hidden'>
 							{% for value in filter.values %}
 								<label class='relative'>
 									<input
@@ -126,6 +126,7 @@
 											peer-checked:bg-[var(--color-button)] peer-checked:text-[var(--color-button-label)]
 											peer-disabled:opacity-30 peer-disabled:cursor-not-allowed
 											hover:bg-gray-100
+											break-words max-w-full
 										'
 									>
 										{{ value.label }}
