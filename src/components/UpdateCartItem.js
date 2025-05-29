@@ -38,6 +38,7 @@ class UpdateCartItem extends HTMLElement {
 		const formData = new FormData(this.form);
 		const newVariantId = formData.get('id');
 		const quantity = formData.get('quantity');
+		const line = this.orignalIndex;
 
 		if (!newVariantId || !quantity) {
 			alert('Missing variant or quantity.');
@@ -56,7 +57,7 @@ class UpdateCartItem extends HTMLElement {
 					method: 'POST',
 					headers: { Accept: 'application/json' },
 					body: new URLSearchParams({
-						line: this.orignalIndex,
+						line: String(line),
 						quantity: 0,
 					}),
 				});
