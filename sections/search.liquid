@@ -37,7 +37,7 @@
 			<!-- Product Grid -->
 			<div class='md:col-span-3'>
 				<dynamic-section
-					data-dynamic-url='{{ search.url }}'
+					data-dynamic-url='{{ routes.search_url  }}'
 					data-section-id='search-content'
 					data-load-group='search-collection'
 					data-blur-duration='500'
@@ -48,7 +48,6 @@
 		</div>
 
 	{% else %}
-		<!-- ❌ NO RESULTS MODE -->
 		<div class='flex flex-col items-center text-center max-w-xl mx-auto'>
 			<h2 class='text-xl font-semibold mb-4'>No results found</h2>
 
