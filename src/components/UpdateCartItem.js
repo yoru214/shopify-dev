@@ -55,9 +55,11 @@ class UpdateCartItem extends HTMLElement {
 			) {
 				await fetch('/cart/change.js', {
 					method: 'POST',
-					headers: { Accept: 'application/json' },
+					headers: {
+						Accept: 'application/json',
+					},
 					body: new URLSearchParams({
-						line: String(line),
+						line,
 						quantity: 0,
 					}),
 				});
