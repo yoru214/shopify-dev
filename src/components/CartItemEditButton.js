@@ -19,7 +19,7 @@ class CartItemEditButton extends HTMLElement {
 
 		if (!productHandle || !variantId) return;
 
-		const url = `/products/${productHandle}?section_id=cart-item-editor&variant_id=${variantId}&qty=${quantity}&line=${line}`;
+		const url = `/products/${productHandle}?section_id=cart-item-editor&variant_id=${variantId}&qty=${quantity}&index=${line}`;
 
 		ThemeEvent.emit('modal:cart:item:edit', { url });
 	};
