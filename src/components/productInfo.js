@@ -124,9 +124,10 @@ class ProductInfo extends HTMLElement {
 		this.soldOutMessage = this.querySelector('sold-out-message');
 		this.quantityInput = this.querySelector('product-quantity');
 
-		this.variantId = this.getAttribute('variant_id') || null;
+		this.slotEl = document.querySelector('[data-modal-slot]');
+		this.variantId = this.slotEl.dataset.variantId || null;
+		this.quantity = parseInt(this.slotEl.dataset.qty, 10) || 1;
 
-		this.quantity = parseInt(this.getAttribute('quantity'), 10) || 1;
 		if (this.variantId) {
 			const selected = this.variants.find((v) => v.id == this.variantId);
 			if (selected) {

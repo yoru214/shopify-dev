@@ -17,10 +17,6 @@ class UpdateCartItem extends HTMLElement {
 		this.button = this.querySelector('button');
 		this.form = this.closest('form');
 
-		console.log('originalVariantId', this.originalVariantId);
-		console.log('orignalIndex', this.orignalIndex);
-		console.log('orignalQuantity', this.orignalQuantity);
-
 		if (!this.form || !this.button) {
 			console.warn(
 				'<update-cart-item> must be inside a form and contain a <button>',
