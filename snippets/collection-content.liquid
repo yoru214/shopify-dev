@@ -17,8 +17,8 @@
 		<p class='text-subdued'>No products found in this collection.</p>
 	{% endif %}
 {% endcomment %}
-{{ list_products }}
-{% paginate list_products by settings.number_of_products_by_page %}
+{{ list }}
+{% paginate list by settings.number_of_products_by_page %}
 	<div class='grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-6'>
 		{% for product in collection.products %}
 			{% render 'product-card', product: product %}
