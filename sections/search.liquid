@@ -42,7 +42,7 @@
 					data-load-group='default-collection'
 					data-blur-duration='500'
 				>
-					{% render 'collection-content', list_products: search %}
+					{% render 'collection-content', list_products: search.results %}
 				</dynamic-section>
 
 				{% paginate search.results by 12 %}
