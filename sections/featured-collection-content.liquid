@@ -1,3 +1,1 @@
-{{ collection }}
-
-{% comment %} {% render 'featured-collection-content' %} {% endcomment %}
+{% render 'featured-collection-content' | selected_collection = collection %}
