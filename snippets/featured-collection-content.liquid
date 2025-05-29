@@ -1,6 +1,3 @@
-{% assign selected_collection = collections[section.settings.custom_collection] %}
-{{ section.settings.custom_collection }}
-
 {% if selected_collection and selected_collection.products_count != blank and selected_collection.products_count > 0 %}
 	{% paginate selected_collection.products by section.settings.number_of_products_by_page %}
 		<div class='grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6'>
