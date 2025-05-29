@@ -1,17 +1,15 @@
-<section>
-	{% if collection.products_count > 0 %}
-		{% paginate collection.products by section.settings.number_of_products_by_page %}
-			<div class='grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-6'>
-				{% for product in collection.products %}
-					{% render 'product-card', product: product %}
-				{% endfor %}
-			</div>
+{% if collection.products_count > 0 %}
+	{% paginate collection.products by section.settings.number_of_products_by_page %}
+		<div class='grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-6'>
+			{% for product in collection.products %}
+				{% render 'product-card', product: product %}
+			{% endfor %}
+		</div>
 
-			<div class='mt-10'>
-				{% render 'pagination', pagination: paginate %}
-			</div>
-		{% endpaginate %}
-	{% else %}
-		<p class='text-subdued'>No products found in this collection.</p>
-	{% endif %}
-</section>
+		<div class='mt-10'>
+			{% render 'pagination', pagination: paginate %}
+		</div>
+	{% endpaginate %}
+{% else %}
+	<p class='text-subdued'>No products found in this collection.</p>
+{% endif %}
