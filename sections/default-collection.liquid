@@ -10,12 +10,16 @@
 	<div class='grid grid-cols-1 md:grid-cols-4 gap-8'>
 		<!-- Sidebar -->
 		<aside class='md:col-span-1 space-y-6'>
-			{% render 'collection-sidebar' %}
+			<dynamic-section>
+				{% render 'collection-sidebar' %}
+			</dynamic-section>
 		</aside>
 
 		<!-- Product Grid -->
 		<div class='md:col-span-3'>
-			{% render 'collection-content' %}
+			<dynamic-section>
+				{% render 'collection-content' %}
+			</dynamic-section>
 		</div>
 	</div>
 </section>
