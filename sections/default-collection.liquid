@@ -17,7 +17,7 @@
 
 		<!-- Product Grid -->
 		<div class='md:col-span-3'>
-			<dynamic-section>
+			<dynamic-section data-dynamic-url='{{ collection.url }}' data-section-id='collection-content'>
 				{% render 'collection-content' %}
 			</dynamic-section>
 		</div>
