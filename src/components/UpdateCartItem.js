@@ -8,9 +8,9 @@ class UpdateCartItem extends HTMLElement {
 		this._onClick = this.onClick.bind(this);
 		this.line = this.getAttribute('cart_line');
 		const slotEl = document.querySelector('[data-modal-slot]');
-		this.originalVariantId = this.slotEl.dataset['data-variant-id'] || null;
-		this.orignalIndex = this.slotEl.dataset['data-index'] || null;
-		this.orignalQuantity = this.slotEl.dataset['data-qty'] || 1;
+		this.originalVariantId = this.slotEl.dataset.variantId || null;
+		this.orignalIndex = this.slotEl.dataset.index || null;
+		this.orignalQuantity = this.slotEl.dataset.qty || 1;
 	}
 
 	connectedCallback() {
