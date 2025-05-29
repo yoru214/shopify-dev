@@ -1,4 +1,4 @@
-{{ collection.products }}
+{{ collection }}
 
 {% if collection.products_count > 0 %}
 	{% paginate collection.products by settings.number_of_products_by_page %}
