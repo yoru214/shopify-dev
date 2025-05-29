@@ -42,8 +42,7 @@
 					data-load-group='default-collection'
 					data-blur-duration='500'
 				>
-					{% assign list = search.results %}
-					{% render 'collection-content', list: list %}
+					{% render 'search-content', search: search %}
 				</dynamic-section>
 
 				{% comment %}
