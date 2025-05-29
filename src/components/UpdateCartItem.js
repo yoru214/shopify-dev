@@ -12,6 +12,13 @@ class UpdateCartItem extends HTMLElement {
 	}
 
 	connectedCallback() {
+		const params = new URLSearchParams(window.location.search);
+		const vid = params.get('variant_id');
+		const i = params.get('index');
+
+		console.log('variant:', vid); // "123"
+		console.log('index:', i); // "homepage"
+
 		this.button = this.querySelector('button');
 		this.form = this.closest('form');
 
