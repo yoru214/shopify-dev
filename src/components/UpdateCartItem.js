@@ -29,9 +29,6 @@ class UpdateCartItem extends HTMLElement {
 			return;
 		}
 
-		// Capture the original variant ID only once when component is mounted
-		const initialFormData = new FormData(this.form);
-
 		this.button.addEventListener('click', this._onClick);
 	}
 
