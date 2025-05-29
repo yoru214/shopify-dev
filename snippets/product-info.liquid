@@ -94,7 +94,11 @@
 			</div>
 
 			<div class='mt-auto space-y-3 pt-4'>
-				<purchase-actions class='flex flex-col space-y-3 py-3'>
+				<purchase-actions
+					class='flex flex-col space-y-3 py-3'
+					cart_line='{{ line }}'
+					variant_id='{{ variant_id }}'
+				>
 					{% if variant_id %}
 						<button
 							type='button'
