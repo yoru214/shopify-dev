@@ -45,19 +45,21 @@
 					{% render 'collection-content', list_products: search %}
 				</dynamic-section>
 
-				{% paginate search.results by 12 %}
-					<div class='grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-6'>
-						{% for item in search.results %}
-							{% if item.object_type == 'product' %}
-								{% render 'product-card', product: item %}
-							{% endif %}
-						{% endfor %}
-					</div>
+				{% comment %}
+					{% paginate search.results by 12 %}
+						<div class='grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-6'>
+							{% for item in search.results %}
+								{% if item.object_type == 'product' %}
+									{% render 'product-card', product: item %}
+								{% endif %}
+							{% endfor %}
+						</div>
 
-					<div class='mt-10'>
-						{% render 'pagination', pagination: paginate %}
-					</div>
-				{% endpaginate %}
+						<div class='mt-10'>
+							{% render 'pagination', pagination: paginate %}
+						</div>
+					{% endpaginate %}
+				{% endcomment %}
 			</div>
 		</div>
 
