@@ -14,3 +14,6 @@ import './components/UpdateCartItem.js';
 import './components/CartTable.js';
 import './components/CartSummary.js';
 import './components/CartItemRemoveButton.js';
+import './components/DynamicSection.js';
+import './components/FacetFilter.js';
+import './components/CollectionPagination.js';
