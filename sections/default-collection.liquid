@@ -10,14 +10,14 @@
 	<div class='grid grid-cols-1 md:grid-cols-4 gap-8'>
 		<!-- Sidebar -->
 		<aside class='md:col-span-1 space-y-6'>
-			<dynamic-section>
+			<dynamic-section data-dynamic-url='{{ collection.url }}'>
 				{% render 'collection-sidebar' %}
 			</dynamic-section>
 		</aside>
 
 		<!-- Product Grid -->
 		<div class='md:col-span-3'>
-			<dynamic-section data-dynamic-url='{{ collection.url }}'>
+			<dynamic-section>
 				{% render 'collection-content' %}
 			</dynamic-section>
 		</div>
