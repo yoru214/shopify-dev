@@ -66,7 +66,7 @@
 							>
 								<div
 									class='
-										max-w-screen-xl mx-auto px-6 py-6 flex-row space-x-8
+										max-w-screen-xl mx-auto px-6 py-6 flex gap-8
 										{% if section.settings.menu_alignment == 'center' %}
 										  justify-center
 										{% elsif section.settings.menu_alignment == 'right' %}
@@ -77,12 +77,16 @@
 									'
 								>
 									{% for child in link.links %}
-										<a
-											href='{{ child.url }}'
-											class='text-sm text-gray-700 hover:text-black whitespace-nowrap py-2 px-30'
-										>
-											{{ child.title }}
-										</a>
+										<div class='flex flex-row space-x-8'>
+											{% for child in link.links %}
+												<a
+													href='{{ child.url }}'
+													class='text-sm text-gray-700 hover:text-black whitespace-nowrap py-2 px-4'
+												>
+													{{ child.title }}
+												</a>
+											{% endfor %}
+										</div>
 									{% endfor %}
 								</div>
 							</div>
