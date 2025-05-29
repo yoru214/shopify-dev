@@ -1,22 +1,10 @@
 <section class='container mx-auto px-4 py-8 color-{{ section.settings.color_scheme }}'>
 	<h1 class='text-3xl font-bold mb-4 text-primary'>{{ collection.title }}</h1>
 
-	<div class='grid grid-cols-1 md:grid-cols-4 gap-8'>
+	<div class='grid grid-cols-1 md:[grid-template-columns:auto_1fr] gap-8'>
 		<!-- Sidebar -->
-		{% comment %}
-			<aside class='md:col-span-1 w-full max-w-[280px] space-y-6'>
-				<dynamic-section
-					data-dynamic-url='{{ collection.url }}'
-					data-section-id='collection-sidebar'
-					data-load-group='default-collection'
-				>
-					{% render 'collection-sidebar', filters: collection.filters %}
-				</dynamic-section>
-			</aside>
-		{% endcomment %}
 		{% assign filters = collection.filters %}
 		<aside class='space-y-6 w-full'>
-			<!-- Filters start -->
 			<facet-filter>
 				<form method='get' class='space-y-6'>
 					{% for filter in filters %}
@@ -27,9 +15,9 @@
 
 							{% case filter.type %}
 								{% when 'list' %}
-									<div class='flex flex-wrap gap-x-2 gap-y-2'>
+									<div class='flex flex-wrap gap-x-2 gap-y-2 w-full'>
 										{% for value in filter.values %}
-											<label class='relative'>
+											<label class='block'>
 												<input
 													type='checkbox'
 													name='{{ filter.param_name }}'
@@ -42,15 +30,13 @@
 														disabled
 													{% endif %}
 												>
-
 												<span
 													class='
 														inline-block px-3 py-1 text-sm border rounded-md cursor-pointer transition
 														bg-white text-gray-800 border-gray-300
 														peer-checked:bg-[var(--color-button)] peer-checked:text-[var(--color-button-label)]
 														peer-disabled:opacity-30 peer-disabled:cursor-not-allowed
-														hover:bg-gray-100
-														whitespace-normal
+														hover:bg-gray-100 whitespace-nowrap
 													'
 												>
 													{{ value.label }}
@@ -97,7 +83,7 @@
 		</aside>
 
 		<!-- Product Grid -->
-		<div class='md:col-span-3'>
+		<div class='min-w-0'>
 			<dynamic-section
 				data-dynamic-url='{{ collection.url }}'
 				data-section-id='collection-content'
@@ -109,6 +95,7 @@
 		</div>
 	</div>
 </section>
+
 {% schema %}
 {
 	"name": "Collection",
