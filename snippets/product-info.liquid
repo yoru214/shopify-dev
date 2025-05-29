@@ -94,17 +94,16 @@
 			</div>
 
 			<div class='mt-auto space-y-3 pt-4'>
-				<purchase-actions
-					class='flex flex-col space-y-3 py-3'
-					cart-line='{{ line }}'
-				>
+				<purchase-actions class='flex flex-col space-y-3 py-3'>
 					{% if variant_id %}
-						<button
-							type='button'
-							class='w-full bg-[var(--color-button)] text-[var(--color-button-label)] font-semibold py-3 hover:bg-opacity-90 transition cursor-pointer'
-						>
-							Update
-						</button>
+						<item-button>
+							<button
+								type='button'
+								class='w-full bg-[var(--color-button)] text-[var(--color-button-label)] font-semibold py-3 hover:bg-opacity-90 transition cursor-pointer'
+							>
+								Update
+							</button>
+						</item-button>
 
 					{% else %}
 						<add-to-cart>
