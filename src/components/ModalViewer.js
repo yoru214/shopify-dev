@@ -91,8 +91,6 @@ class ModalViewer extends HTMLElement {
 			const bodyNodes = Array.from(doc.body.childNodes);
 
 			if (bodyNodes.length && bodyNodes[0].nodeType === 1) {
-				const rootEl = bodyNodes[0];
-
 				const url = new URL(detail.url, window.location.origin);
 				const params = new URLSearchParams(url.search);
 
@@ -101,7 +99,7 @@ class ModalViewer extends HTMLElement {
 					const camelCaseKey = key.replace(/[-_](\w)/g, (_, c) =>
 						c.toUpperCase(),
 					);
-					rootEl.dataset[camelCaseKey] = value;
+					this.slotEl.dataset[camelCaseKey] = value;
 				}
 			}
 
