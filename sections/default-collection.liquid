@@ -27,9 +27,9 @@
 
 							{% case filter.type %}
 								{% when 'list' %}
-									<div class='flex flex-wrap gap-2 w-full'>
+									<div class='flex flex-wrap gap-2 items-start'>
 										{% for value in filter.values %}
-											<label class='relative max-w-full break-words'>
+											<label class='relative'>
 												<input
 													type='checkbox'
 													name='{{ filter.param_name }}'
@@ -50,6 +50,7 @@
 														peer-checked:bg-[var(--color-button)] peer-checked:text-[var(--color-button-label)]
 														peer-disabled:opacity-30 peer-disabled:cursor-not-allowed
 														hover:bg-gray-100
+														whitespace-normal
 													'
 												>
 													{{ value.label }}
