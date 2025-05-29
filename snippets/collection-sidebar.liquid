@@ -1,3 +1,84 @@
+{% comment %}
+	{% if filters == empty and count > 0 %}
+		<div class='bg-yellow-100 border border-yellow-300 text-yellow-800 text-sm rounded p-4 mb-4'>
+			⚠️ <strong>Filters are not active</strong><br>
+			To enable faceted filtering, please install and configure the
+			<a
+				href='https://apps.shopify.com/search-and-discovery'
+				class='underline font-medium'
+				target='_blank'
+				>Shopify Search & Discovery</a
+			>
+			app.
+		</div>
+	{% endif %}
+
+	<facet-filter>
+		<form method='get' class='space-y-6'>
+			{% for filter in filters %}
+				<div class='border-b pb-4'>
+					<label class='block font-semibold text-sm mb-2'>
+						{{ filter.label }}
+					</label>
+
+					{% case filter.type %}
+						{% when 'list' %}
+							{% for value in filter.values %}
+								<label class='flex items-center gap-2 text-sm mb-1'>
+									<input
+										type='checkbox'
+										name='{{ filter.param_name }}'
+										value='{{ value.value }}'
+										{% if value.active %}
+											checked
+										{% endif %}
+										{% if value.count == 0 and value.active == false %}
+											disabled
+										{% endif %}
+									>
+									<span>
+										{{ value.label }}
+										{% unless value.count == 0 %}({{ value.count }}){% endunless %}
+									</span>
+								</label>
+							{% endfor %}
+
+						{% when 'price_range' %}
+							<div class='flex items-center gap-2 text-sm'>
+								<input
+									type='number'
+									name='{{ filter.min_value.param_name }}'
+									value='{{ filter.min_value.value | default: filter.min_value.min }}'
+									min='{{ filter.min_value.min }}'
+									max='{{ filter.min_value.max }}'
+									class='w-20 border px-2 py-1 rounded'
+									placeholder='Min'
+								>
+								<span>to</span>
+								<input
+									type='number'
+									name='{{ filter.max_value.param_name }}'
+									value='{{ filter.max_value.value | default: filter.max_value.max }}'
+									min='{{ filter.max_value.min }}'
+									max='{{ filter.max_value.max }}'
+									class='w-20 border px-2 py-1 rounded'
+									placeholder='Max'
+								>
+							</div>
+					{% endcase %}
+				</div>
+			{% endfor %}
+
+			<button
+				type='submit'
+				class='w-full bg-[var(--color-button)] text-[var(--color-button-label)] px-4 py-2 rounded'
+			>
+				Apply Filters
+			</button>
+		</form>
+	</facet-filter>
+{% endcomment %}
+
 {% if filters == empty and count > 0 %}
 	<div class='bg-yellow-100 border border-yellow-300 text-yellow-800 text-sm rounded p-4 mb-4'>
 		⚠️ <strong>Filters are not active</strong><br>
@@ -22,25 +103,38 @@
 
 				{% case filter.type %}
 					{% when 'list' %}
-						{% for value in filter.values %}
-							<label class='flex items-center gap-2 text-sm mb-1'>
-								<input
-									type='checkbox'
-									name='{{ filter.param_name }}'
-									value='{{ value.value }}'
-									{% if value.active %}
-										checked
-									{% endif %}
-									{% if value.count == 0 and value.active == false %}
-										disabled
-									{% endif %}
-								>
-								<span>
-									{{ value.label }}
-									{% unless value.count == 0 %}({{ value.count }}){% endunless %}
-								</span>
-							</label>
-						{% endfor %}
+						<div class='flex flex-wrap gap-2'>
+							{% for value in filter.values %}
+								<label class='relative'>
+									<input
+										type='checkbox'
+										name='{{ filter.param_name }}'
+										value='{{ value.value }}'
+										class='peer hidden'
+										{% if value.active %}
+											checked
+										{% endif %}
+										{% if value.count == 0 and value.active == false %}
+											disabled
+										{% endif %}
+									>
+
+									<span
+										class='
+											inline-flex items-center justify-center text-xs px-3 py-2 border rounded cursor-pointer select-none transition
+											peer-checked:bg-[var(--color-button)]
+											peer-checked:text-[var(--color-button-label)]
+											peer-disabled:opacity-30
+											peer-disabled:cursor-not-allowed
+											bg-white border-gray-300 text-gray-700 hover:bg-gray-100
+										'
+									>
+										{{ value.label }}
+										{% unless value.count == 0 %} ({{ value.count }}){% endunless %}
+									</span>
+								</label>
+							{% endfor %}
+						</div>
 
 					{% when 'price_range' %}
 						<div class='flex items-center gap-2 text-sm'>
