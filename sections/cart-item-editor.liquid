@@ -13,7 +13,7 @@
 	{% assign qty = after_qty | split: '\u0026' | first %}
 {% endif %}
 
-{% assign url_parts = content_for_header | split: 'line=' %}
+{% assign url_parts = content_for_header | split: 'index=' %}
 {% if url_parts.size > 1 %}
 	{% assign after_qty = url_parts[1] | split: '&' | first %}
 	{% assign index = after_qty | split: '\u0026' | first %}
