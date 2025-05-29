@@ -102,10 +102,10 @@
 
 				{% case filter.type %}
 					{% when 'list' %}
-						<!-- ✅ Added safe overflow wrapper -->
-						<div class='flex flex-wrap gap-2 max-w-full overflow-hidden'>
+						<!-- ✅ Wrapper that allows proper wrapping -->
+						<div class='flex flex-wrap gap-2 w-full'>
 							{% for value in filter.values %}
-								<label class='relative'>
+								<label class='relative max-w-full'>
 									<input
 										type='checkbox'
 										name='{{ filter.param_name }}'
@@ -125,8 +125,7 @@
 											bg-white text-gray-800 border-gray-300
 											peer-checked:bg-[var(--color-button)] peer-checked:text-[var(--color-button-label)]
 											peer-disabled:opacity-30 peer-disabled:cursor-not-allowed
-											hover:bg-gray-100
-											break-words max-w-full
+											hover:bg-gray-100 break-words
 										'
 									>
 										{{ value.label }}
