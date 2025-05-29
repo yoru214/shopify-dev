@@ -39,7 +39,6 @@ class UpdateCartItem extends HTMLElement {
 
 	async onClick(e) {
 		e.preventDefault();
-		console.log('asdad');
 		const formData = new FormData(this.form);
 		const newVariantId = formData.get('id');
 		const quantity = formData.get('quantity');
@@ -48,6 +47,8 @@ class UpdateCartItem extends HTMLElement {
 			alert('Missing variant or quantity.');
 			return;
 		}
+
+		console.log('newVariantId', newVariantId);
 
 		this.button.disabled = true;
 		this.button.textContent = 'Updating...';
@@ -62,7 +63,7 @@ class UpdateCartItem extends HTMLElement {
 					method: 'POST',
 					headers: { Accept: 'application/json' },
 					body: new URLSearchParams({
-						line: this.line,
+						line: this.orignalIndex,
 						quantity: 0,
 					}),
 				});
