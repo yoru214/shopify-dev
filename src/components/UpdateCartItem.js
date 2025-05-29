@@ -7,7 +7,7 @@ class UpdateCartItem extends HTMLElement {
 		this.form = null;
 		this._onClick = this.onClick.bind(this);
 		this.line = this.getAttribute('cart_line');
-		const slotEl = document.querySelector('[data-modal-slot]');
+		this.slotEl = document.querySelector('[data-modal-slot]');
 		this.originalVariantId = this.slotEl.dataset.variantId || null;
 		this.orignalIndex = this.slotEl.dataset.index || null;
 		this.orignalQuantity = this.slotEl.dataset.qty || 1;
