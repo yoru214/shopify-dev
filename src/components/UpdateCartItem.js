@@ -5,21 +5,21 @@ class UpdateCartItem extends HTMLElement {
 		super();
 		this.button = null;
 		this.form = null;
-		this.originalVariantId = null;
 		this._onClick = this.onClick.bind(this);
 		this.line = this.getAttribute('cart_line');
-		this.originalVariantId = this.getAttribute('variant_id');
+		const slotEl = document.querySelector('[data-modal-slot]');
+		this.originalVariantId = this.slotEl.dataset['data-variant-id'] || null;
+		this.orignalIndex = this.slotEl.dataset['data-index'] || null;
+		this.orignalQuantity = this.slotEl.dataset['data-qty'] || 1;
 	}
 
 	connectedCallback() {
 		this.button = this.querySelector('button');
 		this.form = this.closest('form');
 
-		const variantId = this.dataset.variantId;
-		const qty = this.dataset.qty;
-		const index = this.dataset.index;
-
-		console.log({ variantId, qty, index });
+		console.log('originalVariantId', this.originalVariantId);
+		console.log('orignalIndex', this.orignalIndex);
+		console.log('orignalQuantity', this.orignalQuantity);
 
 		if (!this.form || !this.button) {
 			console.warn(
