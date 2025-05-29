@@ -76,18 +76,16 @@
 										{% endif %}
 									'
 								>
-									{% for child in link.links %}
-										<div class='flex flex-row space-x-8'>
-											{% for child in link.links %}
-												<a
-													href='{{ child.url }}'
-													class='text-sm text-gray-700 hover:text-black whitespace-nowrap py-2 px-4'
-												>
-													{{ child.title }}
-												</a>
-											{% endfor %}
-										</div>
-									{% endfor %}
+									<div class='flex flex-row space-x-10'>
+										{% for child in link.links %}
+											<a
+												href='{{ child.url }}'
+												class='text-sm text-gray-700 hover:text-black whitespace-nowrap py-2 px-4'
+											>
+												{{ child.title }}
+											</a>
+										{% endfor %}
+									</div>
 								</div>
 							</div>
 						</div>
