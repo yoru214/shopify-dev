@@ -14,9 +14,14 @@
 				</dynamic-section>
 			</aside>
 		{% endcomment %}
-		{% assign filters = collection.filters %}
 		<aside class='md:col-span-1 w-full max-w-[280px] space-y-6'>
-			<!-- Filters start -->
+			<dynamic-section
+				data-dynamic-url='{{ collection.url }}'
+				data-section-id='collection-sidebar'
+				data-load-group='default-collection'
+			>
+				{% render 'collection-sidebar', filters: collection.filters %}
+			</dynamic-section>
 		</aside>
 
 		<!-- Product Grid -->
