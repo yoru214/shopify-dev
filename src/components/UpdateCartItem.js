@@ -53,6 +53,7 @@ class UpdateCartItem extends HTMLElement {
 				this.originalVariantId &&
 				this.originalVariantId !== newVariantId
 			) {
+				// Remove original variant
 				await fetch('/cart/change.js', {
 					method: 'POST',
 					headers: {
@@ -63,8 +64,7 @@ class UpdateCartItem extends HTMLElement {
 						quantity: 0,
 					}),
 				});
-
-				// Add new variant
+				// Add new Variant
 				const res = await fetch('/cart/add.js', {
 					method: 'POST',
 					headers: { Accept: 'application/json' },
