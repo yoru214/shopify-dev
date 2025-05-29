@@ -1,4 +1,4 @@
-{{ section.settings.number_of_products_by_page }}
+count[{{ section.settings.number_of_products_by_page }}]
 
 {% if collection.products_count > 0 %}
 	{% paginate collection.products by section.settings.number_of_products_by_page %}
