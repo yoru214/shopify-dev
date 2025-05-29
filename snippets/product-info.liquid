@@ -96,14 +96,14 @@
 			<div class='mt-auto space-y-3 pt-4'>
 				<purchase-actions class='flex flex-col space-y-3 py-3'>
 					{% if variant_id %}
-						<item-button id='{{ index }}'>
+						<update-cart-item-button>
 							<button
 								type='button'
 								class='w-full bg-[var(--color-button)] text-[var(--color-button-label)] font-semibold py-3 hover:bg-opacity-90 transition cursor-pointer'
 							>
 								Update
 							</button>
-						</item-button>
+						</update-cart-item-button>
 
 					{% else %}
 						<add-to-cart>
