@@ -90,15 +90,20 @@ class ModalViewer extends HTMLElement {
 			// If you want to insert the entire body content
 			const bodyNodes = Array.from(doc.body.childNodes);
 
-			const url = new URL(detail.url, window.location.origin);
-			const params = new URLSearchParams(url.search);
-			const variantId = params.get('variant_id');
-			const qty = params.get('qty') || 1;
-			const index = params.get('index');
+			if (bodyNodes.length && bodyNodes[0].nodeType === 1) {
+				const rootEl = bodyNodes[0];
 
-			console.log('variantId', variantId);
-			console.log('qty', qty);
-			console.log('index', index);
+				const url = new URL(detail.url, window.location.origin);
+				const params = new URLSearchParams(url.search);
+
+				// Convert all query params into data-* attributes
+				for (const [key, value] of params.entries()) {
+					const camelCaseKey = key.replace(/[-_](\w)/g, (_, c) =>
+						c.toUpperCase(),
+					);
+					rootEl.dataset[camelCaseKey] = value;
+				}
+			}
 
 			this.slotEl.replaceChildren(...bodyNodes);
 			this.open();
