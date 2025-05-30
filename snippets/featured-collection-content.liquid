@@ -2,6 +2,7 @@
 	and collections[chandle].products_count != blank
 	and collections[chandle].products_count > 0
 %}
+	{{ chandle }}
 	{{ collections[chandle].products_count }}
 	{% paginate collections[chandle].products by settings.number_of_products_by_page %}
 		<div class='grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6'>
