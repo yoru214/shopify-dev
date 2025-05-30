@@ -7,6 +7,11 @@
 		data-blur-duration='500'
 	>
 		{% render 'featured-collection-content', chandle: section.settings.custom_collection %}
+		{% paginate collections[section.settings.custom_collection].products by settings.number_of_products_by_page %}
+			<div class='mt-10'>
+				{% render 'pagination', pagination: paginate %}
+			</div>
+		{% endpaginate %}
 	</dynamic-section>
 </section>
 {% schema %}
