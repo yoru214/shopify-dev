@@ -1,21 +1,26 @@
-class CollectionPagination extends HTMLElement {
-	connectedCallback() {
-		this.section = this.closest('dynamic-section');
+import { DSHTMLElementMixin } from '../utils/dsHTMLElementMixin.js';
 
-		this.addEventListener('click', this._onClick.bind(this));
+class CollectionPagination extends DSHTMLElementMixin(HTMLElement) {
+	connectedCallback() {
+		super.connectedCallback();
+		this._onButtonClick = this.onButtonClick.bind(this);
+		this.addEventListener('click', this._onButtonClick);
 	}
 
-	_onClick(event) {
+	disconnectedCallback() {
+		this.removeEventListener('click', this._onButtonClick);
+	}
+
+	onButtonClick(event) {
 		const link = event.target.closest('a');
 		if (!link || !this.contains(link)) return;
 
-		// Prevent normal navigation
 		event.preventDefault();
 
 		const url = link.getAttribute('href');
 		if (!url) return;
 
-		this.section.loadUrl(url);
+		this.dynamicSection.loadUrl(url);
 	}
 }
 

@@ -52,7 +52,7 @@ class ToastNotification extends HTMLElement {
 			return;
 		}
 
-		// Clone the entire <toast> structure
+		// clone or copy the entire <toast> structure
 		const clone = template.content.cloneNode(true);
 		const toast = clone.querySelector('toast');
 		const msg = clone.querySelector('toast-message');
@@ -67,13 +67,13 @@ class ToastNotification extends HTMLElement {
 		msg.textContent = message;
 		this.appendChild(toast);
 
-		// Animate in
+		// added animation
 		requestAnimationFrame(() => {
 			toast.classList.remove('opacity-0', '-translate-y-8');
 			toast.classList.add('opacity-100', 'translate-y-0');
 		});
 
-		// Auto-dismiss
+		// remove animation
 		setTimeout(() => {
 			toast.classList.remove('opacity-100', 'translate-y-0');
 			toast.classList.add('opacity-0', '-translate-y-8');
