@@ -2,19 +2,12 @@
 	and collections[chandle].products_count != blank
 	and collections[chandle].products_count > 0
 %}
-	{{ collections[chandle].products_count }}
 	{% paginate collections[chandle].products by settings.number_of_products_by_page %}
 		<div class='grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6'>
 			{% for product in collections[chandle].products %}
 				{% render 'product-card', product: product %}
 			{% endfor %}
 		</div>
-
-		{% comment %}
-			<div class='mt-10'>
-				{% render 'pagination', pagination: paginate %}
-			</div>
-		{% endcomment %}
 	{% endpaginate %}
 {% elsif collections[chandle] %}
 	<p class='text-subdued text-center m-25'>No products found in this collection.</p>
