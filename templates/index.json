@@ -130,7 +130,7 @@
       "type": "featured-collection",
       "name": "Collection Page",
       "settings": {
-        "title": "Collection Name",
+        "title": "Best Sellers",
         "custom_collection": "",
         "number_of_products_by_page": 8,
         "color_scheme": ""
