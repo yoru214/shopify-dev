@@ -131,7 +131,7 @@
       "name": "Collection Page",
       "settings": {
         "title": "Best Sellers",
-        "custom_collection": "",
+        "custom_collection": "best-sellers",
         "number_of_products_by_page": 8,
         "color_scheme": ""
       }
