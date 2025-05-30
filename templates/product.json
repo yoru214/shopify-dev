@@ -11,15 +11,26 @@
   "sections": {
     "main": {
       "type": "product",
-      "settings": {}
+      "settings": {
+        "color_scheme": ""
+      }
     },
     "featured-collection": {
       "type": "featured-collection",
-      "settings": {}
+      "settings": {
+        "title": "Best Sellers",
+        "custom_collection": "best-sellers",
+        "number_of_products_by_page": 8,
+        "color_scheme": ""
+      }
     },
     "contact-form": {
       "type": "contact-form",
-      "settings": {}
+      "settings": {
+        "bg_color": "#1a202c",
+        "heading": "Get in Touch",
+        "subheading": "We’d love to hear from you. Send us a message using the form below."
+      }
     }
   },
   "order": [
