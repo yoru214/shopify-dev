@@ -1,5 +1,5 @@
 {% if selected_collection and selected_collection.products_count != blank and selected_collection.products_count > 0 %}
-	{{ collections }}
+	{{ collections['best-sellers'] }}
 	{% paginate selected_collection.products by settings.number_of_products_by_page %}
 		<div class='grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6'>
 			{% for product in selected_collection.products %}
