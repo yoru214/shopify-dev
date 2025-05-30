@@ -11,7 +11,10 @@
   "sections": {
     "main": {
       "type": "search",
-      "settings": {}
+      "settings": {
+        "number_of_products_by_page": 8,
+        "color_scheme": ""
+      }
     }
   },
   "order": [
