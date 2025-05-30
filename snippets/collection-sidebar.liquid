@@ -42,19 +42,19 @@
 						{% when 'price_range' %}
 							<div class='flex items-center gap-2 text-sm'>
 								<input
-									type='text'
+									type='number'
 									inputmode='decimal'
 									name='{{ filter.min_value.param_name }}'
-									value='{{ filter.min_value.value | default: filter.min_value.min | divided_by: 100 }}'
+									value='{{ filter.min_value.value | default: filter.min_value.min | divided_by: 100 | round}}'
 									min='{{ filter.min_value.min }}'
 									class='w-25 border px-2 py-1 rounded'
 									placeholder='Min'
 								>
 								<span>to</span>
 								<input
-									type='text'
+									type='number'
 									name='{{ filter.max_value.param_name }}'
-									value='{{ filter.max_value.value | default: filter.max_value.max | divided_by: 100 }}'
+									value='{{ filter.max_value.value | default: filter.max_value.max | divided_by: 100 | round}}'
 									min='{{ filter.max_value.min | divided_by: 100 }}'
 									class='w-25 border px-2 py-1 rounded'
 									placeholder='Max'
