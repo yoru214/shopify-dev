@@ -54,9 +54,9 @@
 								<input
 									type='number'
 									name='{{ filter.max_value.param_name }}'
-									value='{{ filter.max_value.value | default: filter.max_value.max }}'
-									min='{{ filter.max_value.min }}'
-									max='{{ filter.max_value.max }}'
+									value='{{ filter.max_value.value | divided_by: 100 | default: filter.max_value.max | divided_by: 100 }}'
+									min='{{ filter.max_value.min | divided_by: 100 }}'
+									max='{{ filter.max_value.max | divided_by: 100 }}'
 									class='w-20 border px-2 py-1 rounded'
 									placeholder='Max'
 								>
