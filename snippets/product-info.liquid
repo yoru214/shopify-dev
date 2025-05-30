@@ -1,5 +1,33 @@
 <product-info
-	data-variants='{{ product.variants | json | escape }}'
+	data-variants='
+		[
+		  {% for v in product.variants %}
+		    {
+		      "id": {{ v.id }},
+		      "title": {{ v.title | json }},
+		      "sku": {{ v.sku | json }},
+		      "barcode": {{ v.barcode | json }},
+		      "option1": {{ v.option1 | json }},
+		      "option2": {{ v.option2 | json }},
+		      "option3": {{ v.option3 | json }},
+		      "options": {{ v.options | json }},
+		      "available": {{ v.available | json }},
+		      "price": {{ v.price }},
+		      "compare_at_price": {{ v.compare_at_price | default: 'null' }},
+		      "requires_shipping": {{ v.requires_shipping | json }},
+		      "taxable": {{ v.taxable | json }},
+		      "weight": {{ v.weight }},
+		      "weight_unit": {{ v.weight_unit | json }},
+		      "inventory_quantity": {{ v.inventory_quantity | default: 0 }},
+		      "inventory_management": {{ v.inventory_management | json }},
+		      "inventory_policy": {{ v.inventory_policy | json }},
+		      "featured_media": {{ v.featured_media | json }},
+		      "image_id": {{ v.image_id | json }}
+		    }{% unless forloop.last %},{% endunless %}
+		  {% endfor %}
+		]
+	'
+
 	data-option-names='{{ product.options | json }}'
 	variant_id='{{ variant_id }}'
 	quantity='{{ quantity }}'
