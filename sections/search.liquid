@@ -30,7 +30,7 @@
 					data-section-id='search-sidebar'
 					data-load-group='search-collection'
 				>
-					{{ search.products }}
+					[{{ search.results }}]
 					{% render 'collection-sidebar', filters: search.filters, products: search.products %}
 				</dynamic-section>
 			</aside>
