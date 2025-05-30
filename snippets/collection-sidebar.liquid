@@ -1,5 +1,13 @@
 <facet-filter data-prices='{{ products | map: "price" | join: "," }}'>
 	<form method='get' class='space-y-6'>
+		<input
+			type='text'
+			name='q'
+			value='{{ search.terms | escape }}'
+			placeholder='Search {{ collection.title }}'
+			class='w-full border px-4 py-2 rounded text-sm'
+		>
+
 		{% for filter in filters %}
 			{% if filter.values.size > 1 or filter.type == 'price_range' %}
 				<div class='border-b pb-4'>
