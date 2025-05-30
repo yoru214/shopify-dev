@@ -1,7 +1,7 @@
 <facet-filter>
 	<form method='get' class='space-y-6'>
 		{% for filter in filters %}
-			{% if filter.values.size > 1 %}
+			{% if filter.values.size > 1 or filter.type == 'price_range' %}
 				<div class='border-b pb-4'>
 					<label class='block font-semibold text-sm mb-2'> {{ filter.label }}</label>
 
