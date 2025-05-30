@@ -1,6 +1,12 @@
 <section class='container mx-auto px-4 py-8 color-{{ section.settings.color_scheme }}'>
 	{% if search.results_count > 0 %}
-		{% render 'search-bar' %}
+		<dynamic-section
+			data-dynamic-url='{{ routes.search_url }}'
+			data-section-id='render-search-bar'
+			data-load-group='search-collection'
+		>
+			{% render 'search-bar' %}
+		</dynamic-section>
 
 		<div class='grid grid-cols-1 md:grid-cols-4 gap-8'>
 			<!-- Sidebar Filters -->
