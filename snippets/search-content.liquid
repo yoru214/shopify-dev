@@ -1,3 +1,5 @@
+{{ search }}
+
 {% paginate search.results by settings.number_of_products_by_page %}
 	<div class='grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 xl:grid-cols-4 gap-6'>
 		{% for item in search.results %}
