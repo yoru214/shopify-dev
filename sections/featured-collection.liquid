@@ -6,10 +6,7 @@
 		data-section-id='featured-collection-content'
 		data-blur-duration='500'
 	>
-		{% render 'featured-collection-content',
-			selected_collection: selected_collection,
-			chandle: section.settings.custom_collection
-		%}
+		{% render 'featured-collection-content', chandle: section.settings.custom_collection %}
 	</dynamic-section>
 </section>
 {% schema %}
