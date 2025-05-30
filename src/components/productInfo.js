@@ -123,6 +123,7 @@ class ProductInfo extends HTMLElement {
 		this.purchaseActions = this.querySelector('purchase-actions');
 		this.soldOutMessage = this.querySelector('sold-out-message');
 		this.quantityInput = this.querySelector('product-quantity');
+		this.quantityAvailable = this.querySelector('product-available');
 
 		this.slotEl = document.querySelector('[data-modal-slot]');
 		this.variantId = this.slotEl.dataset.variantId || null;
@@ -297,7 +298,7 @@ class ProductInfo extends HTMLElement {
 		}
 		if (this.quantityInput) {
 			const max = matchedVariant.inventory_quantity ?? 999;
-			this.quantityInput.max = max;
+			this.quantityInput.input.max = max;
 			this.quantityInput.min = 1;
 
 			// Clamp value to valid range
@@ -305,6 +306,14 @@ class ProductInfo extends HTMLElement {
 			if (isNaN(qty) || qty < 1) qty = 1;
 			if (qty > max) qty = max;
 			this.quantityInput.value = qty;
+		}
+
+		if (matchedVariant.inventory_quantity > 0) {
+			this.quantityAvailable.textContent = `${matchedVariant.inventory_quantity} items available in stock`;
+			this.quantityInput.input.disabled = false;
+		} else {
+			this.quantityAvailable.textContent = '';
+			this.quantityInput.input.disabled = true;
 		}
 	}
 	selectVariantOptions(variant) {
