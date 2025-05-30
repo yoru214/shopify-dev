@@ -1,6 +1,6 @@
 {% if selected_collection and selected_collection.products_count != blank and selected_collection.products_count > 0 %}
 	{{ collections[chandle] }}
-	{% paginate selected_collection.products by settings.number_of_products_by_page %}
+	{% paginate collections[chandle] by settings.number_of_products_by_page %}
 		<div class='grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6'>
 			{% for product in collections['best-sellers'].products %}
 				{% render 'product-card', product: product %}
