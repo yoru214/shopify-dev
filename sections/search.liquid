@@ -1,26 +1,12 @@
 <section class='container mx-auto px-4 py-8 color-{{ section.settings.color_scheme }}'>
 	{% if search.results_count > 0 %}
-		<!-- ✅ RESULTS MODE -->
-		<h2 class='text-center text-xl font-semibold mb-2'>
-			{{ search.results_count }} result{% if search.results_count != 1 %}s{% endif %} found
-		</h2>
-
-		<!-- Search bar -->
-		<form method='get' action='/search' class='flex justify-center mb-6 gap-2'>
-			<input
-				type='text'
-				name='q'
-				value='{{ search.terms | escape }}'
-				placeholder='Search for products...'
-				class='w-full max-w-md border border-gray-300 rounded px-4 py-2 focus:outline-none'
-			>
-			<button
-				type='submit'
-				class='px-4 py-2 rounded bg-[var(--color-button)] text-[var(--color-button-label)] hover:opacity-90 transition'
-			>
-				Search
-			</button>
-		</form>
+		<dynamic-section
+			data-dynamic-url='{{ routes.search_url }}'
+			data-section-id='render-search-bar'
+			data-load-group='search-collection'
+		>
+			{% render 'search-bar' %}
+		</dynamic-section>
 
 		<div class='grid grid-cols-1 md:grid-cols-4 gap-8'>
 			<!-- Sidebar Filters -->
@@ -30,7 +16,7 @@
 					data-section-id='search-sidebar'
 					data-load-group='search-collection'
 				>
-					{% render 'collection-sidebar', filters: search.filters %}
+					{% render 'collection-sidebar', filters: search.filters, products: search.results %}
 				</dynamic-section>
 			</aside>
 

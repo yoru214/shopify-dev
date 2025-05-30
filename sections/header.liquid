@@ -3,7 +3,6 @@
 	class='w-full bg-white border-b shadow-sm fixed z-50  color-{{ section.settings.color_scheme }}'
 >
 	<div class='max-w-screen-xl mx-auto flex items-center justify-between p-0'>
-		<!-- Left: Logo -->
 		<div class='flex-shrink-0'>
 			<a href='{{ routes.root_url }}' class='text-xl font-bold flex items-center space-x-2'>
 				{% if settings.logo %}
@@ -35,7 +34,6 @@
 			</a>
 		</div>
 
-		<!-- Center: Navigation Bar -->
 		{% assign align = section.settings.menu_alignment %}
 		<nav
 			class='
@@ -78,14 +76,16 @@
 										{% endif %}
 									'
 								>
-									{% for child in link.links %}
-										<a
-											href='{{ child.url }}'
-											class='text-sm text-gray-700 hover:text-black whitespace-nowrap'
-										>
-											{{ child.title }}
-										</a>
-									{% endfor %}
+									<div class='flex flex-row space-x-10'>
+										{% for child in link.links %}
+											<a
+												href='{{ child.url }}'
+												class='text-sm text-gray-700 hover:text-black whitespace-nowrap py-2 px-8'
+											>
+												{{ child.title }}
+											</a>
+										{% endfor %}
+									</div>
 								</div>
 							</div>
 						</div>
@@ -98,7 +98,6 @@
 			{% endfor %}
 		</nav>
 
-		<!-- Right: Cart + Login Icon + Hamburger -->
 		<div class='flex items-center space-x-6 md:space-x-4 pr-4'>
 			<shopify-search-toggle class='flex items-center'>
 				<button id='open' class='text-xl focus:outline-none flex items-center justify-center cursor-pointer'>

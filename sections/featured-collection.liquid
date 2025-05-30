@@ -4,21 +4,27 @@
 	<dynamic-section
 		data-dynamic-url='{{ selected_collection.url }}'
 		data-section-id='featured-collection-content'
-		data-load-group='featured-collection'
 		data-blur-duration='500'
 	>
-		{% render 'featured-collection-content', selected_collection: selected_collection %}
+		{% render 'featured-collection-content', chandle: section.settings.custom_collection %}
+		{% paginate collections[section.settings.custom_collection].products
+			by settings.number_of_products_by_section
+		%}
+			<div class='mt-10'>
+				{% render 'pagination', pagination: paginate %}
+			</div>
+		{% endpaginate %}
 	</dynamic-section>
 </section>
 {% schema %}
 {
-	"name": "Collection",
+	"name": "Featured Collection",
 	"settings": [
 		{
 			"type": "text",
 			"id": "title",
 			"label": "Title",
-			"default": "Collection Name"
+			"default": "Featured Collection Name"
 		},
 		{
 			"type": "collection",
@@ -43,7 +49,7 @@
 	],
 	"presets": [
 		{
-			"name": "Collection Page"
+			"name": "Featured Collection Section"
 		}
 	]
 }

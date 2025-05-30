@@ -113,7 +113,16 @@
 			{
 				"type": "range",
 				"id": "number_of_products_by_page",
-				"label": "Number of products by name",
+				"label": "Number of products by Page",
+				"default": 8,
+				"min": 4,
+				"max": 24,
+				"step": 2
+			},
+			{
+				"type": "range",
+				"id": "number_of_products_by_section",
+				"label": "Number of products by Rendered Section",
 				"default": 8,
 				"min": 4,
 				"max": 24,

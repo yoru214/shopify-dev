@@ -6,7 +6,9 @@ class DynamicSection extends HTMLElementMixin(HTMLElement) {
 		super();
 		this.dynamic_url = this.getAttribute('data-dynamic-url') || null;
 		this.section_id = this.getAttribute('data-section-id') || null;
-		this.data_load_group = this.getAttribute('data-load-group') || '';
+		this.data_load_group =
+			this.getAttribute('data-load-group') ||
+			`group-${Math.random().toString(36).substring(2, 10)}`;
 		this.load_blur = this.getAttribute('data-blur-duration') || 0;
 	}
 	connectedCallback() {
@@ -39,8 +41,6 @@ class DynamicSection extends HTMLElementMixin(HTMLElement) {
 		this.loadSection(url);
 	}
 	getQueryString() {
-		this._updateWindowParams();
-
 		const parts = [];
 
 		for (const [key, value] of Object.entries(this.windowParams)) {

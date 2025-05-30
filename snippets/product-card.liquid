@@ -1,6 +1,6 @@
 <product-card
 	data-handle='{{ product.handle }}'
-	class='bg-background overflow-hidden shadow hover:shadow-md transition'
+	class='bg-background shadow hover:shadow-md transition flex flex-col'
 >
 	<a href='{{ product.url }}' class='block hover:bg-contrast/5'>
 		<div class='overflow-hidden'>
@@ -37,15 +37,17 @@
 		</div>
 	</a>
 
-	<div class='p-4'>
-		<h2 class='text-lg font-semibold text-foreground'>{{ product.title }}</h2>
-		<p class='text-subdued'>{{ product.price | money }}</p>
+	<div class='p-4 flex flex-col flex-1'>
+		<div class='flex-1'>
+			<h2 class='text-lg font-semibold text-foreground'>{{ product.title }}</h2>
+			<p class='text-subdued'>{{ product.price | money }}</p>
+		</div>
 
-		<form method='post' action='/cart/add'>
+		<form method='post' action='/cart/add' class='mt-4'>
 			<input type='hidden' name='id' value='{{ product.variants.first.id }}'>
 			<button
 				type='submit'
-				class='mt-4 w-full px-4 py-2 rounded bg-[var(--color-button)] text-[var(--color-button-label)] hover:opacity-90 transition cursor-pointer'
+				class='w-full px-4 py-2 rounded bg-[var(--color-button)] text-[var(--color-button-label)] hover:opacity-90 transition cursor-pointer'
 			>
 				Add to Cart
 			</button>

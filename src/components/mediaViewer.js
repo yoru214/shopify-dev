@@ -68,7 +68,6 @@ class MediaViewer extends HTMLElement {
 			allowTouchMove: true,
 		});
 
-		// Load product variants from data attribute
 		try {
 			const variantsRaw = this.dataset.variants || '[]';
 			this.variants = JSON.parse(variantsRaw);
@@ -88,9 +87,24 @@ class MediaViewer extends HTMLElement {
 		this.mainSwiper.on('slideChange', this._onSlideChange);
 
 		this._onProductInfoUpdated = (e) => {
+			console.log('info updated');
 			this.scrollToSlideMatchingColor(e.detail.color);
 		};
 		ThemeEvent.on('product:info:updated', this._onProductInfoUpdated);
+
+		this._onThumbClick = (e) => {
+			const slide = e.currentTarget;
+			const index = parseInt(slide.dataset.slideIndex, 10);
+
+			if (!isNaN(index)) {
+				this.mainSwiper.slideTo(index);
+			}
+		};
+
+		this.thumbSwiper.slides.forEach((slide) => {
+			slide.classList.add('cursor-pointer');
+			slide.addEventListener('click', this._onThumbClick);
+		});
 	}
 
 	unbindEvents() {

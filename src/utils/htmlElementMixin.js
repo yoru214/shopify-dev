@@ -1,32 +1,6 @@
 export const HTMLElementMixin = (Base) =>
 	class extends Base {
 		get windowParams() {
-			return this._windowParams || {};
-		}
-
-		connectedCallback() {
-			if (super.connectedCallback) super.connectedCallback();
-
-			this._updateWindowParams();
-
-			this._onPopState = () => {
-				console.log('mixin updated');
-				this._updateWindowParams();
-				if (typeof this.onWindowParamsChanged === 'function') {
-					this.onWindowParamsChanged(this.windowParams);
-				}
-			};
-
-			window.addEventListener('popstate', this._onPopState);
-		}
-
-		disconnectedCallback() {
-			if (super.disconnectedCallback) super.disconnectedCallback();
-
-			window.removeEventListener('popstate', this._onPopState);
-		}
-
-		_updateWindowParams() {
 			const params = new URLSearchParams(window.location.search);
 			const result = {};
 
@@ -36,7 +10,6 @@ export const HTMLElementMixin = (Base) =>
 				);
 
 				if (result.hasOwnProperty(camelKey)) {
-					// If already exists, convert to array (or add to existing array)
 					if (Array.isArray(result[camelKey])) {
 						result[camelKey].push(value);
 					} else {
@@ -47,6 +20,24 @@ export const HTMLElementMixin = (Base) =>
 				}
 			}
 
-			this._windowParams = result;
+			return result;
+		}
+
+		connectedCallback() {
+			if (super.connectedCallback) super.connectedCallback();
+
+			this._onPopState = () => {
+				console.log('mixin popstate triggered');
+				if (typeof this.onWindowParamsChanged === 'function') {
+					this.onWindowParamsChanged(this.windowParams);
+				}
+			};
+
+			window.addEventListener('popstate', this._onPopState);
+		}
+
+		disconnectedCallback() {
+			if (super.disconnectedCallback) super.disconnectedCallback();
+			window.removeEventListener('popstate', this._onPopState);
 		}
 	};
