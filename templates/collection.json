@@ -11,7 +11,19 @@
   "sections": {
     "main": {
       "type": "default-collection",
-      "settings": {}
+      "settings": {
+        "color_scheme": ""
+      }
+    },
+    "featured_collection_6iRTKd": {
+      "type": "featured-collection",
+      "name": "Collection Page",
+      "settings": {
+        "title": "Best Sellers",
+        "custom_collection": "best-sellers",
+        "number_of_products_by_page": 8,
+        "color_scheme": ""
+      }
     },
     "contact-form": {
       "type": "contact-form",
@@ -24,6 +36,7 @@
   },
   "order": [
     "main",
-	"contact-form"
+    "featured_collection_6iRTKd",
+    "contact-form"
   ]
 }
