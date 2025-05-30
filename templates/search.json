@@ -15,20 +15,9 @@
         "number_of_products_by_page": 8,
         "color_scheme": ""
       }
-    },
-    "featured_collection_yTRDUf": {
-      "type": "featured-collection",
-      "name": "Featured Collection Section",
-      "settings": {
-        "title": "Featured Collection",
-        "custom_collection": "featured-products",
-        "number_of_products_by_page": 8,
-        "color_scheme": ""
-      }
     }
   },
   "order": [
-    "main",
-    "featured_collection_yTRDUf"
+    "main"
   ]
 }
