@@ -10,9 +10,11 @@
 			{% endfor %}
 		</div>
 
-		<div class='mt-10'>
-			{% render 'pagination', pagination: paginate %}
-		</div>
+		{% comment %}
+			<div class='mt-10'>
+				{% render 'pagination', pagination: paginate %}
+			</div>
+		{% endcomment %}
 	{% endpaginate %}
 {% elsif collections[chandle] %}
 	<p class='text-subdued text-center m-25'>No products found in this collection.</p>
