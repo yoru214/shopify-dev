@@ -11,7 +11,9 @@
   "sections": {
     "main": {
       "type": "default-collection",
-      "settings": {}
+      "settings": {
+        "color_scheme": ""
+      }
     },
     "contact-form": {
       "type": "contact-form",
@@ -24,6 +26,6 @@
   },
   "order": [
     "main",
-	"contact-form"
+    "contact-form"
   ]
 }
