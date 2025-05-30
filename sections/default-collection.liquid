@@ -2,18 +2,6 @@
 	<h1 class='text-3xl font-bold mb-4 text-primary'>{{ collection.title }}</h1>
 
 	<div class='grid grid-cols-1 md:grid-cols-4 gap-8'>
-		<!-- Sidebar -->
-		{% comment %}
-			<aside class='md:col-span-1 w-full max-w-[280px] space-y-6'>
-				<dynamic-section
-					data-dynamic-url='{{ collection.url }}'
-					data-section-id='collection-sidebar'
-					data-load-group='default-collection'
-				>
-					{% render 'collection-sidebar', filters: collection.filters %}
-				</dynamic-section>
-			</aside>
-		{% endcomment %}
 		<aside class='md:col-span-1 w-full max-w-[280px] space-y-6'>
 			<dynamic-section
 				data-dynamic-url='{{ collection.url }}'
@@ -23,8 +11,6 @@
 				{% render 'collection-sidebar', filters: collection.filters %}
 			</dynamic-section>
 		</aside>
-
-		<!-- Product Grid -->
 		<div class='md:col-span-3'>
 			<dynamic-section
 				data-dynamic-url='{{ collection.url }}'
