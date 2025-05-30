@@ -14,7 +14,7 @@
 			{% render 'pagination', pagination: paginate %}
 		</div>
 	{% endpaginate %}
-{% elsif selected_collection %}
+{% elsif collections[chandle] %}
 	<p class='text-subdued text-center m-25'>No products found in this collection.</p>
 {% else %}
 	<p class='text-subdued text-center'>No collection selected.</p>
