@@ -4,6 +4,14 @@ class ShopifySearchToggle extends HTMLElement {
 		this.bindEvents();
 	}
 
+	disconnectedCallback() {
+		this.removeEventListener('click', this._onClickSearch);
+		this.removeEventListener('click', this._onClickClose);
+		this.removeEventListener('click', this._onClickSearchButton);
+		this.removeEventListener('keydown', this._onKeyDownSearch);
+		this.removeEventListener('click', this._onCLickOutside);
+	}
+
 	initialize() {
 		this.openBtn = this.querySelector('#open');
 		this.closeBtn = this.querySelector('#close-button');
@@ -14,17 +22,16 @@ class ShopifySearchToggle extends HTMLElement {
 	}
 
 	bindEvents() {
-		this.openBtn?.addEventListener('click', this.onClickSearch.bind(this));
-		this.closeBtn?.addEventListener('click', this.onClickClose.bind(this));
-		this.searchBtn?.addEventListener(
-			'click',
-			this.onClickSearchButton.bind(this),
-		);
-		this.input?.addEventListener(
-			'keydown',
-			this.onKeyDownSearch.bind(this),
-		);
-		document?.addEventListener('click', this.onCLickOutside.bind(this));
+		this._onClickSearch = this.onClickSearch.bind(this);
+		this._onClickClose = this.onClickClose.bind(this);
+		this._onClickSearchButton = this.onClickSearchButton.bind(this);
+		this._onKeyDownSearch = this.onKeyDownSearch.bind(this);
+		this._onCLickOutside = this.onCLickOutside.bind(this);
+		this.openBtn?.addEventListener('click', this._onClickSearch);
+		this.closeBtn?.addEventListener('click', this._onClickClose);
+		this.searchBtn?.addEventListener('click', this._onClickSearchButton);
+		this.input?.addEventListener('keydown', this._onKeyDownSearch);
+		document?.addEventListener('click', this._onCLickOutside);
 	}
 
 	onClickSearch(e) {

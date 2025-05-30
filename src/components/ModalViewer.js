@@ -87,14 +87,12 @@ class ModalViewer extends HTMLElement {
 			const parser = new DOMParser();
 			const doc = parser.parseFromString(html, 'text/html');
 
-			// If you want to insert the entire body content
 			const bodyNodes = Array.from(doc.body.childNodes);
 
 			if (bodyNodes.length && bodyNodes[0].nodeType === 1) {
 				const url = new URL(detail.url, window.location.origin);
 				const params = new URLSearchParams(url.search);
 
-				// Convert all query params into data-* attributes
 				for (const [key, value] of params.entries()) {
 					const camelCaseKey = key.replace(/[-_](\w)/g, (_, c) =>
 						c.toUpperCase(),

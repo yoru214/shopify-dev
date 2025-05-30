@@ -10,12 +10,7 @@ class FacetFilter extends DSHTMLElementMixin(HTMLElement) {
 		super.connectedCallback();
 		this.form = this.querySelector('form');
 		if (!this.form) return;
-
-		this.form.addEventListener('submit', this.onSubmit.bind(this));
-		this._filters = Array.from(this.querySelectorAll('filter-button'));
-		this._filters.forEach((filter) => {
-			filter.addEventListener('click', this._onFilterClick);
-		});
+		this.bindEvents();
 		this._filters.forEach((filter) => {
 			const input = filter
 				.closest('label')
@@ -26,6 +21,20 @@ class FacetFilter extends DSHTMLElementMixin(HTMLElement) {
 			}
 		});
 		this.setDefaultPriceRange();
+	}
+
+	disconnectedCallback() {
+		this.removeEventListener('click', this._onSubmit);
+		this.removeEventListener('click', this._onFilterClick);
+	}
+
+	bindEvents() {
+		this._onSubmit = this.onSubmit.bind(this);
+		this.form.addEventListener('submit', this._onSubmit);
+		this._filters = Array.from(this.querySelectorAll('filter-button'));
+		this._filters.forEach((filter) => {
+			filter.addEventListener('click', this._onFilterClick);
+		});
 	}
 
 	onSubmit(event) {
@@ -41,11 +50,9 @@ class FacetFilter extends DSHTMLElementMixin(HTMLElement) {
 		}
 		let search = '';
 		if (!hasSearch && this.windowParams.q) {
-			search = `&q=${this.windowParams.q}`;
+			search = `&q=${Array.isArray(this.windowParams.q) ? this.windowParams.q[0] : this.windowParams.q}`;
 		}
 		const newUrl = `${window.location.pathname}?${params.toString()}${search}`;
-
-		// console.log('dynamic section:', this.dynamicSection);
 		this.dynamicSection.loadUrl(newUrl);
 	}
 	onFilterClick(e) {
@@ -54,7 +61,6 @@ class FacetFilter extends DSHTMLElementMixin(HTMLElement) {
 		const input = wrapper?.querySelector('input[type="checkbox"]');
 
 		if (!input || input.disabled) return;
-		console.log('before clicked', input.checked);
 
 		button.classList.toggle('bg-button', !input.checked);
 		button.classList.toggle('text-button-label', !input.checked);

@@ -11,20 +11,23 @@ class DynamicSection extends HTMLElementMixin(HTMLElement) {
 			`group-${Math.random().toString(36).substring(2, 10)}`;
 		this.load_blur = this.getAttribute('data-blur-duration') || 0;
 	}
+
 	connectedCallback() {
 		this.bindEvents();
 	}
+
 	disconnectedCallback() {
 		window.removeEventListener('popstate', this._onPopState);
+		ThemeEvent.off(
+			'dynamic:section:load:' + this.data_load_group,
+			this._onContentLoad,
+		);
 	}
 
 	bindEvents() {
-		this._onPopState = () => {
-			const url = window.location.href;
-			this.loadUrl(url); // re-fetch content for current URL
-		};
-
+		this._onPopState = this.onPopState.bind(this);
 		window.addEventListener('popstate', this._onPopState);
+
 		if (this.dynamic_url) {
 			this._onContentLoad = this.onContentLoad.bind(this);
 			ThemeEvent.on(
@@ -32,6 +35,11 @@ class DynamicSection extends HTMLElementMixin(HTMLElement) {
 				this._onContentLoad,
 			);
 		}
+	}
+
+	onPopState(e) {
+		const url = window.location.href;
+		this.loadUrl(url);
 	}
 
 	onContentLoad(e) {
