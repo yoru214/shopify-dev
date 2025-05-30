@@ -4,6 +4,10 @@
 			{% for product in paginate.items %}
 				{% render 'product-card', product: product %}
 			{% endfor %}
+
+			{% for product in paginate.items %}
+				<p>{{ product.title }}</p>
+			{% endfor %}
 		</div>
 
 		<div class='mt-10'>
