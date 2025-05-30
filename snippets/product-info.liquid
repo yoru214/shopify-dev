@@ -1,5 +1,5 @@
 <product-info
-	data-variants='{{ product.variants_with_inventory  | json | escape }}'
+	data-variants='{{ product.variants | json | escape }}'
 	data-option-names='{{ product.options | json }}'
 	variant_id='{{ variant_id }}'
 	quantity='{{ quantity }}'
