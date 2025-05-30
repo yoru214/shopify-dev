@@ -44,7 +44,7 @@
 								<input
 									type='number'
 									name='{{ filter.min_value.param_name }}'
-									value='{{ filter.min_value.value | default: filter.min_value.min }}'
+									value='{{ filter.min_value.value | default: filter.min_value.min | divided_by: 100 }}'
 									min='{{ filter.min_value.min }}'
 									class='w-25 border px-2 py-1 rounded'
 									placeholder='Min'
