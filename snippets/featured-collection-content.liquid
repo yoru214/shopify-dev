@@ -1,15 +1,11 @@
-{% if selected_collection and selected_collection.products_count != blank and selected_collection.products_count > 0 %}
-	{{ selected_collection.products }}
-	{% paginate selected_collection.products by settings.number_of_products_by_page %}
-		<div class='grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6'>
-			{% for product in selected_collection.products %}
-				{% render 'product-card', product: product %}
-			{% endfor %}
-		</div>
+{% assign selected_collection = collections[section.settings.custom_collection] %}
 
-		<div class='mt-10'>
-			{% render 'pagination', pagination: paginate %}
-		</div>
+{% if selected_collection and selected_collection.products_count > 0 %}
+	{% paginate selected_collection.products by 8 %}
+		{% for product in paginate.items %}
+			{% render 'product-card', product: product %}
+		{% endfor %}
+		{% render 'pagination', pagination: paginate %}
 	{% endpaginate %}
 {% elsif selected_collection %}
 	<p class='text-subdued text-center m-25'>No products found in this collection.</p>
