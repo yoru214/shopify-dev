@@ -1,4 +1,4 @@
-{% assign selected_collection = collections[section.settings.custom_collection] %}
+{% assign selected_collection = collections[collection_handle] %}
 
 {% if selected_collection and selected_collection.products_count > 0 %}
 	{% paginate selected_collection.products by 8 %}
