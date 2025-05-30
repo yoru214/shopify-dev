@@ -1,4 +1,3 @@
-[{{ products }}]
 <facet-filter data-prices='{{ products | map: "price" | join: "," }}'>
 	<form method='get' class='space-y-6'>
 		{% for filter in filters %}
