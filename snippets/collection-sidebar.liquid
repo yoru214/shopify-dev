@@ -24,7 +24,7 @@
 										{% endif %}
 									>
 
-									<span
+									<filter-button
 										class='
 											inline-block px-3 py-1 text-sm border rounded-md cursor-pointer transition
 											border-gray-300
@@ -38,7 +38,7 @@
 									>
 										{{ value.label }}
 										{% unless value.count == 0 %} ({{ value.count }}){% endunless %}
-									</span>
+									</filter-button>
 								</label>
 							{% endfor %}
 						</div>
