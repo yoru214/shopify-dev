@@ -15,12 +15,12 @@
         "color_scheme": ""
       }
     },
-    "featured-collection": {
-      "type": "featured-collection",
+    "row_collection_cDNCxD": {
+      "type": "row-collection",
+      "name": "Featured Collection Row",
       "settings": {
         "title": "Best Sellers",
         "custom_collection": "best-sellers",
-        "number_of_products_by_page": 8,
         "color_scheme": ""
       }
     },
@@ -35,7 +35,7 @@
   },
   "order": [
     "main",
-    "featured-collection",
+    "row_collection_cDNCxD",
     "contact-form"
   ]
 }
