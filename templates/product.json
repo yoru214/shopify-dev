@@ -17,6 +17,7 @@
     },
     "row_collection": {
       "name": "Featured Collection Row",
+      "type": "row-collection",
       "settings": {
         "title": "Best Sellers",
         "custom_collection": "best-sellers",
