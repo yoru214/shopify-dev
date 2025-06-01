@@ -35,7 +35,6 @@
   "order": [
     "main",
     "row_collection",
-
     "contact-form"
   ]
 }
