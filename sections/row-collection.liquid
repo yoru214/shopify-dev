@@ -3,46 +3,47 @@
 	<div class='grid grid-cols-2 sm:grid-cols-3 md:grid-cols-3 lg:grid-cols-6 gap-6'>
 		{{ collections[section.settings.custom_collection] }} adad
 
-		<div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-        {% for product in collections[section.settings.custom_collection].products limit: 3 %}
-          {% render 'product-card', product: product %}
-        {% endfor %}
+		<div class='grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6'>
+			{% for product in collections[section.settings.custom_collection].products limit: 3 %}
+				{% render 'product-card', product: product %}
+			{% endfor %}
 
-        <!-- Show More as 4th item in the grid -->
-        {% if collection.products.size > 3 %}
-          <a
-            href="{{ collection.url }}"
-            class="relative block overflow-hidden shadow group hover:shadow-md h-full aspect-[3/4]"
-          >
-            {% if collection.image %}
-              <img
-                src="{{ collection.image | image_url: width: 600 }}"
-                alt="{{ collection.title }}"
-                class="absolute inset-0 w-full h-full object-cover transition-transform duration-300 scale-100 group-hover:scale-115"
-              >
-              <div
-                class="absolute inset-0 pointer-events-none"
-                style="
-                  background-color: {{ section.settings.overlay_color }};
-                  opacity: {{ section.settings.overlay_opacity | divided_by: 100.0 }};
-                "
-              ></div>
-            {% else %}
-              <div
-                class="absolute inset-0 w-full h-full bg-[var(--color-button)] opacity-[{{ section.settings.overlay_opacity | divided_by: 100.0 }}]"
-              ></div>
-            {% endif %}
+			<!-- Show More as 4th item in the grid -->
+			{% if collection.products.size > 3 %}
+				<a
+					href='{{ collection.url }}'
+					class='relative block overflow-hidden shadow group hover:shadow-md h-full aspect-[3/4]'
+				>
+					{% if collection.image %}
+						<img
+							src='{{ collection.image | image_url: width: 600 }}'
+							alt='{{ collection.title }}'
+							class='absolute inset-0 w-full h-full object-cover transition-transform duration-300 scale-100 group-hover:scale-115'
+						>
+						<div
+							class='absolute inset-0 pointer-events-none'
+							style='
+								background-color: {{ section.settings.overlay_color }};
+								opacity: {{ section.settings.overlay_opacity | divided_by: 100.0 }};
+							'
+						></div>
+					{% else %}
+						<div
+							class='absolute inset-0 w-full h-full bg-[var(--color-button)] opacity-[{{ section.settings.overlay_opacity | divided_by: 100.0 }}]'
+						></div>
+					{% endif %}
 
-            <div class="relative z-10 flex items-center justify-center h-full">
-              <span class="text-white font-bold text-lg transition-transform duration-300 ease-in-out group-hover:scale-[1.7]">
-                Show More
-              </span>
-            </div>
-          </a>
-        {% endif %}
-      </div>
-    </div>
-		{% comment %} {% for product in collections[section.settings.custom_collection].products limit: 3 %}
+					<div class='relative z-10 flex items-center justify-center h-full'>
+						<span class='text-white font-bold text-lg transition-transform duration-300 ease-in-out group-hover:scale-[1.7]'>
+							Show More
+						</span>
+					</div>
+				</a>
+			{% endif %}
+		</div>
+	</div>
+	{% comment %}
+		{% for product in collections[section.settings.custom_collection].products limit: 3 %}
 			{% assign image = product.featured_image | default: collection.image %}
 
 			<a
@@ -67,8 +68,8 @@
 					{% endif %}
 				</div>
 			</a>
-		{% endfor %} {% endcomment %}
-	</div>
+		{% endfor %}
+	{% endcomment %}
 </div>
 
 {% schema %}
