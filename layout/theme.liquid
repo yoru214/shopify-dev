@@ -14,69 +14,7 @@
 				{{ content_for_layout }}
 			</main>
 		</header-offset>
-		<script>
-			class MobileSlideMenu extends HTMLElement {
-				connectedCallback() {
-					const toggle = this.querySelector('#menu-toggle');
-					const menu = this.querySelector('#mobile-menu');
-					const close = this.querySelector('#menu-close');
-
-					if (!toggle || !menu || !close) {
-						console.warn('MobileSlideMenu: Missing toggle/menu/close element.');
-						return;
-					}
-
-					toggle.addEventListener('click', () => {
-						menu.classList.remove('translate-x-full');
-						menu.classList.add('translate-x-0');
-					});
-
-					close.addEventListener('click', () => {
-						menu.classList.add('translate-x-full');
-						menu.classList.remove('translate-x-0');
-					});
-				}
-			}
-
-			customElements.define('mobile-slide-menu', MobileSlideMenu);
-		</script>
-
-		<!-- Mega Dropdown Component JS -->
-		<script>
-			class MegaDropdown extends HTMLElement {
-				connectedCallback() {
-					const button = this.querySelector('button');
-					const panel = this.querySelector('#panel');
-					const chevron = this.querySelector('#chevron');
-					const header = document.querySelector('header');
-
-					button?.addEventListener('click', (e) => {
-						e.stopPropagation();
-
-						// Dynamically calculate header height
-						if (header && panel) {
-							const height = header.offsetHeight;
-							panel.style.top = `${height}px`;
-						}
-
-						panel.classList.toggle('hidden');
-						chevron.classList.toggle('rotate-180');
-					});
-
-					document.addEventListener('click', (e) => {
-						if (!this.contains(e.target)) {
-							panel.classList.add('hidden');
-							chevron.classList.remove('rotate-180');
-						}
-					});
-				}
-			}
-
-			customElements.define('mega-dropdown', MegaDropdown);
-		</script>
-
 		<script src='{{ 'bundle.js' | asset_url }}' defer></script>
-
 		{% section 'modal-viewer' %}
 		{% section 'toast-notification' %}
 	</body>
