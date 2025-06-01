@@ -1,3 +1,5 @@
+import './components/MobileSlideMenu.js';
+import './components/MegaDropdown.js';
 import './components/HeaderOffset.js';
 import './components/ShopifySearchToggle.js';
 import './components/HeroSwiper.js';
