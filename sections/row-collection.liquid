@@ -1,10 +1,9 @@
 <div class='container mx-auto px-4 py-10'>
 	<h1 class='text-3xl font-bold mb-4 text-primary text-center py-10'>{{ section.settings.title }}</h1>
 	<div class='grid grid-cols-2 sm:grid-cols-3 md:grid-cols-3 lg:grid-cols-6 gap-6'>
-		{% for block in section.blocks %}
-			{% if block.settings.collection %}
-				{% assign collection = collections[block.settings.collection] %}
-				{% assign image = block.settings.collection_icon | default: collection.image %}
+		{% for product in collections[settings.custom_collection] %}
+			{% if settings.custom_collection %}
+				{% assign image = product.featured_image | default: collection.image %}
 
 				<a
 					href='{{ collection.url }}'
@@ -14,20 +13,19 @@
 						{% if image %}
 							<img
 								src='{{ image | image_url: width: 300 }}'
-								alt='{{ collection.title }}'
+								alt='{{ product.title }}'
 								class='max-w-full max-h-full object-contain transition duration-300 group-hover:scale-105'
 								loading='lazy'
 							>
 						{% else %}
 							<img
 								src='{{ 'logo.png' | asset_url }}'
-								alt='{{ collection.title }} - Placeholder'
+								alt='{{ product.title }} - Placeholder'
 								class='max-w-full max-h-full object-contain opacity-50'
 								loading='lazy'
 							>
 						{% endif %}
 					</div>
-					<div class='text-sm font-medium text-gray-700'>{{ collection.title }}</div>
 				</a>
 			{% endif %}
 		{% endfor %}
