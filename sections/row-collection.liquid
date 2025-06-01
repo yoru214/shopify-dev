@@ -1,9 +1,9 @@
 <div class='container mx-auto px-4 py-10'>
 	<h1 class='text-3xl font-bold mb-4 text-primary text-center py-10'>{{ section.settings.title }}</h1>
-	{{ collections[section.settings.custom_collection] }} adad
+	{% assign collection = collections[section.settings.custom_collection] %}
 
 	<div class='grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6'>
-		{% for product in collections[section.settings.custom_collection].products limit: 3 %}
+		{% for product in collection.products limit: 3 %}
 			{% render 'product-card', product: product %}
 		{% endfor %}
 
