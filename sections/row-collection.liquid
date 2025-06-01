@@ -33,48 +33,32 @@
 		{% endfor %}
 	</div>
 </div>
+
 {% schema %}
 {
-	"name": "Featured Collections",
-	"tag": "section",
+	"name": "Collection Row",
 	"settings": [
 		{
 			"type": "text",
 			"id": "title",
 			"label": "Title",
-			"default": "Featured Collections"
-		}
-	],
-	"blocks": [
+			"default": "Row Collection Name"
+		},
 		{
 			"type": "collection",
-			"name": "Collection",
-			"settings": [
-				{
-					"type": "collection",
-					"id": "collection",
-					"label": "Select collection"
-				},
-				{
-					"type": "image_picker",
-					"id": "collection_icon",
-					"label": "Collection Icon"
-				}
-			]
+			"id": "custom_collection",
+			"label": "Select collection"
+		},
+		{
+			"type": "color_scheme",
+			"id": "color_scheme",
+			"label": "Color scheme",
+			"default": "scheme-1"
 		}
 	],
-	"max_blocks": 6,
 	"presets": [
 		{
-			"name": "Featured Collections",
-			"blocks": [
-				{ "type": "collection" },
-				{ "type": "collection" },
-				{ "type": "collection" },
-				{ "type": "collection" },
-				{ "type": "collection" },
-				{ "type": "collection" }
-			]
+			"name": "Featured Collection Section"
 		}
 	]
 }
