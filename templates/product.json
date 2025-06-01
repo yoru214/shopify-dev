@@ -16,7 +16,6 @@
       }
     },
     "row_collection": {
-      "type": "row-collection",
       "name": "Featured Collection Row",
       "settings": {
         "title": "Best Sellers",
@@ -36,6 +35,7 @@
   "order": [
     "main",
     "row_collection",
+
     "contact-form"
   ]
 }
