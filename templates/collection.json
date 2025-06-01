@@ -10,7 +10,7 @@
 {
   "sections": {
     "main": {
-      "type": "default-collection",
+      "type": "collection-default",
       "settings": {
         "color_scheme": ""
       }
