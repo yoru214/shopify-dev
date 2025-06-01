@@ -1,0 +1,81 @@
+<div class='container mx-auto px-4 py-10'>
+	<h1 class='text-3xl font-bold mb-4 text-primary text-center py-10'>{{ section.settings.title }}</h1>
+	<div class='grid grid-cols-2 sm:grid-cols-3 md:grid-cols-3 lg:grid-cols-6 gap-6'>
+		{% for block in section.blocks %}
+			{% if block.settings.collection %}
+				{% assign collection = collections[block.settings.collection] %}
+				{% assign image = block.settings.collection_icon | default: collection.image %}
+
+				<a
+					href='{{ collection.url }}'
+					class='block text-center group transition'
+				>
+					<div class='w-24 h-24 md:w-32 md:h-32 mx-auto rounded-full bg-white p-2 shadow-sm hover:shadow-md transition duration-300 flex items-center justify-center mb-4'>
+						{% if image %}
+							<img
+								src='{{ image | image_url: width: 300 }}'
+								alt='{{ collection.title }}'
+								class='max-w-full max-h-full object-contain transition duration-300 group-hover:scale-105'
+								loading='lazy'
+							>
+						{% else %}
+							<img
+								src='{{ 'logo.png' | asset_url }}'
+								alt='{{ collection.title }} - Placeholder'
+								class='max-w-full max-h-full object-contain opacity-50'
+								loading='lazy'
+							>
+						{% endif %}
+					</div>
+					<div class='text-sm font-medium text-gray-700'>{{ collection.title }}</div>
+				</a>
+			{% endif %}
+		{% endfor %}
+	</div>
+</div>
+{% schema %}
+{
+	"name": "Featured Collections",
+	"tag": "section",
+	"settings": [
+		{
+			"type": "text",
+			"id": "title",
+			"label": "Title",
+			"default": "Featured Collections"
+		}
+	],
+	"blocks": [
+		{
+			"type": "collection",
+			"name": "Collection",
+			"settings": [
+				{
+					"type": "collection",
+					"id": "collection",
+					"label": "Select collection"
+				},
+				{
+					"type": "image_picker",
+					"id": "collection_icon",
+					"label": "Collection Icon"
+				}
+			]
+		}
+	],
+	"max_blocks": 6,
+	"presets": [
+		{
+			"name": "Featured Collections",
+			"blocks": [
+				{ "type": "collection" },
+				{ "type": "collection" },
+				{ "type": "collection" },
+				{ "type": "collection" },
+				{ "type": "collection" },
+				{ "type": "collection" }
+			]
+		}
+	]
+}
+{% endschema %}
