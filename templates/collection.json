@@ -15,15 +15,6 @@
         "color_scheme": ""
       }
     },
-    "row_collection_mGfyaV": {
-      "type": "row-collection",
-      "name": "Featured Collection Row",
-      "settings": {
-        "title": "Featured Collection",
-        "custom_collection": "featured-products",
-        "color_scheme": ""
-      }
-    },
     "contact-form": {
       "type": "contact-form",
       "settings": {
@@ -35,7 +26,6 @@
   },
   "order": [
     "main",
-    "row_collection_mGfyaV",
     "contact-form"
   ]
 }
