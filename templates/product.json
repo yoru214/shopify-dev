@@ -15,7 +15,7 @@
         "color_scheme": ""
       }
     },
-    "row_collection_cDNCxD": {
+    "row_collection": {
       "type": "row-collection",
       "name": "Featured Collection Row",
       "settings": {
@@ -35,7 +35,7 @@
   },
   "order": [
     "main",
-    "row_collection_cDNCxD",
+    "row_collection",
     "contact-form"
   ]
 }
