@@ -1,7 +1,7 @@
 <div class='container mx-auto px-4 py-10'>
 	<h1 class='text-3xl font-bold mb-4 text-primary text-center py-10'>{{ section.settings.title }}</h1>
 	<div class='grid grid-cols-2 sm:grid-cols-3 md:grid-cols-3 lg:grid-cols-6 gap-6'>
-		{{ settings.custom_collection }}
+		{{ settings.section.custom_collection }} adad
 		{% for product in collections[settings.custom_collection] %}
 			{% if settings.custom_collection %}
 				{% assign image = product.featured_image | default: collection.image %}
