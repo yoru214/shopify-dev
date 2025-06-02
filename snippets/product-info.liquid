@@ -134,6 +134,9 @@
 							</button>
 						</update-cart-item-button>
 
+					{% elsif item_added %}
+						test
+
 					{% else %}
 						<add-to-cart>
 							<button
@@ -147,9 +150,6 @@
 						<div class='w-full'>
 							{{ form | payment_button }}
 						</div>
-					{% endif %}
-					{% if item_added %}
-						test
 					{% endif %}
 				</purchase-actions>
 				<sold-out-message
