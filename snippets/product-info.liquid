@@ -135,7 +135,18 @@
 						</update-cart-item-button>
 
 					{% elsif item_added %}
-						test
+						<button
+							type='button'
+							class='w-full bg-[var(--color-button)] text-[var(--color-button-label)] font-semibold py-3 hover:bg-opacity-90 transition cursor-pointer'
+						>
+							View Cart
+						</button>
+						<button
+							type='button'
+							class='w-full bg-[var(--color-button)] text-[var(--color-button-label)] font-semibold py-3 hover:bg-opacity-90 transition cursor-pointer'
+						>
+							Checkout
+						</button>
 
 					{% else %}
 						<add-to-cart>
