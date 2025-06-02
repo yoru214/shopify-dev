@@ -19,3 +19,4 @@ import './components/CartItemRemoveButton.js';
 import './components/DynamicSection.js';
 import './components/FacetFilter.js';
 import './components/CollectionPagination.js';
+import './components/CartNotification.js';

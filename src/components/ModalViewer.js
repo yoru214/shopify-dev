@@ -26,11 +26,32 @@ class ModalViewer extends HTMLElement {
 		this.backdrop = null;
 		this.wrapper = null;
 		this.slotEl = null;
+		this._onEscape = this.onEscape.bind(this);
+		this._onBackdropClick = this.onBackdropClick.bind(this);
+		this._onCloseClick = this.onCloseClick.bind(this);
+		this._onThemeEvent = this.onThemeEvent.bind(this);
 	}
 
 	connectedCallback() {
-		if (!this.initialize()) return;
-		this.bindEvents();
+		this.backdrop = this.querySelector('modal-backdrop');
+		this.wrapper = this.querySelector('modal-wrapper');
+		this.slotEl = this.querySelector('[data-modal-slot]');
+
+		if (!this.backdrop || !this.wrapper || !this.slotEl) {
+			console.warn('[ModalViewer] Missing modal structure in markup.');
+			return;
+		}
+
+		const closeBtn = this.wrapper.querySelector('modal-close-button');
+		if (closeBtn) {
+			closeBtn.addEventListener('click', this._onCloseClick);
+		}
+
+		this.backdrop.addEventListener('click', this._onBackdropClick);
+		document.addEventListener('keydown', this._onEscape);
+
+		ThemeEvent.on('modal:product:preview', this._onThemeEvent);
+		ThemeEvent.on('modal:cart:item:edit', this._onThemeEvent);
 	}
 
 	disconnectedCallback() {
@@ -43,36 +64,6 @@ class ModalViewer extends HTMLElement {
 		}
 
 		ThemeEvent.off('modal:product:preview', this._onThemeEvent);
-	}
-
-	initialize() {
-		this.backdrop = this.querySelector('modal-backdrop');
-		this.wrapper = this.querySelector('modal-wrapper');
-		this.slotEl = this.querySelector('[data-modal-slot]');
-
-		if (!this.backdrop || !this.wrapper || !this.slotEl) {
-			console.warn('[ModalViewer] Missing modal structure in markup.');
-			return false;
-		}
-		return true;
-	}
-
-	bindEvents() {
-		this._onEscape = this.onEscape.bind(this);
-		this._onBackdropClick = this.onBackdropClick.bind(this);
-		this._onCloseClick = this.onCloseClick.bind(this);
-		this._onThemeEvent = this.onThemeEvent.bind(this);
-
-		const closeBtn = this.wrapper.querySelector('modal-close-button');
-		if (closeBtn) {
-			closeBtn.addEventListener('click', this._onCloseClick);
-		}
-
-		this.backdrop.addEventListener('click', this._onBackdropClick);
-		document.addEventListener('keydown', this._onEscape);
-
-		ThemeEvent.on('modal:product:preview', this._onThemeEvent);
-		ThemeEvent.on('modal:cart:item:edit', this._onThemeEvent);
 	}
 
 	onEscape(e) {

@@ -55,13 +55,18 @@ class AddToCart extends HTMLElement {
 				return res.json();
 			})
 			.then((data) => {
-				ThemeEvent.emit('cart:item:added', { item: data });
-				const title = data.product_title || 'Item';
-				const quantityAdded = Number(formData.get('quantity')) || 1;
-				ThemeEvent.emit('toast:show', {
-					message: `${quantityAdded} × ${title} was successfully added to cart`,
-					duration: 3000,
-				});
+				console.log(data);
+				let color = '';
+				if (
+					Array.isArray(data.variant_options) &&
+					data.variant_options.length > 0
+				) {
+					color = data.variant_options[0];
+				}
+
+				const url = `/products/${data.handle}?section_id=render-cart-item-added&variant_id=${data.variant_id}&qty=${data.quantity}&price=${data.line_price}&color=${color}`;
+
+				ThemeEvent.emit('modal:cart:item:edit', { url, data });
 			})
 			.catch((err) => {
 				console.error('[AddToCart] Error:', err);

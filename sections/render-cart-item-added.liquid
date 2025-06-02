@@ -1,0 +1,54 @@
+<cart-notification>
+	<section class='max-w-7xl mx-auto px-4 py-8 color-{{ section.settings.color_scheme }}' data-product-preview>
+		<h1 class='text-3xl font-bold text-primary mb-2'>Added to Cart</h1>
+		{% if product %}
+			<div class='grid grid-cols-1 md:grid-cols-2 gap-8 items-stretch min-h-[450px]'>
+				{% if product.media.size > 0 %}
+					{% render 'product-media-viewer', product: product %}
+				{% else %}
+					{% render 'product-media-empty', shop: shop %}
+				{% endif %}
+
+				<form data-no-recaptcha>
+					<div class='flex flex-col justify-between h-full'>
+						<div>
+							<div class='my-3'>
+								<span class='text-xs text-gray-500'>{{ product.vendor }}</span>
+							</div>
+							<div class='my-3'>
+								<h1 class='text-2xl font-bold text-primary mb-2'>{{ product.title }}</h1>
+							</div>
+							<div class='my-3'>
+								<total-price class='text-xl text-secondary font-bold mb-4'> Price: </total-price>
+							</div>
+
+							<div class='my-3'>
+								<total-quantity class='text-xl text-secondary font-bold mb-4'>
+									Quantity:
+								</total-quantity>
+							</div>
+						</div>
+
+						<div class='mt-auto space-y-3 pt-4'>
+							<a
+								href='/cart'
+								class='block text-center w-full bg-white border border-[var(--color-button)] text-[var(--color-button)] font-semibold py-3 hover:bg-[var(--color-button)] hover:text-white transition rounded'
+							>
+								View Cart
+							</a>
+
+							<button
+								type='button'
+								class='w-full bg-[var(--color-button)] text-[var(--color-button-label)] font-semibold py-3 hover:bg-opacity-90 transition cursor-pointer rounded'
+							>
+								Checkout
+							</button>
+						</div>
+					</div>
+				</form>
+			</div>
+		{% else %}
+			<p class='text-subdued'>No product found.</p>
+		{% endif %}
+	</section>
+</cart-notification>

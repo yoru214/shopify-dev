@@ -81,13 +81,13 @@ class MediaViewer extends HTMLElement {
 	}
 
 	bindEvents() {
+		console.log('events bound');
 		if (!this.mainSwiper || !this.thumbSwiper) return;
 
 		this._onSlideChange = this.onSlideChange.bind(this);
 		this.mainSwiper.on('slideChange', this._onSlideChange);
 
 		this._onProductInfoUpdated = (e) => {
-			console.log('info updated');
 			this.scrollToSlideMatchingColor(e.detail.color);
 		};
 		ThemeEvent.on('product:info:updated', this._onProductInfoUpdated);
@@ -100,6 +100,18 @@ class MediaViewer extends HTMLElement {
 				this.mainSwiper.slideTo(index);
 			}
 		};
+		this._onProductVariantScroll = (e) => {
+			const variantId = e.detail.variant_id;
+			console.log('is loaded?');
+			if (!variantId) return;
+
+			this.scrollToSlideByVariantId(variantId);
+		};
+
+		ThemeEvent.on(
+			'product:media:scrollToVariant',
+			this._onProductVariantScroll,
+		);
 
 		this.thumbSwiper.slides.forEach((slide) => {
 			slide.classList.add('cursor-pointer');
@@ -110,6 +122,10 @@ class MediaViewer extends HTMLElement {
 	unbindEvents() {
 		this.mainSwiper.off('slideChange', this._onSlideChange);
 		ThemeEvent.off('product:info:updated', this.__onProductInfoUpdated);
+		ThemeEvent.off(
+			'product:media:scrollToVariant',
+			this._onProductVariantScroll,
+		);
 	}
 
 	onSlideChange() {
@@ -235,6 +251,7 @@ class MediaViewer extends HTMLElement {
 
 		this._isScrollingToSlide = true;
 
+		// Find variant matching the color that has a featured image
 		const match = this.variants.find(
 			(v) => v.option1 === color && v.featured_image?.src,
 		);
@@ -243,32 +260,107 @@ class MediaViewer extends HTMLElement {
 			this._isScrollingToSlide = false;
 			return;
 		}
-
 		const targetSrc = 'https:' + match.featured_image.src;
 		const targetPath = new URL(targetSrc).pathname;
 
+		// Loop through Swiper slides to find the index with matching image
 		let targetIndex = -1;
+
 		this.mainSwiper.slides.forEach((slide, index) => {
 			const img = slide.querySelector('img');
 			const imgPath = img
 				? new URL(img.src, location.origin).pathname
 				: null;
-			if (imgPath === targetPath) {
+
+			if (imgPath === targetPath && targetIndex === -1) {
 				targetIndex = index;
 			}
 		});
 
 		const currentIndex = this.mainSwiper.realIndex;
 
+		// Scroll if found and not already there
 		if (targetIndex !== -1 && targetIndex !== currentIndex) {
-			this.mainSwiper.slideToLoop(targetIndex, 300);
+			const isLooping = this.mainSwiper.params.loop;
+
+			if (isLooping) {
+				// Use slideToLoop with the real index (from original non-duplicate slides)
+				const originalSlides = this.mainSwiper.slides.filter(
+					(slide) =>
+						!slide.classList.contains('swiper-slide-duplicate'),
+				);
+
+				const realIndex = originalSlides.findIndex((slide) => {
+					const img = slide.querySelector('img');
+					const imgPath = img
+						? new URL(img.src, location.origin).pathname
+						: null;
+					return imgPath === targetPath;
+				});
+
+				if (realIndex !== -1) {
+					this.mainSwiper.slideToLoop(realIndex, 300);
+				}
+			} else {
+				// If not looping, just slide to the index
+				this.mainSwiper.slideTo(targetIndex, 300);
+			}
+		}
+
+		setTimeout(() => {
+			this._isScrollingToSlide = false;
+		}, 350);
+	}
+	scrollToSlideByVariantId(variantId) {
+		console.log('scrool:', variantId);
+		if (this._isScrollingToSlide || !this.variants.length) return;
+
+		this._isScrollingToSlide = true;
+
+		const match = this.variants.find(
+			(v) => Number(v.id) === Number(variantId) && v.featured_image?.src,
+		);
+
+		if (!match) {
+			console.warn('[MediaViewer] No variant found for ID:', variantId);
+			this._isScrollingToSlide = false;
+			return;
+		}
+
+		const targetSrc = 'https:' + match.featured_image.src;
+		const targetPath = new URL(targetSrc.split('?')[0], location.origin)
+			.pathname;
+
+		let targetIndex = -1;
+
+		this.mainSwiper.slides.forEach((slide, index) => {
+			const img = slide.querySelector('img');
+			if (!img) return;
+
+			const slideSrc = img.getAttribute('src') || img.src;
+			const slidePath = new URL(slideSrc.split('?')[0], location.origin)
+				.pathname;
+
+			if (slidePath === targetPath && targetIndex === -1) {
+				targetIndex = index;
+			}
+		});
+
+		if (targetIndex !== -1) {
+			this.mainSwiper.slideTo(
+				(targetIndex + 1) % this.mainSwiper.slides.length,
+				0,
+			);
 			setTimeout(() => {
+				this.mainSwiper.slideTo(targetIndex, 300);
 				this._isScrollingToSlide = false;
-			}, 350);
+			}, 20);
 		} else {
+			console.warn('[MediaViewer] No matching slide for variant image.');
 			this._isScrollingToSlide = false;
 		}
 	}
+
 	blur() {
 		this.classList.add('blur-3xl', 'transition');
 	}

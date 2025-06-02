@@ -706,6 +706,9 @@
     border-bottom-style: var(--tw-border-style);
     border-bottom-width: 1px;
   }
+  .border-\[var\(--color-button\)\] {
+    border-color: var(--color-button);
+  }
   .border-gray-100 {
     border-color: var(--color-gray-100);
   }
@@ -1067,6 +1070,13 @@
       }
     }
   }
+  .hover\:bg-\[var\(--color-button\)\] {
+    &:hover {
+      @media (hover: hover) {
+        background-color: var(--color-button);
+      }
+    }
+  }
   .hover\:bg-blue-700 {
     &:hover {
       @media (hover: hover) {
@@ -1085,6 +1095,13 @@
     &:hover {
       @media (hover: hover) {
         color: var(--color-black);
+      }
+    }
+  }
+  .hover\:text-white {
+    &:hover {
+      @media (hover: hover) {
+        color: var(--color-white);
       }
     }
   }
