@@ -143,6 +143,16 @@
         "heading": "Get in Touch",
         "subheading": "We’d love to hear from you. Send us a message using the form below."
       }
+    },
+    "featured_collection_9YhncT": {
+      "type": "featured-collection",
+      "name": "Featured Collection Section",
+      "settings": {
+        "title": "Best Sellers",
+        "custom_collection": "best-sellers",
+        "number_of_products_by_page": 8,
+        "color_scheme": ""
+      }
     }
   },
   "order": [
@@ -150,6 +160,7 @@
     "featured-collections",
     "featured-collection",
     "featured_collection_NBzzWz",
-    "contact-form"
+    "contact-form",
+    "featured_collection_9YhncT"
   ]
 }

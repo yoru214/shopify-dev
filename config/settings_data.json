@@ -127,7 +127,6 @@
       "header": {
         "type": "header",
         "settings": {
-          "color_scheme": "",
           "show_store_name_with_logo": false,
           "menu_alignment": "center",
           "menu": "main-menu"
