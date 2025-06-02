@@ -3,13 +3,11 @@
 		<div class='max-w-xl mx-auto text-center text-white'>
 			<h2 class='text-3xl font-bold mb-6'>{{ section.settings.heading }}</h2>
 			<p class='mb-10'>{{ section.settings.subheading }}</p>
-			<form-background
-				id='contact-form'
-				method='POST'
-				action='/contact'
-				class='space-y-6 bg-white p-6 rounded-lg shadow-lg text-left text-gray-800'
-				success-message="Thank you for contacting us. We'll get back to you soon."
-			>
+
+			{% form 'contact',
+				id: 'contact-form',
+				class: 'space-y-6 bg-white p-6 rounded-lg shadow-lg text-left text-gray-800'
+			%}
 				<input type='hidden' name='form_type' value='contact'>
 				<input type='hidden' name='utf8' value='✓'>
 
@@ -46,6 +44,14 @@
 					></textarea>
 				</div>
 
+				{% if form.errors %}
+					<div class='text-red-600'>{{ form.errors | default_errors }}</div>
+				{% endif %}
+
+				{% if form.posted_successfully? %}
+					<div class='text-green-600'>Thank you for contacting us. We'll get back to you soon.</div>
+				{% endif %}
+
 				<div>
 					<button
 						type='submit'
@@ -54,7 +60,7 @@
 						Send Message
 					</button>
 				</div>
-			</form-background>
+			{% endform %}
 		</div>
 	</div>
 </section>
