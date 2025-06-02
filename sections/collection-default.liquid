@@ -1,0 +1,43 @@
+<section class='container mx-auto px-4 py-8 color-{{ section.settings.color_scheme }}'>
+	<h1 class='text-3xl font-bold mb-4 text-primary'>{{ collection.title }}</h1>
+
+	<div class='grid grid-cols-1 md:grid-cols-4 gap-8'>
+		<aside class='md:col-span-1 w-full max-w-[280px] space-y-6'>
+			<dynamic-section
+				data-dynamic-url='{{ collection.url }}'
+				data-section-id='render-collection-sidebar'
+				data-load-group='default-collection'
+			>
+				{% render 'collection-sidebar', filters: collection.filters, collection.products %}
+			</dynamic-section>
+		</aside>
+		<div class='md:col-span-3'>
+			<dynamic-section
+				data-dynamic-url='{{ collection.url }}'
+				data-section-id='render-collection-content'
+				data-load-group='default-collection'
+				data-blur-duration='500'
+			>
+				{% render 'collection-content' %}
+			</dynamic-section>
+		</div>
+	</div>
+</section>
+{% schema %}
+{
+	"name": "Collection Grid",
+	"settings": [
+		{
+			"type": "color_scheme",
+			"id": "color_scheme",
+			"label": "Color scheme",
+			"default": "scheme-1"
+		}
+	],
+	"presets": [
+		{
+			"name": "Collection Page"
+		}
+	]
+}
+{% endschema %}

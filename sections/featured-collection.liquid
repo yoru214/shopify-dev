@@ -3,7 +3,7 @@
 	{% assign selected_collection = collections[section.settings.custom_collection] %}
 	<dynamic-section
 		data-dynamic-url='{{ selected_collection.url }}'
-		data-section-id='featured-collection-content'
+		data-section-id='render-featured-collection-content'
 		data-blur-duration='500'
 	>
 		{% render 'featured-collection-content', chandle: section.settings.custom_collection %}

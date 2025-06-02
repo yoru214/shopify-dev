@@ -16,7 +16,7 @@ class CartTable extends HTMLElement {
 
 	async reload() {
 		try {
-			const res = await fetch('/cart?section_id=cart-table');
+			const res = await fetch('/cart?section_id=render-cart-table');
 			if (!res.ok) throw new Error('Failed to fetch cart table section');
 
 			const html = await res.text();
