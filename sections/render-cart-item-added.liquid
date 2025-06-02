@@ -7,6 +7,12 @@
 				{% else %}
 					{% render 'product-media-empty', shop: shop %}
 				{% endif %}
+				<div class='my-3'>
+					<span class='text-xs text-gray-500'>{{ product.vendor }}</span>
+				</div>
+				<div class='my-3'>
+					<h1 class='text-3xl font-bold text-primary mb-2'>{{ product.title }}</h1>
+				</div>
 			</div>
 
 		{% else %}
