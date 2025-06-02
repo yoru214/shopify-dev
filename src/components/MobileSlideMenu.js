@@ -1,23 +1,46 @@
 class MobileSlideMenu extends HTMLElement {
 	connectedCallback() {
-		const toggle = this.querySelector('#menu-toggle');
-		const menu = this.querySelector('#mobile-menu');
-		const close = this.querySelector('#menu-close');
+		if (!this.initialize()) return;
+		this.bindEvents();
+	}
 
-		if (!toggle || !menu || !close) {
-			console.warn('MobileSlideMenu: Missing toggle/menu/close element.');
-			return;
+	disconnectedCallback() {
+		if (this.toggle && this._onOpen) {
+			this.toggle.removeEventListener('click', this._onOpen);
 		}
+		if (this.close && this._onClose) {
+			this.close.removeEventListener('click', this._onClose);
+		}
+	}
 
-		toggle.addEventListener('click', () => {
-			menu.classList.remove('translate-x-full');
-			menu.classList.add('translate-x-0');
-		});
+	initialize() {
+		this.toggle = this.querySelector('#menu-toggle');
+		this.menu = this.querySelector('#mobile-menu');
+		this.close = this.querySelector('#menu-close');
 
-		close.addEventListener('click', () => {
-			menu.classList.add('translate-x-full');
-			menu.classList.remove('translate-x-0');
-		});
+		if (!this.toggle || !this.menu || !this.close) {
+			console.warn('MobileSlideMenu: Missing toggle/menu/close element.');
+			return false;
+		}
+		return true;
+	}
+
+	bindEvents() {
+		this._onOpen = this.openMenu.bind(this);
+		this._onClose = this.closeMenu.bind(this);
+
+		this.toggle.addEventListener('click', this._onOpen);
+		this.close.addEventListener('click', this._onClose);
+	}
+
+	openMenu() {
+		this.menu.classList.remove('translate-x-full');
+		this.menu.classList.add('translate-x-0');
+	}
+
+	closeMenu() {
+		this.menu.classList.add('translate-x-full');
+		this.menu.classList.remove('translate-x-0');
 	}
 }
 

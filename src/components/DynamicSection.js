@@ -4,15 +4,10 @@ import { ThemeEvent } from '../utils/themeEvent.js';
 class DynamicSection extends HTMLElementMixin(HTMLElement) {
 	constructor() {
 		super();
-		this.dynamic_url = this.getAttribute('data-dynamic-url') || null;
-		this.section_id = this.getAttribute('data-section-id') || null;
-		this.data_load_group =
-			this.getAttribute('data-load-group') ||
-			`group-${Math.random().toString(36).substring(2, 10)}`;
-		this.load_blur = this.getAttribute('data-blur-duration') || 0;
 	}
 
 	connectedCallback() {
+		if (this.initialize()) return;
 		this.bindEvents();
 	}
 
@@ -22,6 +17,32 @@ class DynamicSection extends HTMLElementMixin(HTMLElement) {
 			'dynamic:section:load:' + this.data_load_group,
 			this._onContentLoad,
 		);
+	}
+	initialize() {
+		this.dynamic_url = this.getAttribute('data-dynamic-url') || null;
+		this.section_id = this.getAttribute('data-section-id') || null;
+
+		if (!this.dynamic_url) {
+			console.warn(
+				`<${this.tagName.toLowerCase()}> is unable to use dynamic section functions due to missing 'data-dynamic-url' attribute.`,
+			);
+			return false;
+		}
+
+		if (!this.section_id) {
+			console.warn(
+				`<${this.tagName.toLowerCase()}> is unable to use dynamic section functions due to missing 'data-section-id' attribute.`,
+			);
+			return false;
+		}
+
+		this.data_load_group =
+			this.getAttribute('data-load-group') ||
+			`group-${Math.random().toString(36).substring(2, 10)}`;
+
+		this.load_blur = this.getAttribute('data-blur-duration') || 0;
+
+		return true;
 	}
 
 	bindEvents() {

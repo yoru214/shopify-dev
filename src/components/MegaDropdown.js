@@ -1,29 +1,39 @@
 class MegaDropdown extends HTMLElement {
 	connectedCallback() {
-		const button = this.querySelector('button');
-		const panel = this.querySelector('#panel');
-		const chevron = this.querySelector('#chevron');
-		const header = document.querySelector('header');
+		this.button = this.querySelector('button');
+		this.panel = this.querySelector('#panel');
+		this.chevron = this.querySelector('#chevron');
+		this.header = document.querySelector('header');
 
-		button?.addEventListener('click', (e) => {
-			e.stopPropagation();
+		this._onToggle = this.onToggle.bind(this);
+		this._onDocumentClick = this.onDocumentClick.bind(this);
 
-			// Dynamically calculate header height
-			if (header && panel) {
-				const height = header.offsetHeight;
-				panel.style.top = `${height}px`;
-			}
+		this.button?.addEventListener('click', this._onToggle);
+		document.addEventListener('click', this._onDocumentClick);
+	}
 
-			panel.classList.toggle('hidden');
-			chevron.classList.toggle('rotate-180');
-		});
+	disconnectedCallback() {
+		this.button?.removeEventListener('click', this._onToggle);
+		document.removeEventListener('click', this._onDocumentClick);
+	}
 
-		document.addEventListener('click', (e) => {
-			if (!this.contains(e.target)) {
-				panel.classList.add('hidden');
-				chevron.classList.remove('rotate-180');
-			}
-		});
+	onToggle(e) {
+		e.stopPropagation();
+
+		if (this.header && this.panel) {
+			const height = this.header.offsetHeight;
+			this.panel.style.top = `${height}px`;
+		}
+
+		this.panel?.classList.toggle('hidden');
+		this.chevron?.classList.toggle('rotate-180');
+	}
+
+	onDocumentClick(e) {
+		if (!this.contains(e.target)) {
+			this.panel?.classList.add('hidden');
+			this.chevron?.classList.remove('rotate-180');
+		}
 	}
 }
 

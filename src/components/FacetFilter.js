@@ -3,7 +3,6 @@ import { DSHTMLElementMixin } from '../utils/dsHTMLElementMixin.js';
 class FacetFilter extends DSHTMLElementMixin(HTMLElement) {
 	constructor() {
 		super();
-		this._onFilterClick = this.onFilterClick.bind(this);
 		this._filters = [];
 	}
 	connectedCallback() {
@@ -30,7 +29,10 @@ class FacetFilter extends DSHTMLElementMixin(HTMLElement) {
 
 	bindEvents() {
 		this._onSubmit = this.onSubmit.bind(this);
+		this._onFilterClick = this.onFilterClick.bind(this);
+
 		this.form.addEventListener('submit', this._onSubmit);
+
 		this._filters = Array.from(this.querySelectorAll('filter-button'));
 		this._filters.forEach((filter) => {
 			filter.addEventListener('click', this._onFilterClick);
