@@ -7,7 +7,7 @@ class DynamicSection extends HTMLElementMixin(HTMLElement) {
 	}
 
 	connectedCallback() {
-		if (this.initialize()) return;
+		if (!this.initialize()) return;
 		this.bindEvents();
 	}
 
